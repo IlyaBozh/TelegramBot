@@ -8,5 +8,6 @@ namespace TelegramBot.BLL
 {
     internal interface IQuestion
     {
+        public void Create();
     }
 }
