@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TelegramBot.BLL;
+
 
 namespace TelegramBot.WPF
 {
@@ -20,6 +22,8 @@ namespace TelegramBot.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -28,6 +32,7 @@ namespace TelegramBot.WPF
         private void Button_SendQuestion_Click(object sender, RoutedEventArgs e)
         {
 
+            
         }
 
         private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
