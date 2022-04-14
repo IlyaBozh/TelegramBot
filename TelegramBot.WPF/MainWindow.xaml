@@ -27,12 +27,17 @@
                             <TextBox x:Name="TextBox_Variants" HorizontalAlignment="Left" Height="50" Margin="13,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="341" Visibility="Visible"/>
                             <Button x:Name="Button_AddVariant" Content="+" HorizontalAlignment="Left" Height="25" Margin="354,161,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
                             <Button x:Name="Button_RemoveVariant" Content="-" HorizontalAlignment="Left" Height="25" Margin="354,186,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
-                            <TextBox x:Name="TextBox_TrueAnswer" HorizontalAlignment="Left" Height="48" Margin="13,280,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341" Visibility="Visible"/>
-                            <Button x:Name="Button_AddAnswer" Content="+" HorizontalAlignment="Left" Height="25" Margin="354,279,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
-                            <Button x:Name="Button_RemoveAnswer" Content="-" HorizontalAlignment="Left" Height="25" Margin="354,304,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
-                            <RadioButton x:Name="RadioButton_Yes" Content="да" HorizontalAlignment="Left" Height="22" Margin="25,0,0,0" VerticalAlignment="Center" Width="131" Visibility="Visible" GroupName="YesOrNo"/>
-                            <RadioButton x:Name="RadioButton_No" Content="нет" HorizontalAlignment="Left" Height="22" Margin="109,0,0,0" VerticalAlignment="Center" Width="131" Grid.ColumnSpan="2" Visibility="Visible" GroupName="YesOrNo"/>
+                            <TextBox x:Name="TextBox_TrueAnswer" HorizontalAlignment="Left" Height="48" Margin="-696,618,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341" Visibility="Hidden"/>
+                            <Button x:Name="Button_AddAnswer" Content="+" HorizontalAlignment="Left" Height="25" Margin="354,279,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
+                            <Button x:Name="Button_RemoveAnswer" Content="-" HorizontalAlignment="Left" Height="25" Margin="354,304,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden" Click="Button_RemoveAnswer_Click"/>
+                            <RadioButton x:Name="RadioButton_Yes" Content="да" HorizontalAlignment="Left" Height="22" Margin="28,291,0,0" VerticalAlignment="Top" Width="131" Visibility="Visible" GroupName="YesOrNo"/>
+                            <RadioButton x:Name="RadioButton_No" Content="нет" HorizontalAlignment="Left" Height="22" Margin="118,292,0,0" VerticalAlignment="Top" Width="131" Visibility="Visible" GroupName="YesOrNo"/>
                             <Label x:Name="Label_TrueAnswer" Content="Введите правильный ответ:" HorizontalAlignment="Left" Height="28" Margin="13,252,0,0" VerticalAlignment="Top" Width="161"/>
+                            <TextBox x:Name="TextBox_AnswerUserEnter" HorizontalAlignment="Left" Height="50" Margin="16,279,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341" Visibility="Hidden"/>
+                            <TextBox x:Name="TextBox_ChosenOneOfFew" HorizontalAlignment="Left" Height="50" Margin="16,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341" Visibility="Visible"/>
+                            <Button x:Name="Button_AddChoseOneOfFew" Content="+" HorizontalAlignment="Left" Height="25" Margin="357,285,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
+                            <Button x:Name="Button_RemoveChoseOneOfFew" Content="-" HorizontalAlignment="Left" Height="25" Margin="357,312,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
+                            <TextBox x:Name="TextBox_TrueAnswerChoseOneOfFew" Height="50" Width="382" Margin="16,0,2,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Center" Visibility="Visible" AcceptsReturn="True"/>
                         </Grid>
 
                     </TabItem>

@@ -111,5 +111,10 @@ namespace TelegramBot.WPF
             Button_RemoveAnswer.Visibility = Visibility.Hidden;
             Label_TrueAnswer.Visibility = Visibility.Hidden;
         }
+
+        private void Button_RemoveAnswer_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
