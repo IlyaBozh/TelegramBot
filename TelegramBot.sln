@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot.WPF", "TelegramBot.WPF\TelegramBot.WPF.csproj", "{E5C033BA-AC49-4A7B-A09A-9544EE908B1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelegramBot.WPF", "TelegramBot.WPF\TelegramBot.WPF.csproj", "{E5C033BA-AC49-4A7B-A09A-9544EE908B1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelegramBot.BLL", "TelegramBot.BLL\TelegramBot.BLL.csproj", "{91E37287-8482-43DE-ABEF-41031BC7483B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E5C033BA-AC49-4A7B-A09A-9544EE908B1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E5C033BA-AC49-4A7B-A09A-9544EE908B1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E5C033BA-AC49-4A7B-A09A-9544EE908B1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91E37287-8482-43DE-ABEF-41031BC7483B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91E37287-8482-43DE-ABEF-41031BC7483B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91E37287-8482-43DE-ABEF-41031BC7483B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91E37287-8482-43DE-ABEF-41031BC7483B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
