@@ -37,7 +37,7 @@
                             <TextBox x:Name="TextBox_ChosenOneOfFew" HorizontalAlignment="Left" Height="50" Margin="16,285,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341" Visibility="Visible"/>
                             <Button x:Name="Button_AddChoseOneOfFew" Content="+" HorizontalAlignment="Left" Height="25" Margin="357,285,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
                             <Button x:Name="Button_RemoveChoseOneOfFew" Content="-" HorizontalAlignment="Left" Height="25" Margin="357,312,0,0" VerticalAlignment="Top" Width="36" Visibility="Visible"/>
-                            <TextBox x:Name="TextBox_TrueAnswerChoseOneOfFew" Height="50" Width="382" Margin="16,0,2,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Center" Visibility="Visible" AcceptsReturn="True"/>
+                            <TextBox x:Name="TextBox_TrueAnswerChoseOneOfFew" Height="50" Width="382" Margin="16,0,2,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Center" Visibility="Visible" AcceptsReturn="True" TextChanged="TextBox_TrueAnswerChoseOneOfFew_TextChanged"/>
                         </Grid>
 
                     </TabItem>
