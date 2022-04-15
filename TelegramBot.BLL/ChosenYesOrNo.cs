@@ -8,11 +8,11 @@ namespace TelegramBot.BLL
 { 
     public class ChosenYesOrNo : IQuestion
     {
+        public string Question { get; set; }    
+        public bool TrueAnswer { get; set; }
+        public bool AllAnswer { get; set; }
 
-        public string TrueAnswer { get; set; }
-        public string AllAnswer { get; set; }
-
-        public ChosenYesOrNo ( string trueAnswer, string allAnswer )
+        public ChosenYesOrNo (string question, bool trueAnswer, bool allAnswer )
         {
             TrueAnswer = trueAnswer;
             AllAnswer = allAnswer;
