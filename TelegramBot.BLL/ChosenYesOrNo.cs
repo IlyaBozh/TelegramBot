@@ -10,12 +10,13 @@ namespace TelegramBot.BLL
     {
         public string Question { get; set; }    
         public bool TrueAnswer { get; set; }
-        public bool AllAnswer { get; set; }
+        public bool UserAnswer { get; set; }
+
 
         public ChosenYesOrNo (string question, bool trueAnswer, bool allAnswer )
         {
             TrueAnswer = trueAnswer;
-            AllAnswer = allAnswer;
+            UserAnswer = allAnswer;
         }
 
         public void EditQuestion()

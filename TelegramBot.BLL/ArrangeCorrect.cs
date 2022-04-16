@@ -12,15 +12,15 @@ namespace TelegramBot.BLL
         public  string Question { get; set; }
 
         public List <string> AllAnswers { get; set; }
-        public List <string> TrueAnswer { get; set; }
+        public List <string> TrueAnswers { get; set; }
+        public List <string> UserAnswers { get; set; }
 
 
-
-        public ArrangeCorrect(string question, List <string> trueAnswer, List <string> allAnswer)
+        public ArrangeCorrect(string question, List <string> trueAnswers, List <string> allAnswers)
         {
             Question = question;
-            AllAnswers = allAnswer;
-            TrueAnswer = trueAnswer;
+            AllAnswers = allAnswers;
+            TrueAnswers = trueAnswers;
 
         }
 
