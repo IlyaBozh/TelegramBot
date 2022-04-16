@@ -6,18 +6,18 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.BLL
 {
-    public class QuestionToAnswer : IQuestion
+    public class QuestionEnterAnswer : IQuestion
     {
         public string Question { get; set; }
-        public List <string> Answer { get; set; }
-        public List<string> TrueAnswer { get; set; }
-        public QuestionToAnswer(string question, List<string> answer, List<string> trueAnswer)
+        public List <string> Answers { get; set; }
+        public List<string> TrueAnswers { get; set; }
+        public QuestionEnterAnswer(string question, List<string> answer, List<string> trueAnswer)
         {
             Question = question;
-            Answer = answer;
-            TrueAnswer = trueAnswer;
+            Answers = answer;
+            TrueAnswers = trueAnswer;
         }
-        public void Create()
+        public void Edit()
         {
             throw new NotImplementedException();
         }
