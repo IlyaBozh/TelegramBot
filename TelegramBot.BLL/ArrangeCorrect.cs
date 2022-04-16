@@ -4,20 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-
 namespace TelegramBot.BLL
 {
-    public class ChosenFewOfSome : IQuestion
+    internal class ArrangeCorrect : IQuestion
     {
 
-        public string Question { get; set; }
-        public List<string> AllAnswers { get; set; }
-        public List<string> TrueAnswers { get; set; }
+        public  string Question { get; set; }
 
+        public List <string> AllAnswers { get; set; }
+        public List <string> TrueAnswers { get; set; }
         public List <string> UserAnswers { get; set; }
 
-       
-        public ChosenFewOfSome(string question, List<string>trueAnswers, List<string> allAnswers)
+
+        public ArrangeCorrect(string question, List <string> trueAnswers, List <string> allAnswers)
         {
             Question = question;
             AllAnswers = allAnswers;
@@ -25,11 +24,10 @@ namespace TelegramBot.BLL
 
         }
 
+
         public void EditQuestion()
         {
             throw new NotImplementedException();
         }
     }
-
 }
-
