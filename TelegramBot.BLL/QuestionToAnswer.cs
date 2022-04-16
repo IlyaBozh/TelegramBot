@@ -17,7 +17,7 @@ namespace TelegramBot.BLL
             UserAnswers = answer;
             TrueAnswers = trueAnswer;
         }
-        public void Edit()
+        public void EditQuestion()
         {
             throw new NotImplementedException();
         }
