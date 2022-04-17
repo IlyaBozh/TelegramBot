@@ -8,7 +8,8 @@ namespace TelegramBot.BLL
 {
     internal interface IQuestion
     {
-        public void EditQuestion();
+        public void EditQuestion(string newQuestion);
+        public bool Check();
     }
 
     

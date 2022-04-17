@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.BLL
 {
-    public class ChosenFewOfSome : IQuestion
+    public class TypeSeveralVariants : IQuestion
     {
 
         public string Question { get; set; }
@@ -17,7 +17,7 @@ namespace TelegramBot.BLL
         public List <string> UserAnswers { get; set; }
 
        
-        public ChosenFewOfSome(string question, List<string>trueAnswers, List<string> allAnswers)
+        public TypeSeveralVariants(string question, List<string>trueAnswers, List<string> allAnswers)
         {
             Question = question;
             AllAnswers = allAnswers;

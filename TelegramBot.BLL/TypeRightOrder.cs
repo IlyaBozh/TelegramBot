@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.BLL
 {
-    internal class ArrangeCorrect : IQuestion
+    internal class TypeRightOrder : IQuestion
     {
 
         public  string Question { get; set; }
@@ -16,7 +16,7 @@ namespace TelegramBot.BLL
         public List <string> UserAnswers { get; set; }
 
 
-        public ArrangeCorrect(string question, List <string> trueAnswers, List <string> allAnswers)
+        public TypeRightOrder(string question, List <string> trueAnswers, List <string> allAnswers)
         {
             Question = question;
             AllAnswers = allAnswers;
