@@ -8,66 +8,75 @@ namespace TelegramBot.BLL
 {
     public class TypeOneVariant : IQuestion
     {
-        //public void Create(string question); в интерфейсе
         public TypeOneVariant(string question)
         {
-            _question = question;
+            Question = question;
         }
 
-        //public TypeOneVariant(string trueAnswer) : this(question)
-        //{
-        //    _trueAnswer = trueAnswer;
-        //    isHasAnswer = true;
-        //    _variant.Add(trueAnwer);
-        //}
-
-        //public TypeOneVariant(string userAnswer) : this(trueAnswer)
-        //{
-        //    _userAnswer = userAnswer;
-        //    isHasAnswer = true;
-        //    _variants.Add(userAnswer);
-        //}
-
-        private string _question;
-        private List<string> _variants;
-        private bool isHasAnswer = false;
-        private bool isChecked;
-        private string _trueAnswer;
-        private string _userAnswer;
-
-        public void Create(string question)
+        public TypeOneVariant(string question, string trueAnswer)
         {
-            _question = question;
+            Question = question;
+            _trueAnswer = trueAnswer;
+            isHasAnswer = true;
+            Variants.Add(trueAnswer);
+        }
+
+        public string Question { get; set; }
+        public List<string> Variants { get; set; }
+        private bool isHasAnswer = false;
+        //private bool isChecked;
+        private string _trueAnswer;
+        public string userAnswer { get; set; }
+
+        public void EditQuestion(string newQuestion)
+        {
+            Question = newQuestion;
+        }
+
+        public void EditVariants(string variant, string newVariant)
+        {
+            if (Variants == null)
+            {
+                throw new Exception("list of variants is empty");
+            }
+            for (int i = 0; i < Variants.Count; i++)
+            {
+                if(Variants[i] == variant)
+                {
+                    Variants[i] = newVariant;
+                    break;
+                }                
+            }
         }
 
         public void AddVariant(string variant)
         {
-            _variants.Add(variant);
+            Variants.Add(variant);
         }
 
-        public int AddVariants(List<string> variants)
-        {
-            _variants = new List<string>();
-            for (int i = 0; i < variants.Count; i++)
-            {
-                _variants[i] = variants[i].ToString();
-            }
-            int count = _variants.Count;
-            return count;          
-        }
+        //public int AddVariants(List<string> variants)
+        //{
+        //    _variants = new List<string>();
+        //    for (int i = 0; i < variants.Count; i++)
+        //    {
+        //        _variants[i] = variants[i].ToString();
+        //    }
+        //    int count = _variants.Count;
+        //    return count;          
+        //}
 
         public void RemoveVariant(string variant)
         {
-            if (_variants.Count == 0)
+            if (Variants.Count == 0)
             {
                 throw new ArgumentException("user's list is empty");
             }
-            _variants!.Remove(variant);
+            Variants!.Remove(variant);
         }
 
         public void Clear()
         {
-            _variants.Clear();
+            Variants.Clear();
         }
 
         //public void SetUserAnswer(string userAnswer)
@@ -80,27 +89,27 @@ namespace TelegramBot.BLL
         //    _variants.Add(_userAnswer);
         //}
 
-        public bool Check()
-        {
-            if (_trueAnswer != _userAnswer)
-            {
-                isChecked = false;
-                return false;
-            }
-            else
-            {
-                isChecked = true;
-                return true;
-            }
-        }
+        //public bool Check()
+        //{
+        //    if (_trueAnswer != userAnswer)
+        //    {
+        //        isChecked = false;
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        isChecked = true;
+        //        return true;
+        //    }
+        //}
 
         public void Show()
         {
-            if (_variants.Count == 0)
+            if (Variants.Count == 0)
             {
                 throw new ArgumentException("user's list is empty");
             }
-            foreach (string variant in _variants)
+            foreach (string variant in Variants)
             {
                 Console.WriteLine($"variant\n");
             }
