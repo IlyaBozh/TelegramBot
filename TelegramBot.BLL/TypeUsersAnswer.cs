@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.BLL
 {
-    public class QuestionEnterAnswer : IQuestion
+    public class TypeUsersAnswer : IQuestion
     {
         public string Question { get; set; }
         public string UserAnswers { get; set; }
         public string TrueAnswers { get; set; }
-        public QuestionEnterAnswer(string question, string answer, string trueAnswer)
+        public TypeUsersAnswer(string question, string answer, string trueAnswer)
         {
             Question = question;
             UserAnswers = answer;
