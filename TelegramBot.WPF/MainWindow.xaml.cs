@@ -22,7 +22,7 @@ namespace TelegramBot.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+        private TBot bot = new TBot();
 
         public MainWindow()
         {
