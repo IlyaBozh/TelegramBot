@@ -10,26 +10,124 @@ namespace TelegramBot.BLL
     public class TypeSeveralVariants : IQuestion
     {
 
+
         public string Question { get; set; }
-        public List<string> AllAnswers { get; set; }
-        public List<string> TrueAnswers { get; set; }
+        public List<string> Variants { get; set; }
+        private List<string> _trueAnswers { get; set; }
+        public List<string> UserAnswers { get; set; }
+        private bool isHasAnswer = false;
 
-        public List <string> UserAnswers { get; set; }
 
-       
-        public TypeSeveralVariants(string question, List<string>trueAnswers, List<string> allAnswers)
+        public TypeSeveralVariants(string question, List<string> variants)
         {
             Question = question;
-            AllAnswers = allAnswers;
-            TrueAnswers = trueAnswers;
-
+            Variants = variants;
         }
 
-        public void EditQuestion()
+
+        public TypeSeveralVariants(string question, List<string> trueAnswers, List<string> variants)
+        {
+            Question = question;
+            Variants = variants;
+            _trueAnswers = trueAnswers;
+            isHasAnswer = true;
+        }
+
+
+        public void AddVariant(string variant)
+        {
+            Variants.Add(variant);
+        }
+
+
+        public void AddTrueAnswer(string trueAnswer)
+        {
+            _trueAnswers.Add(trueAnswer);
+        }
+
+
+        public void EditQuestion(string newQuestion)
+        {
+            Question = newQuestion;
+        }
+
+
+        public void EditVariant(string variant, string newVariant)
+        {
+            if (Variants == null)
+            {
+                throw new Exception("list of variants is empty");
+            }
+            for (int i = 0; i < Variants.Count; i++)
+            {
+                if (Variants[i] == variant)
+                {
+                    Variants[i] = newVariant;
+                    break;
+                }
+            }
+        }
+
+
+        public void EditTrueAnswer(string trueAnswer, string newTrueAnswer)
+        {
+            if (_trueAnswers == null)
+            {
+                throw new Exception("list of variants is empty");
+            }
+            for (int i = 0; i < _trueAnswers.Count; i++)
+            {
+                if (_trueAnswers[i] == trueAnswer)
+                {
+                    _trueAnswers[i] = newTrueAnswer;
+                    break;
+                }
+            }
+        }
+
+
+        public void RemoveVariant(string variant)
+        {
+            if (Variants.Count == 0)
+            {
+                throw new ArgumentException("user's list is empty");
+            }
+            Variants!.Remove(variant);
+        }
+
+
+        public void RemoveTrueAnswer(string trueAnswer)
+        {
+            if (_trueAnswers.Count == 0)
+            {
+                throw new ArgumentException("user's list is empty");
+            }
+            _trueAnswers!.Remove(trueAnswer);
+        }
+
+
+        public void ClearVariants()
+        {
+            Variants.Clear();
+        }
+
+
+        public void ClearTrueAnswers()
+        {
+            _trueAnswers.Clear();
+        }
+
+
+
+
+
+
+
+
+        public bool Check()
         {
             throw new NotImplementedException();
         }
     }
-
 }
 
