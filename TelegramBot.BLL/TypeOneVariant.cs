@@ -33,7 +33,7 @@ namespace TelegramBot.BLL
             Question = newQuestion;
         }
 
-        public void EditVariants(string variant, string newVariant)
+        public void EditVariant(string variant, string newVariant)
         {
             if (Variants == null)
             {
@@ -103,24 +103,16 @@ namespace TelegramBot.BLL
         //    }
         //}
 
-        public void Show()
-        {
-            if (Variants.Count == 0)
-            {
-                throw new ArgumentException("user's list is empty");
-            }
-            foreach (string variant in Variants)
-            {
-                Console.WriteLine($"variant\n");
-            }
-        }
-    }
-
-    class Program
-    {
-        void Main(string[] args)
-        {
-
-        }
+        //public void Show()
+        //{
+        //    if (Variants.Count == 0)
+        //    {
+        //        throw new ArgumentException("user's list is empty");
+        //    }
+        //    foreach (string variant in Variants)
+        //    {
+        //        Console.WriteLine($"variant\n");
+        //    }
+        //}
     }
 }
