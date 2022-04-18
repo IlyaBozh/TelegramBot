@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace TelegramBot.BLL
-{ 
+{
     public class TypeYesOrNo : IQuestion
     {
-        public string Question { get; set; }    
+        public string Question { get; set; }
         public bool TrueAnswer { get; set; }
         public bool UserAnswer { get; set; }
 
@@ -19,7 +19,7 @@ namespace TelegramBot.BLL
         {
             TrueAnswer = trueAnswer;
             UserAnswer = allAnswer;
-            _isHasAnswered=true;    
+            _isHasAnswered = true;
 
         }
         public TypeYesOrNo(string question, bool allAnswer)
@@ -35,6 +35,11 @@ namespace TelegramBot.BLL
         public void ChangeTrueAnswer(bool newTrueAnswer)
         {
             TrueAnswer = newTrueAnswer;
+        }
+
+        public void Check()
+        {
+            throw new Exception();
         }
     }
 }
