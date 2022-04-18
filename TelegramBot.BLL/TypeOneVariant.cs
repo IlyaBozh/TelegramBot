@@ -79,6 +79,11 @@ namespace TelegramBot.BLL
             Variants.Clear();
         }
 
+        public bool Check()
+        {
+            throw new NotImplementedException();
+        }
+
         //public void SetUserAnswer(string userAnswer)
         //{
         //    if(isHasAnswer is false)
