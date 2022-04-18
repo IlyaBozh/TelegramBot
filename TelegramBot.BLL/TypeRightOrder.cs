@@ -24,8 +24,12 @@ namespace TelegramBot.BLL
 
         }
 
+        public void EditQuestion(string newQuestion)
+        {
+            throw new NotImplementedException();
+        }
 
-        public void EditQuestion()
+        public bool Check()
         {
             throw new NotImplementedException();
         }
