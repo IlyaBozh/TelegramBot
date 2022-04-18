@@ -1,49 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Telegram.Bot;
+﻿using Telegram.Bot;
 using Telegram.Bot.Exceptions;
 using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
-using System;
-using System.Threading;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace TelegramBot.BLL
 {
     public class TBot
     {
         private TelegramBotClient _client;
+        private Action<string> _onMessage;
+        private List<long> _ids;
 
-        public void ConnectBot(MainWindow Window)
+        public TBot(string token, Action<string> onMessage)
         {
-            _client = new TelegramBotClient("5149025176:AAF9ywvM1nXIkvpfKK4wV7Fsy8nTapirCDE");
-            _client.StartReceiving(HandleUpdateAsync, HandleErrorAsync);
+            _client = new TelegramBotClient(token);
+            _onMessage = onMessage;
+            _ids = new List<long>();
         }
 
-        public void Send(string text)
+        public async void Send(string s)
         {
-
+            foreach (var id in _ids)
+            {
+                await _client.SendTextMessageAsync(new ChatId(id), s);
+            }
         }
 
-        public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        public void Start()
         {
-            if (update.Type != UpdateType.Message)
-                return;
-            if (update.Message!.Type != MessageType.Text)
-                return;
-
-            var chatId = update.Message.Chat.Id;
-            var firstName = update.Message.Chat.FirstName;
-            var messageText = update.Message.Text;
-
-            _window.LBMain.Items.Add(new Label() { Content = $"{chatId} {firstName}:{messageText}" });
+            _client.StartReceiving(HandleResive, HandleError);
         }
 
-        Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        private async Task HandleResive(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+            if (update.Message != null && update.Message.Text != null)
+            {
+
+                if (!_ids.Contains(update.Message.Chat.Id))
+                {
+                    _ids.Add(update.Message.Chat.Id);
+                }
+
+                string s = update.Message.Chat.FirstName + " "
+                    + update.Message.Chat.LastName + " ";
+                    //+ update.Message.Text;
+                _onMessage(s);
+            }
+        }
+
+        private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        {
+
             return Task.CompletedTask;
         }
     }
