@@ -37,7 +37,7 @@ namespace TelegramBot.BLL
             TrueAnswer = newTrueAnswer;
         }
 
-        public void Check()
+        public bool Check()
         {
             throw new Exception();
         }
