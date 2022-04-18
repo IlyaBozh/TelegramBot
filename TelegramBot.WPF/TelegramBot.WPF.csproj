@@ -8,6 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TelegramBot.BLL\TelegramBot.BLL.csproj" />
+    <ProjectReference Include="..\TelegramBot.BLL\TelegramBot.BL.csproj" />
   </ItemGroup>
 </Project>
