@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using TelegramBot.BLL;
 
 
@@ -22,12 +23,42 @@ namespace TelegramBot.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TBot _tbot;
+        private const string _token = "5149025176:AAF9ywvM1nXIkvpfKK4wV7Fsy8nTapirCDE";
+        private List<string> _labels;
+        private DispatcherTimer _timer;
         GroupBox _formVariant;
         GroupBox _formAnswer;
 
         public MainWindow()
         {
             InitializeComponent();
+            _tbot = new TBot(_token, AddUsers);
+            _labels = new List<string>();
+            InitializeComponent();
+
+            ListBox_Users.ItemsSource = _labels;
+
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(1);
+            _timer.Tick += OnTick;
+            _timer.Start();
+            _tbot.Start();
+        }
+
+        public void AddUsers(string s)
+        {
+            _labels.Add(s);
+        }
+        private void OnTick(object sender, EventArgs e)
+        {
+            ListBox_Users.Items.Refresh();
+        }
+
+        private void ButtonSend_Click(object sender, RoutedEventArgs e)
+        {
+            _tbot.Send(TextBox_Question.Text);
         }
 
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
