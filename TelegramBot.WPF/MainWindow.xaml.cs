@@ -42,26 +42,23 @@ namespace TelegramBot.WPF
             _timer.Interval = TimeSpan.FromSeconds(1);
             _timer.Tick += OnTick;
             _timer.Start();
+            _tbot.Start();
         }
 
         public void OnMessage(string s)
         {
             _labels.Add(s);
         }
-
-        private void ButtonStart_Click(object sender, RoutedEventArgs e)
-        {
-            _tbot.Start();
-        }
-
-        private void ButtonStop_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
         private void OnTick(object sender, EventArgs e)
         {
             ListBox_Users.Items.Refresh();
         }
+
+        private void ButtonSend_Click(object sender, RoutedEventArgs e)
+        {
+            _tbot.Send(TextBox_Question.Text);
+        }
+
 
         private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

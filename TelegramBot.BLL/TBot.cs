@@ -41,12 +41,15 @@ namespace TelegramBot.BLL
                 if (!_ids.Contains(update.Message.Chat.Id))
                 {
                     _ids.Add(update.Message.Chat.Id);
+                    string s = update.Message.Chat.FirstName;
+                    _onMessage(s);
+
                 }
 
-                string s = update.Message.Chat.FirstName + " "
-                    + update.Message.Chat.LastName + " ";
-                    //+ update.Message.Text;
-                _onMessage(s);
+                //string s = update.Message.Chat.FirstName + " "
+                //    + update.Message.Chat.LastName + " "
+                //    + update.Message.Text;
+                //_onMessage(s);
             }
         }
 

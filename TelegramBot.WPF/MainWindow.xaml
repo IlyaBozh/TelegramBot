@@ -45,6 +45,7 @@
                             <RadioButton x:Name="RadioButton_Yes" Content="да" HorizontalAlignment="Left" Height="22" Margin="16,291,0,0" VerticalAlignment="Top" Width="131" Visibility="Hidden" GroupName="YesOrNo"/>
                             <RadioButton x:Name="RadioButton_No" Content="нет" HorizontalAlignment="Left" Height="22" Margin="118,292,0,0" VerticalAlignment="Top" Width="131" Visibility="Hidden" GroupName="YesOrNo"/>
                             <Label x:Name="YesOrNo" Content="Выберите правильный вариант ответа" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+                            <Button x:Name="___Button_Send_" Content="Button" HorizontalAlignment="Left" Height="41" Margin="152,304,0,0" VerticalAlignment="Top" Width="198" Click="ButtonSend_Click"/>
                         </Grid>
 
                     </TabItem>
@@ -59,7 +60,6 @@
             <ListBox x:Name="ListBox_Users" Height="370" Canvas.Left="20" Canvas.Top="47" Width="340" Background="#FF4D5456" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
         </Canvas>
-        <Button x:Name="___ButtonStart_" Content="Button" Margin="42,311,499,47" Click="ButtonStart_Click"/>
 
     </Grid>
 </Window>
