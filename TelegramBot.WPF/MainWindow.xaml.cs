@@ -75,9 +75,9 @@ namespace TelegramBot.WPF
             switch (ComboBox_ChooseQuestionType.SelectedIndex)
             {
                 case 0:
-                    TextBox_VariantsChoseOneOfFew.Visibility = Visibility.Hidden;
-                    Button_AddVariantChoseOneOfFew.Visibility = Visibility.Hidden;
-                    Button_RemoveVariantChoseOneOfFew.Visibility = Visibility.Hidden;
+                    TextBox_OneOrFewVariants.Visibility = Visibility.Hidden;
+                    Button_AddOneOrFewVariants.Visibility = Visibility.Hidden;
+                    Button_RemoveOneOrFewVariants.Visibility = Visibility.Hidden;
 
                     TextBox_VariantsChosenMultiple.Visibility = Visibility.Hidden;
                     Button_AddVariantChosenMultiple.Visibility = Visibility.Hidden;
@@ -114,9 +114,9 @@ namespace TelegramBot.WPF
                     YesOrNo.Visibility = Visibility.Hidden;
                     break;
                 case 2:
-                    TextBox_VariantsChoseOneOfFew.Visibility = Visibility.Hidden;
-                    Button_AddVariantChoseOneOfFew.Visibility = Visibility.Hidden;
-                    Button_RemoveVariantChoseOneOfFew.Visibility = Visibility.Hidden;
+                    TextBox_OneOrFewVariants.Visibility = Visibility.Hidden;
+                    Button_AddOneOrFewVariants.Visibility = Visibility.Hidden;
+                    Button_RemoveOneOrFewVariants.Visibility = Visibility.Hidden;
 
                     Label_TrueAnswer.Visibility = Visibility.Hidden;
                     TextBox_AnswerUserEnter.Visibility = Visibility.Hidden;
@@ -129,9 +129,9 @@ namespace TelegramBot.WPF
                     YesOrNo.Visibility = Visibility.Hidden;
                     break;
                 case 3:
-                    TextBox_VariantsChoseOneOfFew.Visibility = Visibility.Hidden;
-                    Button_AddVariantChoseOneOfFew.Visibility = Visibility.Hidden;
-                    Button_RemoveVariantChoseOneOfFew.Visibility = Visibility.Hidden;
+                    TextBox_OneOrFewVariants.Visibility = Visibility.Hidden;
+                    Button_AddOneOrFewVariants.Visibility = Visibility.Hidden;
+                    Button_RemoveOneOrFewVariants.Visibility = Visibility.Hidden;
 
                     TextBox_VariantsChosenMultiple.Visibility = Visibility.Hidden;
                     Button_AddVariantChosenMultiple.Visibility = Visibility.Hidden;
@@ -158,9 +158,9 @@ namespace TelegramBot.WPF
             {
 
                 case 1:
-                    TextBox_VariantsChoseOneOfFew.Visibility = Visibility.Visible;
-                    Button_AddVariantChoseOneOfFew.Visibility = Visibility.Visible;
-                    Button_RemoveVariantChoseOneOfFew.Visibility = Visibility.Visible;
+                    TextBox_OneOrFewVariants.Visibility = Visibility.Visible;
+                    Button_AddOneOrFewVariants.Visibility = Visibility.Visible;
+                    Button_RemoveOneOrFewVariants.Visibility = Visibility.Visible;
                     break;
                 case 2:
                     TextBox_VariantsChosenMultiple.Visibility = Visibility.Visible;

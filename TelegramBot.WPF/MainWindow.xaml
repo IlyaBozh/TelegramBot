@@ -7,59 +7,71 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="#FF353B3A">
     <Grid>
-        <Canvas>
-            <Canvas Height="400" Canvas.Top="17" Width="760" Background="#FF353B3A" HorizontalAlignment="Center" VerticalAlignment="Top" Canvas.Left="20">
-                <ComboBox x:Name="ComboBox_UserGroups" Height="22" Width="340" HorizontalAlignment="Center" VerticalAlignment="Top"/>
-                <TabControl Height="400" Canvas.Left="356" Width="404" HorizontalAlignment="Center" VerticalAlignment="Center" Background="#FF4D5456">
-                    <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
-                        <Grid Background="#FF4D5456" Margin="0,0,-2,0" RenderTransformOrigin="0.5,0.5">
-                            <RadioButton x:Name="RadioButton_Test" Content="Тест" HorizontalAlignment="Left" Height="16" Margin="16,12,0,0" VerticalAlignment="Top" Width="92" Click="RadioButton_Test_Click" Visibility="Hidden" GroupName="TestOrPool"/>
-                            <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Height="16" Margin="118,12,0,0" VerticalAlignment="Top" Width="76" Click="RadioButton_Poll_Click" Visibility="Hidden" GroupName="TestOrPool" ClickMode="Release"/>
-                            <ComboBox x:Name="ComboBox_ChooseQuestionType" HorizontalAlignment="Left" Height="25" Margin="10,45,0,0" VerticalAlignment="Top" Width="382" SelectionChanged="ComboBox_ChooseQuestionType_SelectionChanged">
-                                <ComboBoxItem Content="ответ пользователя"/>
-                                <ComboBoxItem Content="выбор одного варианта"/>
-                                <ComboBoxItem Content="выбор нескольких вариантов"/>
-                                <ComboBoxItem Content="да/нет"/>
-                                <ComboBoxItem Content="расположить в правильном порядке"/>
-                                <!--<ComboBoxItem Content="не выбрано"/>-->
-                            </ComboBox>
-                            <Label x:Name="Lable_QuestionTitle" Content="Введите вопрос:" HorizontalAlignment="Left" Margin="10,75,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-                            <Label x:Name="Label_TrueAnswer" Content="Введите правильный ответ:" HorizontalAlignment="Left" Height="28" Margin="13,252,0,0" VerticalAlignment="Top" Width="161" Visibility="Hidden"/>
-                            <TextBox x:Name="TextBox_Question" Height="50" Width="382" Margin="10,106,8,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Visibility="Hidden" AcceptsReturn="True"/>
-
-                            <TextBox x:Name="TextBox_AnswerUserEnter" HorizontalAlignment="Left" Height="50" Margin="10,282,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="340" Visibility="Hidden"/>
-
-                            <TextBox x:Name="TextBox_VariantsChoseOneOfFew" HorizontalAlignment="Left" Height="50" Margin="13,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="341" Visibility="Hidden"/>
-                            <Button x:Name="Button_AddVariantChoseOneOfFew" Content="+" HorizontalAlignment="Left" Height="25" Margin="354,161,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
-                            <Button x:Name="Button_RemoveVariantChoseOneOfFew" Content="-" HorizontalAlignment="Left" Height="25" Margin="354,186,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
-                            <TextBox x:Name="TextBox_TrueAnswerChoseOneOfFew" Height="50" Width="382" Margin="10,282,8,0" TextWrapping="Wrap" Text=""  VerticalAlignment="Top" Visibility="Hidden" AcceptsReturn="True"/>
-
-                            <TextBox x:Name="TextBox_TrueAnswerChosenMultiple" HorizontalAlignment="Left" Height="50" Margin="13,279,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="341" Visibility="Hidden"/>
-                            <Button x:Name="Button_AddAnswer" Content="+" HorizontalAlignment="Left" Height="25" Margin="354,279,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
-                            <Button x:Name="Button_RemoveAnswer" Content="-" HorizontalAlignment="Left" Height="25" Margin="354,304,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
-                            <Label x:Name="ChoseMultiple" Content="Добавте верные варианты ответа:" HorizontalAlignment="Left" Margin="16,248,0,0" VerticalAlignment="Top" Width="204" Visibility="Hidden"/>
-                            <TextBox x:Name="TextBox_VariantsChosenMultiple" HorizontalAlignment="Left" Height="50" Margin="13,0,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Center" Width="344" Visibility="Hidden"/>
-                            <Button x:Name="Button_AddVariantChosenMultiple" Content="+" HorizontalAlignment="Left" Height="25" Margin="356,161,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
-                            <Button x:Name="Button_RemoveVariantChosenMultiple" Content="-" HorizontalAlignment="Left" Height="25" Margin="356,186,0,0" VerticalAlignment="Top" Width="36" Visibility="Hidden"/>
-
-                            <RadioButton x:Name="RadioButton_Yes" Content="да" HorizontalAlignment="Left" Height="22" Margin="16,291,0,0" VerticalAlignment="Top" Width="131" Visibility="Hidden" GroupName="YesOrNo"/>
-                            <RadioButton x:Name="RadioButton_No" Content="нет" HorizontalAlignment="Left" Height="22" Margin="118,292,0,0" VerticalAlignment="Top" Width="131" Visibility="Hidden" GroupName="YesOrNo"/>
-                            <Label x:Name="YesOrNo" Content="Выберите правильный вариант ответа" HorizontalAlignment="Left" Margin="10,256,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-                            <Button x:Name="___Button_Send_" Content="Button" HorizontalAlignment="Left" Height="41" Margin="152,304,0,0" VerticalAlignment="Top" Width="198" Click="ButtonSend_Click"/>
-                        </Grid>
-
-                    </TabItem>
-                    <TabItem x:Name="TabItemEdit" Header="EditQuestion">
-                        <Grid Background="#FF4D5456"/>
-                    </TabItem>
-                    <TabItem x:Name="TabItemContainer" Header="QuestionsContainer">
-                        <Grid Background="#FF4D5456"/>
-                    </TabItem>
-                </TabControl>
-            </Canvas>
-            <ListBox x:Name="ListBox_Users" Height="370" Canvas.Left="20" Canvas.Top="47" Width="340" Background="#FF4D5456" d:ItemsSource="{d:SampleData ItemCount=5}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        </Canvas>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="10*"></RowDefinition>
+            <RowDefinition Height="180*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="15*"></ColumnDefinition>
+            <ColumnDefinition Width="92.5*"></ColumnDefinition>
+            <ColumnDefinition Width="92.5*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="ListBox_Users" Grid.Column="1" Grid.Row="2" Grid.RowSpan="6" Background="#FF4D5456" Margin="0,0,10,10"></ListBox>
+        <TabControl Grid.Column="2" Grid.Row="1" Grid.RowSpan="7" Background="#FF4D5456" Margin="10,0,10,10">
+            <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="14*"></RowDefinition>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="4*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <RadioButton x:Name="RadioButton_Test" Grid.Row="0" Content="Тест" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Bottom" Width="50" GroupName="TestOrPool"/>
+                    <RadioButton x:Name="RadioButton_Poll" Grid.Row="0" Content="Опрос" HorizontalAlignment="Left" Margin="70,0,0,0" VerticalAlignment="Bottom" Width="60" GroupName="TestOrPool"/>
+                    <Label Grid.Row="1" Content="Тип:" VerticalAlignment="Bottom" Margin="10,0,10,25"></Label>
+                    <ComboBox x:Name="ComboBox_ChooseQuestionType" Grid.Row="1" VerticalAlignment="Bottom" Height="20" Margin="10,0,10,0">
+                        <ComboBoxItem Content="ответ пользователя"/>
+                        <ComboBoxItem Content="выбор одного варианта"/>
+                        <ComboBoxItem Content="выбор нескольких вариантов"/>
+                        <ComboBoxItem Content="да/нет"/>
+                        <ComboBoxItem Content="расположить в правильном порядке"/>
+                        <!--<ComboBoxItem Content="не выбрано"/>-->
+                    </ComboBox>
+                    <Label x:Name="Lable_QuestionTitle" Grid.Row="2" Content="Твой вопрос:" Margin="10,0,10,55" VerticalAlignment="Bottom"></Label>
+                    <TextBox x:Name="TextBox_Question" Grid.Row="2" VerticalAlignment="Bottom" Height="50" Margin="10,0,10,0"></TextBox>
+                    <Label Grid.Row="3" Content="Варианты ответа:" Margin="10,0,10,55" VerticalAlignment="Bottom"></Label>
+                    <RadioButton Grid.Row="3" Content="Да" HorizontalAlignment="Left" Margin="10,0,10,35" VerticalAlignment="Bottom" Width="50" GroupName="YesOrNo"></RadioButton>
+                    <RadioButton Grid.Row="3" Content="Нет" HorizontalAlignment="Left" Margin="60,0,10,35" VerticalAlignment="Bottom" Width="50" GroupName="YesOrNo"></RadioButton>
+                    <TextBox x:Name="TextBox_OneOrFewVariants" Grid.Row="3" VerticalAlignment="Bottom" Height="50" Margin="10,0,35,0"></TextBox>
+                    <Button x:Name="Button_AddOneOrFewVariants" Grid.Row="3" Content="+" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="25" Margin="0,0,10,25"></Button>
+                    <Button x:Name="Button_RemoveOneOrFewVariants" Grid.Row="3" Content="-" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="25" Margin="0,0,10,0"></Button>
+                    <Label x:Name="Label_TrueAnswer" Grid.Row="4" Content="Правильный(-ые) ответ(ы):" Margin="10,0,10,55" VerticalAlignment="Bottom"></Label>
+                    <RadioButton x:Name="RadioButton_Yes" Grid.Row="4" Content="Да" HorizontalAlignment="Left" Margin="10,0,10,35" VerticalAlignment="Bottom" Width="50" GroupName="YesOrNo2"></RadioButton>
+                    <RadioButton x:Name="RadioButton_No" Grid.Row="4" Content="Нет" HorizontalAlignment="Left" Margin="60,0,10,35" VerticalAlignment="Bottom" Width="50" GroupName="YesOrNo2"></RadioButton>
+                    <TextBox x:Name="TextBox_OneOrFewTrueAnswers" Grid.Row="4" VerticalAlignment="Bottom" Height="50" Margin="10,0,35,0"></TextBox>
+                    <Button x:Name="Button_AddOneOrFewTrueAnswers" Grid.Row="4" Content="+" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="25" Margin="0,0,10,25"></Button>
+                    <Button x:Name="Button_RemoveOneOrFewTrueAnswers" Grid.Row="4" Content="-" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="25" Width="25" Margin="0,0,10,0"></Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="EditQuestion"></TabItem>
+            <TabItem Header="QuestionsContainer"></TabItem>
+        </TabControl>
+        <ToolBar Grid.Column="0" Grid.ColumnSpan="3">
+            <Button Content="Bot"  Margin="0,-4,0,0"/>
+        </ToolBar>
+        <Label Grid.Column="0" Grid.Row="1" Margin="4,-3,0,0" Content="Группы:" Foreground="White"></Label>
+        <ComboBox x:Name="ComboBox_UserGroups" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
+            <!--<ComboBoxItem Content="не выбрано"/>-->
+        </ComboBox>
+        <StackPanel Grid.Column="0" Grid.Row="2">
+            <Button Content="все"></Button>
+            <Button Content="гр. 1"></Button>
+        </StackPanel>
     </Grid>
 </Window>
