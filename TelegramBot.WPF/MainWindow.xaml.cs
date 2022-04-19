@@ -31,7 +31,7 @@ namespace TelegramBot.WPF
         public MainWindow()
         {
             InitializeComponent();
-            _tbot = new TBot(_token, OnMessage);
+            _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
             InitializeComponent();
 
@@ -45,7 +45,7 @@ namespace TelegramBot.WPF
             _tbot.Start();
         }
 
-        public void OnMessage(string s)
+        public void AddUsers(string s)
         {
             _labels.Add(s);
         }

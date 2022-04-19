@@ -10,13 +10,13 @@ namespace TelegramBot.BLL
     public class TBot
     {
         private TelegramBotClient _client;
-        private Action<string> _onMessage;
+        private Action<string> _users;
         private List<long> _ids;
 
-        public TBot(string token, Action<string> onMessage)
+        public TBot(string token, Action<string> users)
         {
             _client = new TelegramBotClient(token);
-            _onMessage = onMessage;
+            _users = users;
             _ids = new List<long>();
         }
 
@@ -41,9 +41,9 @@ namespace TelegramBot.BLL
                 if (!_ids.Contains(update.Message.Chat.Id))
                 {
                     _ids.Add(update.Message.Chat.Id);
-                    string s = update.Message.Chat.FirstName;
-                    _onMessage(s);
-
+                    string s = update.Message.Chat.FirstName + " "
+                        + update.Message.Chat.LastName;
+                    _users(s);
                 }
 
                 //string s = update.Message.Chat.FirstName + " "
