@@ -41,9 +41,8 @@ namespace TelegramBot.BLL
                 if (!_ids.Contains(update.Message.Chat.Id))
                 {
                     _ids.Add(update.Message.Chat.Id);
-                    string s = update.Message.Chat.FirstName + " "
-                        + update.Message.Chat.LastName;
-                    _users(s);
+                    string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
+                    _users(userName);
                 }
 
                 //string s = update.Message.Chat.FirstName + " "
@@ -55,7 +54,6 @@ namespace TelegramBot.BLL
 
         private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
-
             return Task.CompletedTask;
         }
     }

@@ -60,7 +60,7 @@
                 </Grid>
             </TabItem>
             <TabItem Header="EditQuestion"></TabItem>
-            <TabItem Header="QuestionsContainer"></TabItem>
+            <TabItem Header="CreateQuestion"></TabItem>
         </TabControl>
         <ToolBar Grid.Column="0" Grid.ColumnSpan="3">
             <Button Content="Bot"  Margin="0,-4,0,0"/>
