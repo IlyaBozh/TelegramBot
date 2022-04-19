@@ -30,7 +30,6 @@ namespace TelegramBot.WPF
 
         public MainWindow()
         {
-            InitializeComponent();
             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
             InitializeComponent();
