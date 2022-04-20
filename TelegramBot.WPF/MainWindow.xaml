@@ -10,6 +10,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="22*"></RowDefinition>
             <RowDefinition Height="22*"></RowDefinition>
+            <RowDefinition Height="22*"></RowDefinition>
             <RowDefinition Height="357*"></RowDefinition>
             <RowDefinition Height="34*"/>
         </Grid.RowDefinitions>
@@ -18,8 +19,20 @@
             <ColumnDefinition Width="92.5*"></ColumnDefinition>
             <ColumnDefinition Width="92.5*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListBox x:Name="ListBox_Users" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3" Background="#FF4D5456" Margin="0,21,10,10"></ListBox>
-        <TabControl Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Background="#FF4D5456" Margin="10,0,10,10">
+        
+        <!--отображение пользователей-->
+        <ComboBox x:Name="ComboBox_UserGroups" Grid.Column="1" Grid.Row="1" Margin="10,2,10,2">
+            <ComboBoxItem Content="выбери группу" IsSelected="True"/>
+        </ComboBox>
+        <TextBox x:Name="TextBox_NameOfGroup" Grid.Column="1" Grid.Row="2" Margin="10,2,110,2"  VerticalAlignment="Stretch">
+        </TextBox>
+        <Button Grid.Column="1" Grid.Row="2" Margin="270,2,10,2" Content="+"></Button>
+        <ListBox x:Name="ListBox_Users" Grid.Column="1" Grid.Row="3" Background="#FF4D5456" Margin="10,0,10,0">
+        </ListBox>
+    
+
+    <!--tabitems-->
+        <TabControl Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Background="#FF4D5456" Margin="10,0,10,0">
             <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -39,7 +52,7 @@
                     <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click"/>
 
                     <Label x:Name="Label_TrueAnswer" Grid.Row="4" Content="Правильный(-ые) ответ(ы):" Margin="6,81,6,0" VerticalAlignment="Top" Visibility="Hidden" Height="26" Grid.RowSpan="2"/>
-                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center"/>
+                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden"/>
                     <GroupBox x:Name="GroupBox_Test" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -170,16 +183,38 @@
             <TabItem Header="EditQuestion"></TabItem>
             <TabItem Header="CreateQuestion"></TabItem>
         </TabControl>
-        <ToolBar Grid.Column="0" Grid.ColumnSpan="3" Margin="0,0,0,21" Grid.RowSpan="2">
+        
+        <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,0">
             <Button Content="Bot"  Margin="0,-4,0,0"/>
         </ToolBar>
-        <Label Grid.Column="0" Margin="4,19,0,0" Content="Группы:" Foreground="White" Grid.RowSpan="2"/>
-        <ComboBox x:Name="ComboBox_UserGroups" Grid.Column="1" Grid.Row="1" Margin="0,0,10,0">
-            <!--<ComboBoxItem Content="не выбрано"/>-->
-        </ComboBox>
-        <StackPanel Grid.Column="0" Grid.Row="1" Margin="0,21,0,0" Grid.RowSpan="3">
-            <Button Content="все"></Button>
-            <Button Content="гр. 1"></Button>
-        </StackPanel>
+        
+        
+        
+        <!--listbox слева-->
+        <ListBox x:Name="ListBox_Groups" Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" Background="#FF353B3A" HorizontalAlignment="Stretch">
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="ListBoxItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListBoxItem">
+                                <StackPanel>
+                                    <TextBlock
+                                    Text="{TemplateBinding Content}" />
+                                </StackPanel>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListBox.ItemContainerStyle>
+
+            <ListBox.Items>
+                <ListBoxItem>все</ListBoxItem>
+                <ListBoxItem>остальные</ListBoxItem>
+                <ListBoxItem>гр.1</ListBoxItem>
+                <ListBoxItem>гр.2</ListBoxItem>
+                <ListBoxItem>гр.3</ListBoxItem>
+            </ListBox.Items>
+        </ListBox>
+        
     </Grid>
 </Window>
