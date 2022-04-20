@@ -28,10 +28,10 @@
         </TextBox>
         <Button Grid.Column="1" Grid.Row="2" Margin="270,2,10,2" Content="+"></Button>
         <ListBox x:Name="ListBox_Users" Grid.Column="1" Grid.Row="3" Background="#FF4D5456" Margin="10,0,10,0">
-
         </ListBox>
+    
 
-        <!--tabitems-->
+    <!--tabitems-->
         <TabControl Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Background="#FF4D5456" Margin="10,0,10,0">
             <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
                 <Grid>
@@ -52,7 +52,7 @@
                     <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click"/>
 
                     <Label x:Name="Label_TrueAnswer" Grid.Row="4" Content="Правильный(-ые) ответ(ы):" Margin="6,81,6,0" VerticalAlignment="Top" Visibility="Hidden" Height="26" Grid.RowSpan="2"/>
-                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center"/>
+                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden"/>
                     <GroupBox x:Name="GroupBox_Test" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
