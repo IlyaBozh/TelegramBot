@@ -59,6 +59,23 @@ namespace TelegramBot.WPF
         {
             _tbot.Send(TextBox_Question.Text);
         }
+        private void Button_AddGroup_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
+            TextBox_NameOfGroup.Text = "";
+        }
+
+        private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
+        {
+
+            if(ComboBox_UserGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            int index = ComboBox_UserGroups.SelectedIndex;
+            ComboBox_UserGroups.Items.RemoveAt(index);
+        }
 
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
         {
@@ -166,5 +183,6 @@ namespace TelegramBot.WPF
 
             Label_TrueAnswer.Visibility = Visibility.Hidden;
         }
+
     }
 }

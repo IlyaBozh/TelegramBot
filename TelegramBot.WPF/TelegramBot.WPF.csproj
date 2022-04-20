@@ -13,7 +13,9 @@
     <PackageReference Include="Telegram.Bot.Extensions.Polling" Version="1.0.2" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TelegramBot.BLL\TelegramBot.BL.csproj" />
+  <ItemGroup>
+
+    <ProjectReference Include="..\TelegramBot.BLL\TelegramBot.BL.csproj" />
+
   </ItemGroup>
 </Project>
