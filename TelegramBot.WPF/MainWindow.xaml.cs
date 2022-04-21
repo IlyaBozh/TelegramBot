@@ -30,6 +30,12 @@ namespace TelegramBot.WPF
         GroupBox _formVariant;
         GroupBox _formAnswer;
 
+        
+        
+        ListBox userListBox;
+        string tmp;
+
+
         public MainWindow()
         {
             _tbot = new TBot(_token, AddUsers);
@@ -65,11 +71,15 @@ namespace TelegramBot.WPF
             TextBox_NameOfGroup.Text = "";
 
 
+            
 
+            userListBox = new ListBox(); 
+            TabItem tmp = new TabItem { Header = new TextBlock { Text= TextBox_NameOfGroup.Text }, Content = userListBox };
 
-            ListBox userList = new ListBox(); 
-            TabItem tmp = new TabItem { Header = new TextBlock { Text = $"{TextBox_NameOfGroup.Text}" }, Content = userList };
+            
+
             ControlTab_UserGroup.Items.Add(tmp);
+
             tmp.Visibility = Visibility.Hidden;
         }
 
@@ -87,6 +97,43 @@ namespace TelegramBot.WPF
             int index = ComboBox_UserGroups.SelectedIndex;
             ComboBox_UserGroups.Items.RemoveAt(index);
         }
+
+        private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
+        {
+           
+           
+            
+
+            if (ComboBox_UserGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            int index = ComboBox_UserGroups.SelectedIndex;
+            for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
+            {
+                if (i == index)
+                {
+                    tmp = _labels[i];
+                    _labels.RemoveAt(index);
+                }
+            }
+        }
+
+
+        private void MenuItem_ClickInsert(object sender, RoutedEventArgs e)
+        {  
+
+            if (ComboBox_UserGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+          
+            userListBox.Items.Add(tmp);
+
+        }
+
+
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;

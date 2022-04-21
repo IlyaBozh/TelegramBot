@@ -33,8 +33,14 @@
         <TextBox x:Name="TextBox_NameOfGroup" Grid.Column="1" Grid.Row="2" Margin="10,2,110,2"  VerticalAlignment="Stretch">
         </TextBox>
         <Button x:Name="Button_AddGroup" Grid.Column="1" Grid.Row="2" Margin="270,2,10,2" Content="+" Click="Button_AddGroup_Click"></Button>
-        <TabControl x:Name="ControlTab_UserGroup"  Grid.Column="1" Grid.Row="2" Background="#FF4D5456" Margin="10,10,10,46" Grid.RowSpan="3">
-            <TabItem Header="Unallocated" Visibility="Hidden">
+        <TabControl x:Name="ControlTab_UserGroup"  Grid.Column="1" Grid.Row="2" Background="#FF4D5456" Margin="5,10,15,23" Grid.RowSpan="3" Visibility="Visible">
+            <TabControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Вырезать" Click="MenuItem_ClickCut"/>
+                    <MenuItem Header="Вставить" Click="MenuItem_ClickInsert"/>
+                </ContextMenu>
+            </TabControl.ContextMenu>
+            <TabItem Header="Unallocated" Visibility="Visible" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Opacity="0">
                 <Grid Background="#FFE5E5E5">
                     <ListBox x:Name="ListBox_Users" Grid.Column="1" Grid.Row="3" Background="#FF4D5456" Margin="0" d:ItemsSource="{d:SampleData ItemCount=5}"/>
                 </Grid>
