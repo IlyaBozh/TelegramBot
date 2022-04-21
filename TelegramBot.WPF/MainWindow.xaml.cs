@@ -30,7 +30,8 @@ namespace TelegramBot.WPF
         GroupBox _formVariant;
         GroupBox _formAnswer;
 
-        
+
+        List <ListBox>  ListOfUserList = new List<ListBox>();
         
         ListBox userListBox;
         string tmp;
@@ -68,17 +69,14 @@ namespace TelegramBot.WPF
         private void Button_AddGroup_Click(object sender, RoutedEventArgs e)
         {
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
-            TextBox_NameOfGroup.Text = "";
 
-
-            
-
-            userListBox = new ListBox(); 
+            userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
             TabItem tmp = new TabItem { Header = new TextBlock { Text= TextBox_NameOfGroup.Text }, Content = userListBox };
 
-            
+            ListOfUserList.Add(userListBox);
 
             ControlTab_UserGroup.Items.Add(tmp);
+            TextBox_NameOfGroup.Text = "";
 
             tmp.Visibility = Visibility.Hidden;
         }
@@ -96,13 +94,12 @@ namespace TelegramBot.WPF
 
             int index = ComboBox_UserGroups.SelectedIndex;
             ComboBox_UserGroups.Items.RemoveAt(index);
+            ControlTab_UserGroup.Items.RemoveAt(index);
         }
 
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
         {
-           
-           
-            
+               
 
             if (ComboBox_UserGroups.SelectedIndex < 0)
             {
@@ -112,25 +109,35 @@ namespace TelegramBot.WPF
             int index = ComboBox_UserGroups.SelectedIndex;
             for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
             {
-                if (i == index)
+                if(i == index)
                 {
                     tmp = _labels[i];
                     _labels.RemoveAt(index);
                 }
             }
+
         }
 
 
         private void MenuItem_ClickInsert(object sender, RoutedEventArgs e)
-        {  
-
+        {
+            int index = ComboBox_UserGroups.SelectedIndex;
+            int count = 0;
             if (ComboBox_UserGroups.SelectedIndex < 0)
             {
                 return;
             }
-          
-            userListBox.Items.Add(tmp);
+            
 
+            foreach(var elements in ListOfUserList)
+            {
+                count++;
+                if(index == count)
+                {
+                    elements.Items.Add(tmp);
+
+                }
+            }      
         }
 
 
