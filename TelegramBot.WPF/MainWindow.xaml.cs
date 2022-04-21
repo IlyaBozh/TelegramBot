@@ -30,6 +30,12 @@ namespace TelegramBot.WPF
         GroupBox _formVariant;
         GroupBox _formAnswer;
 
+        
+        
+        ListBox userListBox;
+        string tmp;
+
+
         public MainWindow()
         {
             _tbot = new TBot(_token, AddUsers);
@@ -63,18 +69,80 @@ namespace TelegramBot.WPF
         {
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
             TextBox_NameOfGroup.Text = "";
+
+
+            
+
+            userListBox = new ListBox(); 
+            TabItem tmp = new TabItem { Header = new TextBlock { Text= TextBox_NameOfGroup.Text }, Content = userListBox };
+
+            
+
+            ControlTab_UserGroup.Items.Add(tmp);
+
+            tmp.Visibility = Visibility.Hidden;
         }
+
+
+
 
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
 
-            if(ComboBox_UserGroups.SelectedIndex < 0)
+            if (ComboBox_UserGroups.SelectedIndex < 0)
             {
                 return;
             }
 
             int index = ComboBox_UserGroups.SelectedIndex;
             ComboBox_UserGroups.Items.RemoveAt(index);
+        }
+
+        private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
+        {
+           
+           
+            
+
+            if (ComboBox_UserGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+
+            int index = ComboBox_UserGroups.SelectedIndex;
+            for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
+            {
+                if (i == index)
+                {
+                    tmp = _labels[i];
+                    _labels.RemoveAt(index);
+                }
+            }
+        }
+
+
+        private void MenuItem_ClickInsert(object sender, RoutedEventArgs e)
+        {  
+
+            if (ComboBox_UserGroups.SelectedIndex < 0)
+            {
+                return;
+            }
+          
+            userListBox.Items.Add(tmp);
+
+        }
+
+
+        private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ComboBox_UserGroups.SelectedIndex;
+
+            if (ControlTab_UserGroup != null)
+            {
+
+                ControlTab_UserGroup.SelectedIndex = index;
+            }
         }
 
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
