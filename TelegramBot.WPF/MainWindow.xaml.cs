@@ -54,7 +54,6 @@ namespace TelegramBot.WPF
         {
             ListBox_Users.Items.Refresh();
         }
-
         private void ButtonSend_Click(object sender, RoutedEventArgs e)
         {
             _tbot.Send(TextBox_Question.Text);
@@ -64,7 +63,6 @@ namespace TelegramBot.WPF
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
             TextBox_NameOfGroup.Text = "";
         }
-
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
 
@@ -76,7 +74,6 @@ namespace TelegramBot.WPF
             int index = ComboBox_UserGroups.SelectedIndex;
             ComboBox_UserGroups.Items.RemoveAt(index);
         }
-
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
         {
             GroupBox_Test.Visibility = Visibility.Visible;
@@ -87,7 +84,6 @@ namespace TelegramBot.WPF
 
             HideExtraBoxes();
         }
-
         private void RadioButton_Poll_Click(object sender, RoutedEventArgs e)
         {
             GroupBox_Test.Visibility = Visibility.Hidden;
@@ -98,16 +94,46 @@ namespace TelegramBot.WPF
 
             HideExtraBoxes();
         }
+        private void RadioButtonEdit_Test_Click(object sender, RoutedEventArgs e)
+        {
+            GroupBox_TestEdit.Visibility = Visibility.Visible;
 
+            GroupBox_PollEdit.Visibility = Visibility.Hidden;
+
+            ComboBox_ChooseTollEdit.Text = "";
+
+            HideExtraBoxes();
+        }
+        private void RadioButtonEdit_Poll_Click(object sender, RoutedEventArgs e) // моё
+        {
+            GroupBox_TestEdit.Visibility = Visibility.Hidden;
+
+            GroupBox_PollEdit.Visibility = Visibility.Visible;
+
+            ComboBox_ChooseTestEdit.Text = "";
+
+            HideExtraBoxes();
+        }
         private void ComboBox_ChooseTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Visible;
         }
-
         private void ComboBox_ChooseToll_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Visible;
         }
+        private void ComboBox_ChooseTestEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
+        }
+        private void ComboBox_ChooseTollEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
+        }
+
+
+
+
 
         private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -152,7 +178,6 @@ namespace TelegramBot.WPF
                 }
             }
         }
-
         private void HideExtraBoxes()
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Hidden;
