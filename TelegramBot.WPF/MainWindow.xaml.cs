@@ -31,7 +31,7 @@ namespace TelegramBot.WPF
         GroupBox _formAnswer;
 
 
-        List <ListBox>  ListOfUserList = new List<ListBox>();
+        List <ListBox> ListOfListBox_Users = new List<ListBox>();
         
         ListBox userListBox;
         string tmp;
@@ -73,12 +73,12 @@ namespace TelegramBot.WPF
             userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
             TabItem tmp = new TabItem { Header = new TextBlock { Text= TextBox_NameOfGroup.Text }, Content = userListBox };
 
-            ListOfUserList.Add(userListBox);
+            ListOfListBox_Users.Add(userListBox);
 
             ControlTab_UserGroup.Items.Add(tmp);
             TextBox_NameOfGroup.Text = "";
 
-            tmp.Visibility = Visibility.Hidden;
+            tmp.Visibility = Visibility.Collapsed;
         }
 
 
@@ -129,7 +129,7 @@ namespace TelegramBot.WPF
             }
             
 
-            foreach(var elements in ListOfUserList)
+            foreach(var elements in ListOfListBox_Users)
             {
                 count++;
                 if(index == count)
