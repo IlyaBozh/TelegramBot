@@ -39,6 +39,7 @@
 
         <!--tabitems-->
         <TabControl Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Background="#FF4D5456" Margin="10,0,10,0">
+            <!--tabitem create single question-->
             <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -213,6 +214,8 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
+            
+            <!--tabitem edit-->
             <TabItem Header="EditQuestion">
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -230,7 +233,60 @@
                     </Grid.RowDefinitions>
                 </Grid>
             </TabItem>
-            <TabItem Header="CreateQuestion"></TabItem>
+            
+            <!--tabitem Container. хранилище всех вопросов и кластеров вопросов-->
+            <TabItem x:Name="TabItem_Container" Header="Container" VerticalAlignment="Bottom">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="60*"/>
+                        <ColumnDefinition Width="40*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="5*"></RowDefinition>
+                        <RowDefinition Height="39*"></RowDefinition>
+                        <RowDefinition Height="39*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <RadioButton x:Name="RadioButton_TestContainer" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="50" GroupName="TestOrPoolContainer" Height="15"/>
+                    <RadioButton x:Name="RadioButton_PollContainer" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPoolContainer" Height="15"/>
+                    <ComboBox x:Name="ComboBox_QuestionContainer" Grid.Column="0" Grid.Row="1" VerticalAlignment="Top" Margin="0,0,10,0">
+                        <ComboBoxItem Content="вид вопроса" IsSelected="True"/>
+                        <ComboBoxItem Content="ответ пользователя"/>
+                        <ComboBoxItem Content="выбор одного варианта"/>
+                        <ComboBoxItem Content="выбор нескольких вариантов"/>
+                        <ComboBoxItem Content="да/нет"/>
+                        <ComboBoxItem Content="расположить в правильном порядке"/>
+                    </ComboBox>
+                    <ListBox x:Name="ListBox_Questions" Grid.Column="0" Grid.Row="2" Margin="0,0,10,0"></ListBox>
+                    <Label Content="Группы:" Grid.Column="0" Grid.Row="3"></Label>
+                    <ListBox x:Name="ListBox_UserGroups" Grid.Column="0" Grid.Row="3" Margin="0,30,10,0">
+                        <ListBoxItem>все</ListBoxItem>
+                        <ListBoxItem>нераспределённые</ListBoxItem>
+                    </ListBox>
+                    <CheckBox x:Name="CheckBox_Timer" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center"></CheckBox>
+                    <TextBox x:Name="TextBox_Timer" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" Margin="18,0,10,0" Text="таймер в процессе..."></TextBox>
+                    <RadioButton Grid.Column="1" Grid.Row="0" Content="Кластер" HorizontalAlignment="Left" VerticalAlignment="Center" Width="65" Margin="10,0,10,0"></RadioButton>
+                    <ComboBox x:Name="ComboBox_ClasterName" Grid.Column="1" Grid.Row="1" VerticalAlignment="Top" Margin="10,0,0,0">
+                        <ComboBoxItem Content="название кластера" IsSelected="True"></ComboBoxItem>
+                    </ComboBox>
+                    <ListView x:Name="ListView_Info" Grid.Column="1" Grid.Row="3" Margin="10,10,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="варианты" Width="58"></GridViewColumn>
+                                <GridViewColumn Header="правильный" Width="74"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                        <ListView.Resources>
+                            
+                        </ListView.Resources>
+                    </ListView>
+                    <Button x:Name="Button_SendToBot" Grid.Column="1" Grid.Row="4" Content="отправить боту" Margin="10,0,0,0"  VerticalAlignment="Stretch"></Button>
+                    
+                </Grid>
+            </TabItem>
+            
         </TabControl>
 
         <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,0">
