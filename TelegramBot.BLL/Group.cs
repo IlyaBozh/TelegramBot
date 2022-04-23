@@ -4,30 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramBot.BLL
+namespace TelegramBot.BL
 {
     public class Group
     {
 
         public List<User> UserGroups { get; set; }
 
-        public string Name { get; set; }
+        public string NameGroup { get; set; }
 
         Group(string name, List<User> userGroups)
         {
 
-            Name = name;
+            NameGroup = name;
             UserGroups = userGroups;
         }
 
-        public void AddUser (User user)
+        public void AddUser(User name)
         {
-            UserGroups.Add(user);
+            UserGroups.Add(name);
         }
 
-        public void DeleteUser(User id)
+        public void DeleteUser(User name)
+        {
+            UserGroups.Remove(name);
+        }
+
+        public void DeleteUserById(User id)
         {
             UserGroups.Remove(id);
+        }
+
+        public void Edit(string name, string newName)
+        {
+            if (newName == "" || newName == " ")
+            {
+                NameGroup = name;
+            }
+            else
+            {
+                NameGroup = newName;
+            }
         }
     }
 }
