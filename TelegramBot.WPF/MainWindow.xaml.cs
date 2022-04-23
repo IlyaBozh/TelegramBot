@@ -259,5 +259,6 @@ namespace TelegramBot.WPF
             Label_TrueAnswer.Visibility = Visibility.Hidden;
         }
 
+
     }
 }
