@@ -22,7 +22,7 @@
 
         <!--отображение пользователей-->
         <ComboBox x:Name="ComboBox_UserGroups" Grid.Column="1" Grid.Row="1" Margin="10,2,10,2" SelectionChanged="ComboBox_UserGroups_SelectionChanged">
-            <ComboBoxItem Content="выбери группу" IsSelected="True"/>
+            <ComboBoxItem Content="Unallocated" IsSelected="True"/>
             <ComboBox.ContextMenu>
                 <ContextMenu>
 
@@ -246,8 +246,8 @@
                     </Grid.RowDefinitions>
                 </Grid>
             </TabItem>
-            
-            <!--tabitem Container. хранилище всех вопросов и кластеров вопросов-->
+
+            <!--#region Container. хранилище всех вопросов и кластеров вопросов-->
             <TabItem x:Name="TabItem_Container" Header="Container" VerticalAlignment="Bottom">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
@@ -292,14 +292,62 @@
                             </GridView>
                         </ListView.View>
                         <ListView.Resources>
-                            
+
                         </ListView.Resources>
                     </ListView>
                     <Button x:Name="Button_SendToBot" Grid.Column="1" Grid.Row="4" Content="отправить боту" Margin="10,0,0,0"  VerticalAlignment="Stretch"></Button>
-                    
+
                 </Grid>
             </TabItem>
+            <!--#endregion-->
             
+            <!--#region Claster. Объединение вопросов в один кластер-->
+            <TabItem x:Name="Claster" Header="Claster">
+                <Grid Margin="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="50*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*" />
+                        <RowDefinition Height="90*" />
+                    </Grid.RowDefinitions>
+                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,0,10,0">
+                        <ComboBoxItem Content="название кластера" IsSelected="True"></ComboBoxItem>
+                    </ComboBox>
+                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="0" Grid.Row="2" Margin="0,0,10,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="вопрос" Width="52"></GridViewColumn>
+                                <GridViewColumn Header="варианты" Width="57"></GridViewColumn>
+                                <GridViewColumn Header="+" Width="57"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+
+                        <ListView.Resources>
+                            
+                        </ListView.Resources>
+                    </ListView>
+                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0"></TextBox>
+                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="вопрос" Width="52"></GridViewColumn>
+                                <GridViewColumn Header="варианты" Width="57"></GridViewColumn>
+                                <GridViewColumn Header="+" Width="57"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+
+                        <ListView.Resources>
+
+                        </ListView.Resources>
+
+                    </ListView>
+                   
+                </Grid>
+                
+            </TabItem>
+            <!--#endregion-->
         </TabControl>
 
         <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,0">
