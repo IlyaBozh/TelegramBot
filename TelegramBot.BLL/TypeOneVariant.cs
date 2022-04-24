@@ -16,7 +16,7 @@ namespace TelegramBot.BLL
         public TypeOneVariant(string question, string trueAnswer)
         {
             Question = question;
-            _trueAnswer = trueAnswer;
+            TrueAnswer = trueAnswer;
             //isHasAnswer = true;
             //Variants.Add(trueAnswer);
         }
@@ -25,7 +25,7 @@ namespace TelegramBot.BLL
         public List<string> Variants { get; set; }
         //private bool isHasAnswer = false;
         //private bool isChecked;
-        private string _trueAnswer;
+        public string TrueAnswer { get; set; }
         public string userAnswer { get; set; }
 
         public void EditQuestion(string newQuestion)

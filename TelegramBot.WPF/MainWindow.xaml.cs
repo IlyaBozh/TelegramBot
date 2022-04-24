@@ -258,12 +258,19 @@ namespace TelegramBot.WPF
             _tryAnswers.Add(new TypeOneVariant("как дела?","все хорошо"));
             _tryAnswers.Add(new TypeOneVariant("как дела?", "все плохо"));
 
-            DataGrid_ChangeAnswers.Items = _tryAnswers;
+            DataGrid_ChangeAnswers.ItemsSource = _tryAnswers;
         }
 
         private void DataGrid_ChangeAnswers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //DataGrid_ChangeAnswers.Items.Add(new );
+            _tryAnswers.Add(new TypeOneVariant("", ""));
+            List<TypeOneVariant> tmp = new List<TypeOneVariant>();
+
+            for (int i = 0; i < _tryAnswers.Count - 1; i++)
+            {
+                tmp.Add(_tryAnswers[i]);
+            }
+            DataGrid_ChangeAnswers.ItemsSource = tmp;
         }
     }
 }
