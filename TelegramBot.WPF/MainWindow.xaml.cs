@@ -31,16 +31,18 @@ namespace TelegramBot.WPF
         GroupBox _formAnswer;
 
 
-        List <ListBox> ListOfListBox_Users = new List<ListBox>();
-        
-        ListBox userListBox;
-        string tmp;
+        private List<ListBox> _listOfListBox_Users = new List<ListBox>();
+
+        private ListBox _userListBox;
+        private string _tmp;
 
 
         public MainWindow()
         {
             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
+            _labels.Add("sd");
+            _labels.Add("ssf");
             InitializeComponent();
 
             ListBox_Users.ItemsSource = _labels;
@@ -70,10 +72,10 @@ namespace TelegramBot.WPF
         {
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
 
-            userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
-            TabItem tmp = new TabItem { Header = new TextBlock { Text= TextBox_NameOfGroup.Text }, Content = userListBox };
+            _userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
+            TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
-            ListOfListBox_Users.Add(userListBox);
+            _listOfListBox_Users.Add(_userListBox);
 
             ControlTab_UserGroup.Items.Add(tmp);
             TextBox_NameOfGroup.Text = "";
@@ -87,7 +89,7 @@ namespace TelegramBot.WPF
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
 
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+            if (ComboBox_UserGroups.SelectedIndex < 1 )
             {
                 return;
             }
@@ -99,23 +101,43 @@ namespace TelegramBot.WPF
 
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
         {
-               
 
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+            if (ComboBox_UserGroups.SelectedIndex < 0 || _tmp != null)
             {
                 return;
             }
 
             int index = ComboBox_UserGroups.SelectedIndex;
-            for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
+            int count = 0;
+            
+            if(index == 0)
             {
-                if(i == index)
+
+                for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
                 {
-                    tmp = _labels[i];
-                    _labels.RemoveAt(index);
+                    if(i == index)
+                    {
+                        _tmp = _labels[i];
+                        _labels.RemoveAt(index);
+                    }
                 }
             }
-
+            else
+            {
+                foreach (var userListBox in _listOfListBox_Users)
+                {
+                    count++;
+                    if(index == count)
+                    {
+                        for(int i = 0; i < userListBox.Items.Count; i++)
+                        {
+                            _tmp = Convert.ToString(userListBox.Items[i]);
+                            userListBox.Items.RemoveAt(userListBox.SelectedIndex);
+ 
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -123,21 +145,39 @@ namespace TelegramBot.WPF
         {
             int index = ComboBox_UserGroups.SelectedIndex;
             int count = 0;
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+
+            if (ComboBox_UserGroups.SelectedIndex < 0 )
             {
                 return;
             }
             
-
-            foreach(var elements in ListOfListBox_Users)
+            if( index !=0)
             {
-                count++;
-                if(index == count)
-                {
-                    elements.Items.Add(tmp);
 
+                foreach(var userListBox in _listOfListBox_Users)
+                {
+                    count++;
+                    if(index == count)
+                    {
+                        if(_tmp != null)
+                        {
+
+                            userListBox.Items.Add(_tmp);
+                            _tmp = null;
+                        }
+                    }
+                }      
+            }
+            else
+            {
+                if(_tmp != null)
+                {
+
+                    _labels.Add(_tmp);
+                    _tmp = null;
                 }
-            }      
+            }
+           
         }
 
 

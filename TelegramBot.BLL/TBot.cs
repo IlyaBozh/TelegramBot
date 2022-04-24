@@ -20,11 +20,11 @@ namespace TelegramBot.BLL
             _ids = new List<long>();
         }
 
-        public async void Send(string s)
+        public async void Send(string message)
         {
             foreach (var id in _ids)
             {
-                await _client.SendTextMessageAsync(new ChatId(id), s);
+                await _client.SendTextMessageAsync(new ChatId(id), message);
             }
         }
 
