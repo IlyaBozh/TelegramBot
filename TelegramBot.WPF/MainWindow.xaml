@@ -22,7 +22,7 @@
 
         <!--отображение пользователей-->
         <ComboBox x:Name="ComboBox_UserGroups" Grid.Column="1" Grid.Row="1" Margin="10,2,10,2" SelectionChanged="ComboBox_UserGroups_SelectionChanged">
-            <ComboBoxItem Content="выбери группу" IsSelected="True"/>
+            <ComboBoxItem Content="Unallocated" IsSelected="True"/>
             <ComboBox.ContextMenu>
                 <ContextMenu>
 
