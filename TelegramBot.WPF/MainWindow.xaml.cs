@@ -31,7 +31,7 @@ namespace TelegramBot.WPF
         GroupBox _formAnswer;
 
 
-        private List<ListBox> _listOfListBox_Users = new List<ListBox>();
+        private List<ListBox> _listOfListBox_Users;
 
         private ListBox _userListBox;
         private string _tmp;
@@ -43,6 +43,7 @@ namespace TelegramBot.WPF
             _labels = new List<string>();
             _labels.Add("sd");
             _labels.Add("ssf");
+            _listOfListBox_Users = new List <ListBox>();
             InitializeComponent();
 
             ListBox_Users.ItemsSource = _labels;
