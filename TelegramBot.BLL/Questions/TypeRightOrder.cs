@@ -8,30 +8,17 @@ namespace TelegramBot.BL.Questions
 {
     public class TypeRightOrder : AbstractQuestion
     {
-
-        public  string Question { get; set; }
-
-        public List <string> AllAnswers { get; set; }
-        public List <string> TrueAnswers { get; set; }
-        public List <string> UserAnswers { get; set; }
-
-
-        public TypeRightOrder(string question, List <string> trueAnswers, List <string> allAnswers)
+        public TypeRightOrder(string discription, List <string> trueAnswers, List <string> variants)
         {
-            Question = question;
-            AllAnswers = allAnswers;
+            Discription = discription;
             TrueAnswers = trueAnswers;
-
+            Variants = variants;
         }
 
-        public void EditQuestion(string newQuestion)
+        public TypeRightOrder(string discription, List<string> variants)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool Check()
-        {
-            throw new NotImplementedException();
+            Discription = discription;
+            Variants = variants;
         }
     }
 }

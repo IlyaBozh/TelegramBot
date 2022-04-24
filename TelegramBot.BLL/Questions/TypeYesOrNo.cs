@@ -8,39 +8,17 @@ namespace TelegramBot.BL.Questions
 {
     public class TypeYesOrNo : AbstractQuestion
     {
-        public string Question { get; set; }
-        public bool TrueAnswer { get; set; }
-        public bool UserAnswer { get; set; }
-
-        private bool _isHasAnswered = false;
-
-
-        public TypeYesOrNo(string question, bool trueAnswer, bool allAnswer)
+        public TypeYesOrNo(string discription, string trueAnswer)
         {
+            Discription = discription;
             TrueAnswer = trueAnswer;
-            UserAnswer = allAnswer;
-            _isHasAnswered = true;
-
-        }
-        public TypeYesOrNo(string question, bool allAnswer)
-        {
-            UserAnswer = allAnswer;
         }
 
-        public void EditQuestion(string newQuestion)
+        public TypeYesOrNo(string discription)
         {
-            Question = newQuestion;
+            Discription = discription;
         }
 
-        public void ChangeTrueAnswer(bool newTrueAnswer)
-        {
-            TrueAnswer = newTrueAnswer;
-        }
-
-        public bool Check()
-        {
-            throw new Exception();
-        }
     }
 }
 
