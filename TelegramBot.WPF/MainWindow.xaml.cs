@@ -31,16 +31,19 @@ namespace TelegramBot.WPF
         GroupBox _formAnswer;
 
 
-        List <ListBox> ListOfListBox_Users = new List<ListBox>();
-        
-        ListBox userListBox;
-        string tmp;
+        private List<ListBox> _listOfListBox_Users;
+
+        private ListBox _userListBox;
+        private string _tmp;
 
 
         public MainWindow()
         {
             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
+            _labels.Add("sd");
+            _labels.Add("ssf");
+            _listOfListBox_Users = new List <ListBox>();
             InitializeComponent();
 
             ListBox_Users.ItemsSource = _labels;
@@ -68,12 +71,16 @@ namespace TelegramBot.WPF
         }
         private void Button_AddGroup_Click(object sender, RoutedEventArgs e)
         {
+            if (TextBox_NameOfGroup.Text =="" || TextBox_NameOfGroup.Text is null)
+            {
+                return;
+            }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
 
-            userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
-            TabItem tmp = new TabItem { Header = new TextBlock { Text= TextBox_NameOfGroup.Text }, Content = userListBox };
+            _userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
+            TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
-            ListOfListBox_Users.Add(userListBox);
+            _listOfListBox_Users.Add(_userListBox);
 
             ControlTab_UserGroup.Items.Add(tmp);
             TextBox_NameOfGroup.Text = "";
@@ -86,36 +93,76 @@ namespace TelegramBot.WPF
 
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
-
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+            int index = ComboBox_UserGroups.SelectedIndex;
+            int count = 0;
+           
+            if (ComboBox_UserGroups.SelectedIndex < 1 )
             {
                 return;
             }
 
-            int index = ComboBox_UserGroups.SelectedIndex;
-            ComboBox_UserGroups.Items.RemoveAt(index);
-            ControlTab_UserGroup.Items.RemoveAt(index);
-        }
-
-        private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
-        {
-               
-
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+            foreach (var userListBox in _listOfListBox_Users)
             {
-                return;
-            }
-
-            int index = ComboBox_UserGroups.SelectedIndex;
-            for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
-            {
-                if(i == index)
+                count++;
+                if( index == count)
                 {
-                    tmp = _labels[i];
-                    _labels.RemoveAt(index);
+                    foreach(var user in userListBox.Items)
+                    {
+                      
+                        _labels.Add(Convert.ToString(user));
+                    }
                 }
             }
 
+            ComboBox_UserGroups.Items.RemoveAt(index);           
+            ControlTab_UserGroup.Items.RemoveAt(index);
+            _listOfListBox_Users.RemoveAt(index - 1);
+        }
+
+
+        private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
+        {
+            int index = ComboBox_UserGroups.SelectedIndex;
+            int count = 0;
+
+            if (ComboBox_UserGroups.SelectedIndex < 0 || _tmp is not null)
+            {
+                return;
+            }
+
+            
+            if(index == 0)
+            {
+
+                for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
+                {
+                    if(i == index)
+                    {
+                        _tmp = _labels[i];
+                        _labels.RemoveAt(index);
+                    }
+                }
+            }
+            else 
+            {
+                foreach (var userListBox in _listOfListBox_Users)
+                {
+                    count++;
+                    if(index == count)
+                    {
+                        for(int i = 0; i < userListBox.Items.Count; i++)
+                        {
+                            if(userListBox.SelectedIndex>=0 && i == userListBox.SelectedIndex)
+                            {
+                                _tmp = Convert.ToString(userListBox.Items[i]);
+                                userListBox.Items.RemoveAt(userListBox.SelectedIndex);
+
+                            }         
+                           
+                        }
+                    }
+                }
+            }
         }
 
 
@@ -123,33 +170,63 @@ namespace TelegramBot.WPF
         {
             int index = ComboBox_UserGroups.SelectedIndex;
             int count = 0;
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+
+            if (ComboBox_UserGroups.SelectedIndex < 0 )
             {
                 return;
             }
             
-
-            foreach(var elements in ListOfListBox_Users)
+            if( index !=0)
             {
-                count++;
-                if(index == count)
+
+                foreach(var userListBox in _listOfListBox_Users)
                 {
-                    elements.Items.Add(tmp);
+                    count++;
+                    if(index == count)
+                    {
+                        if(_tmp != null)
+                        {
 
+                            userListBox.Items.Add(_tmp);
+                            _tmp = null;
+                        }
+                    }
+                }      
+            }
+            else
+            {
+                if(_tmp != null)
+                {
+
+                    _labels.Add(_tmp);
+                    _tmp = null;
                 }
-            }      
+            }
+           
         }
-
-
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;
+           
 
-            if (ControlTab_UserGroup != null)
+            if (ControlTab_UserGroup != null )
             {
 
                 ControlTab_UserGroup.SelectedIndex = index;
             }
+            
+        }
+
+        private void ControlTab_UserGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ControlTab_UserGroup.SelectedIndex;
+
+            if (ComboBox_UserGroups.Items == null)
+            {
+
+                 ComboBox_UserGroups.SelectedIndex = index;
+            }
+             
         }
 
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
@@ -258,6 +335,7 @@ namespace TelegramBot.WPF
 
             Label_TrueAnswer.Visibility = Visibility.Hidden;
         }
+
 
     }
 }

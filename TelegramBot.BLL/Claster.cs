@@ -12,13 +12,18 @@ namespace TelegramBot.BL
 
         public List<IQuestion> Questions { get; set; }
         public bool isHasAnswer;
+
+        public Claster(string name)
+        {
+            NameClaster = name;
+        }
         public Claster(string name, List<IQuestion> questions)
         {
             NameClaster = name;
             Questions = questions;
         }
 
-        public void Add(string question)
+        public void Add(IQuestion question)
         {
             Questions.Add(question);
         }
@@ -30,11 +35,7 @@ namespace TelegramBot.BL
 
         public void Edit(string name, string newName)
         {
-            if (newName == "" || newName == " ")
-            {
-                NameClaster = name;
-            }
-            else
+            if (newName != "" || newName != " ")
             {
                 NameClaster = newName;
             }
@@ -43,7 +44,6 @@ namespace TelegramBot.BL
         public void ClearQuestions(List<IQuestion> questions)
         {
             Questions.Clear();
-
         }
 
 
