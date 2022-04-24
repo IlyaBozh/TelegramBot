@@ -17,13 +17,13 @@ namespace TelegramBot.BLL
         {
             Question = question;
             _trueAnswer = trueAnswer;
-            isHasAnswer = true;
-            Variants.Add(trueAnswer);
+            //isHasAnswer = true;
+            //Variants.Add(trueAnswer);
         }
 
         public string Question { get; set; }
         public List<string> Variants { get; set; }
-        private bool isHasAnswer = false;
+        //private bool isHasAnswer = false;
         //private bool isChecked;
         private string _trueAnswer;
         public string userAnswer { get; set; }

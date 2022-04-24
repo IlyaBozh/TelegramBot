@@ -29,6 +29,7 @@ namespace TelegramBot.WPF
         private DispatcherTimer _timer;
         GroupBox _formVariant;
         GroupBox _formAnswer;
+        List<TypeOneVariant> _tryAnswers;
 
         public MainWindow()
         {
@@ -66,7 +67,7 @@ namespace TelegramBot.WPF
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
 
-            if(ComboBox_UserGroups.SelectedIndex < 0)
+            if (ComboBox_UserGroups.SelectedIndex < 0)
             {
                 return;
             }
@@ -122,7 +123,7 @@ namespace TelegramBot.WPF
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Visible;
         }
-        
+
         private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_Question.Visibility = Visibility.Visible;
@@ -203,13 +204,13 @@ namespace TelegramBot.WPF
                 }
                 else if (tmpTest == 0 || tmpTest == 1)
                 {
-                    GroupBox_TrueAnswerEdit.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_TrueAnswerEdit;
+                    DataGrid_ChangeAnswers.Visibility = Visibility.Visible;
+
                 }
                 else
                 {
-                    GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                    DataGrid_ChangeAnswers.Visibility = Visibility.Visible;
+                    //_formAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
                 }
             }
             else
@@ -217,6 +218,9 @@ namespace TelegramBot.WPF
                 Label_TrueAnswerEdit.Visibility = Visibility.Hidden;
             }
         }
+
+
+
         private void HideExtraBoxes()
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Hidden;
@@ -248,6 +252,18 @@ namespace TelegramBot.WPF
             Label_TrueAnswer.Visibility = Visibility.Hidden;
         }
 
-      
+        private void DataGrid_ChangeAnswers_Loaded(object sender, RoutedEventArgs e)
+        {
+            _tryAnswers = new List<TypeOneVariant>();
+            _tryAnswers.Add(new TypeOneVariant("как дела?","все хорошо"));
+            _tryAnswers.Add(new TypeOneVariant("как дела?", "все плохо"));
+
+            DataGrid_ChangeAnswers.Items = _tryAnswers;
+        }
+
+        private void DataGrid_ChangeAnswers_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //DataGrid_ChangeAnswers.Items.Add(new );
+        }
     }
 }
