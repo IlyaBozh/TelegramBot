@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramBot.BLL
+
+namespace TelegramBot.BL
 {
     internal class TypeRightOrder : IQuestion
     {

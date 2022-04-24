@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
-using TelegramBot.BLL;
+using TelegramBot.BL;
 
 
 namespace TelegramBot.WPF
@@ -87,35 +87,35 @@ namespace TelegramBot.WPF
 
             tmp.Visibility = Visibility.Collapsed;
         }
+
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;
             int count = 0;
-           
-            if (ComboBox_UserGroups.SelectedIndex < 1 )
+
+            if (ComboBox_UserGroups.SelectedIndex < 1)
             {
                 return;
             }
 
-            if (ComboBox_UserGroups.SelectedIndex < 0)
+            foreach (var userListBox in _listOfListBox_Users)
             {
                 count++;
-                if( index == count)
+                if (index == count)
                 {
-                    foreach(var user in userListBox.Items)
+                    foreach (var user in userListBox.Items)
                     {
-                      
+
                         _labels.Add(Convert.ToString(user));
                     }
                 }
             }
 
-            ComboBox_UserGroups.Items.RemoveAt(index);           
+            ComboBox_UserGroups.Items.RemoveAt(index);
             ControlTab_UserGroup.Items.RemoveAt(index);
             _listOfListBox_Users.RemoveAt(index - 1);
         }
-
-
+       
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;
@@ -200,6 +200,32 @@ namespace TelegramBot.WPF
             }
            
         }
+
+        private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ComboBox_UserGroups.SelectedIndex;
+
+
+            if (ControlTab_UserGroup != null)
+            {
+
+                ControlTab_UserGroup.SelectedIndex = index;
+            }
+
+        }
+
+        private void ControlTab_UserGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ControlTab_UserGroup.SelectedIndex;
+
+            if (ComboBox_UserGroups.Items == null)
+            {
+
+                ComboBox_UserGroups.SelectedIndex = index;
+            }
+
+        }
+       
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
         {
             GroupBox_Test.Visibility = Visibility.Visible;
