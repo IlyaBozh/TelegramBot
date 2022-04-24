@@ -70,6 +70,10 @@ namespace TelegramBot.WPF
         }
         private void Button_AddGroup_Click(object sender, RoutedEventArgs e)
         {
+            if (TextBox_NameOfGroup.Text =="" || TextBox_NameOfGroup.Text is null)
+            {
+                return;
+            }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
 
             _userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
@@ -89,15 +93,17 @@ namespace TelegramBot.WPF
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
 
-            if (ComboBox_UserGroups.SelectedIndex < 1 )
+            if (ComboBox_UserGroups.SelectedIndex < 1)
             {
                 return;
             }
 
             int index = ComboBox_UserGroups.SelectedIndex;
-            ComboBox_UserGroups.Items.RemoveAt(index);
+            ComboBox_UserGroups.Items.RemoveAt(index);           
             ControlTab_UserGroup.Items.RemoveAt(index);
+            _listOfListBox_Users.RemoveAt(index - 1);
         }
+
 
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
         {
@@ -179,8 +185,6 @@ namespace TelegramBot.WPF
             }
            
         }
-
-
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;
@@ -190,6 +194,14 @@ namespace TelegramBot.WPF
 
                 ControlTab_UserGroup.SelectedIndex = index;
             }
+        }
+
+        private void ControlTab_UserGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ControlTab_UserGroup.SelectedIndex;
+
+            ComboBox_UserGroups.SelectedIndex = index;
+             
         }
 
         private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
