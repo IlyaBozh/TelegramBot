@@ -20,21 +20,12 @@ namespace TelegramBot.BL
             UserName = userName;
         }
 
-        //public void SetName(string firstName, string lastName)
-        //{
-        //    Name = firstName + lastName;
-        //}
-
-        public void ChangeName(string name, string newName)
+        public void ChangeName(string newName)
         {
-            if (newName == "" || newName == " ")
-            {
-                Name = name;
-            }
-            else
+            if (newName != "" && newName != " ")
             {
                 Name = newName;
-            }
+            }          
         }
     }
 }
