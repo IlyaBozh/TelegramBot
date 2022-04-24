@@ -4,19 +4,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramBot.BLL
+namespace TelegramBot.BL
 {
     public class User
     {
-        public string Id { get; set; }
+        public long Id { get; set; }
+
         public string Name { get; set; }
         public string UserName { get; set; }
 
-        User(string id, string name, string userName)
+        User(long id, string name, string userName)
         {
             Id = id;
             Name = name;
             UserName = userName;
+        }
+
+        public void ChangeName(string newName)
+        {
+            if (newName != "" && newName != " ")
+            {
+                Name = newName;
+            }          
         }
     }
 }
