@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.BL.Answerers
 {
-    internal interface IAnswerer
+    public interface IAnswerer
     {
+        bool IsAnswerCorrect(string userAnswer, List<string> userAnswers,
+                             string trueAnswer, List<string> trueAnswers);
     }
 }
