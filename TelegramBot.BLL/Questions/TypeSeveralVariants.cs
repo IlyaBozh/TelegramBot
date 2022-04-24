@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace TelegramBot.BLL
+namespace TelegramBot.BL.Questions
 {
-    public class TypeSeveralVariants : IQuestion
+    public class TypeSeveralVariants : AbstractQuestion
     {
 
 
