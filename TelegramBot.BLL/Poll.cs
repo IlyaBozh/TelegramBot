@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TelegramBot.BLL
+namespace TelegramBot.BL
 {
     public class Poll
     {
-        List<IQuestion> Questions { get; set; }
+        List <IQuestion> Questions { get; set; }
     }
 }
