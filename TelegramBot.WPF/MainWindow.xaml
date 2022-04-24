@@ -318,7 +318,7 @@
                             </Grid.RowDefinitions>
                             <Label Content="Варианты ответа:" Margin="0,0,2,0" Visibility="Visible" Height="26"/>
                             <Grid Grid.Row="1">
-                                <DataGrid x:Name="DataGrid_ChangeAnswers" CanUserAddRows = "true" AutoGenerateColumns="False"  Margin="0,-58,0,0" Loaded="DataGrid_ChangeAnswers_Loaded" MouseDoubleClick="DataGrid_ChangeAnswers_MouseDoubleClick">
+                                <DataGrid x:Name="DataGrid_ChangeAnswers" CanUserAddRows = "true" AutoGenerateColumns="False"  Margin="0,-58,0,0" Loaded="DataGrid_ChangeAnswers_Loaded" MouseRightButtonDown="DataGrid_ChangeAnswers_MouseRightButtonDown">
                                     <DataGrid.Columns>
                                         <DataGridTextColumn Binding = "{Binding Path = Question}" IsReadOnly="False" Header="Варианты ответов" Width="200"/>
                                         <DataGridTextColumn Binding = "{Binding Path = TrueAnswer}" IsReadOnly="False" Header="Правильные ответы" Width="200"/>
