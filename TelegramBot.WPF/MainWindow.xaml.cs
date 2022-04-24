@@ -122,19 +122,7 @@ namespace TelegramBot.WPF
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Visible;
         }
-        private void ComboBox_ChooseTestEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
-        }
-        private void ComboBox_ChooseTollEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
-        }
-
-
-
-
-
+        
         private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_Question.Visibility = Visibility.Visible;
@@ -178,6 +166,51 @@ namespace TelegramBot.WPF
                 }
             }
         }
+        private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
+            GroupBox_QuestionEdit.Visibility = Visibility.Visible;
+
+            if (_formVariant is not null)
+            {
+                _formVariant.Visibility = Visibility.Hidden;
+            }
+
+            if (_formAnswer is not null)
+            {
+                _formAnswer.Visibility = Visibility.Hidden;
+            }
+
+            int tmpToll = ComboBox_ChooseTollEdit.SelectedIndex;
+            int tmpTest = ComboBox_ChooseTestEdit.SelectedIndex;
+
+            if (tmpToll == 1 || tmpToll == 2 || tmpToll == 4 || tmpTest == 1 || tmpTest == 2 || tmpTest == 4)
+            {
+                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
+                _formVariant = GroupBox_AddVariantsEdit;
+            }
+
+            if (RadioButtonEdit_Test.IsChecked == true)
+            {
+                Label_TrueAnswerEdit.Visibility = Visibility.Visible;
+
+                if (tmpToll == 3 || tmpTest == 3)
+                {
+                    GroupBox_AnswerYesOrNoEdit.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AnswerYesOrNoEdit;
+                }
+                else if (tmpToll == 0 || tmpToll == 1)
+                {
+                    GroupBox_TrueAnswerEdit.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_TrueAnswerEdit;
+                }
+                else
+                {
+                    GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                }
+            }
+        }
         private void HideExtraBoxes()
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Hidden;
@@ -209,5 +242,6 @@ namespace TelegramBot.WPF
             Label_TrueAnswer.Visibility = Visibility.Hidden;
         }
 
+      
     }
 }
