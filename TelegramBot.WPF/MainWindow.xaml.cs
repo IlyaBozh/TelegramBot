@@ -170,6 +170,8 @@ namespace TelegramBot.WPF
         {
             GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
             GroupBox_QuestionEdit.Visibility = Visibility.Visible;
+            Button_SaveChanges.Visibility = Visibility.Visible;
+            Button_CancelChanges.Visibility = Visibility.Visible;
 
             if (_formVariant is not null)
             {
@@ -194,12 +196,12 @@ namespace TelegramBot.WPF
             {
                 Label_TrueAnswerEdit.Visibility = Visibility.Visible;
 
-                if (tmpToll == 3 || tmpTest == 3)
+                if (tmpTest == 3)
                 {
                     GroupBox_AnswerYesOrNoEdit.Visibility = Visibility.Visible;
                     _formAnswer = GroupBox_AnswerYesOrNoEdit;
                 }
-                else if (tmpToll == 0 || tmpToll == 1)
+                else if (tmpTest == 0 || tmpTest == 1)
                 {
                     GroupBox_TrueAnswerEdit.Visibility = Visibility.Visible;
                     _formAnswer = GroupBox_TrueAnswerEdit;
@@ -209,6 +211,10 @@ namespace TelegramBot.WPF
                     GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
                     _formAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
                 }
+            }
+            else
+            {
+                Label_TrueAnswerEdit.Visibility = Visibility.Hidden;
             }
         }
         private void HideExtraBoxes()

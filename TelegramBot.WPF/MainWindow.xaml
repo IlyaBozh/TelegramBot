@@ -42,7 +42,8 @@
             <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="115*"/>
+                        <ColumnDefinition Width="277*"/>
                         <ColumnDefinition Width="0*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -55,11 +56,11 @@
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <RadioButton x:Name="RadioButton_Test" Content="Тест" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click"/>
-                    <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click"/>
+                    <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click" Grid.ColumnSpan="2"/>
 
-                    <Label x:Name="Label_TrueAnswer" Grid.Row="5" Content="Правильный(-ые) ответ(ы):" Margin="8,0,170,50" Visibility="Hidden"/>
-                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden"/>
-                    <GroupBox x:Name="GroupBox_Test" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
+                    <Label x:Name="Label_TrueAnswer" Grid.Row="5" Content="Правильный(-ые) ответ(ы):" Margin="8,0,170,50" Visibility="Hidden" Grid.ColumnSpan="2"/>
+                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
+                    <GroupBox x:Name="GroupBox_Test" Margin="1,1,1,81" Grid.Row="1" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -79,7 +80,7 @@
                             </ComboBox>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_Poll" Margin="1,54,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_Poll" Margin="1,54,1,81" Grid.RowSpan="3" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -99,7 +100,7 @@
                             </ComboBox>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_ChoseTypeQuestion" Grid.Row="1" Margin="1,76,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_ChoseTypeQuestion" Grid.Row="1" Margin="1,76,1,87" Grid.RowSpan="3" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -119,7 +120,7 @@
                             <Label Content="Тип:" VerticalAlignment="Center" Margin="0,0,-1,0" Visibility="Visible" Height="26"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_Question" Grid.Row="3" Margin="1,1,1,81" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_Question" Grid.Row="3" Margin="1,1,1,81" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -133,7 +134,7 @@
 
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AddVariants" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,0" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_AddVariants" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,86" BorderThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -161,7 +162,7 @@
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AnswerYesOrNo" Margin="0,31,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="5" Opacity="0.98" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_AnswerYesOrNo" Margin="0,31,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="5" Opacity="0.98" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -180,7 +181,7 @@
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AddTrueVarintsOrRigthOrder" Grid.Row="5" Margin="1,26,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_AddTrueVarintsOrRigthOrder" Grid.Row="5" Margin="1,26,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="9*"></ColumnDefinition>
@@ -200,7 +201,7 @@
                             <TextBox x:Name="TextBox_OneOrFewTrueAnswers" Visibility="Visible" Grid.ColumnSpan="1" Margin="4, 4, 4, 4"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_TrueAnswer" Grid.Row="5" Margin="1,31,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_TrueAnswer" Grid.Row="5" Margin="1,31,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -221,8 +222,8 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"></RowDefinition>
-                        <RowDefinition Height="14*"></RowDefinition>
-                        <RowDefinition Height="14*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
                         <RowDefinition Height="15*"></RowDefinition>
                         <RowDefinition Height="15*"></RowDefinition>
                         <RowDefinition Height="15*"></RowDefinition>
@@ -385,6 +386,8 @@
                             <TextBox x:Name="TextBox_TrueAnswerEdit" Margin="4, 6, 4, 1"/>
                         </Grid>
                     </GroupBox>
+                    <Button x:Name="Button_SaveChanges" Content="Сохранить" HorizontalAlignment="Left" Height="24" Grid.Row="6" VerticalAlignment="Center" Width="134" Visibility="Hidden" Margin="10,0,0,0" />
+                    <Button x:Name="Button_CancelChanges" Content="Отменить" HorizontalAlignment="Left" Height="24" Margin="149,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="134" Visibility="Hidden" />
                 </Grid>
 
             </TabItem>
