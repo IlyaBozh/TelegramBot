@@ -8,14 +8,17 @@ namespace TelegramBot.BL
 {
     public class Group
     {
-
         public List<User> UserGroups { get; set; }
 
         public string NameGroup { get; set; }
 
+        public Group(string name)
+        {
+            NameGroup = name;           
+        }
+
         Group(string name, List<User> userGroups)
         {
-
             NameGroup = name;
             UserGroups = userGroups;
         }
@@ -30,18 +33,14 @@ namespace TelegramBot.BL
             UserGroups.Remove(name);
         }
 
-        public void DeleteUserById(User id)
-        {
-            UserGroups.Remove(id);
-        }
+        //public void DeleteUserById(User id)
+        //{
+        //    UserGroups.Remove(id);
+        //}
 
         public void Edit(string name, string newName)
         {
-            if (newName == "" || newName == " ")
-            {
-                NameGroup = name;
-            }
-            else
+            if (newName != "" && newName != " ")
             {
                 NameGroup = newName;
             }
