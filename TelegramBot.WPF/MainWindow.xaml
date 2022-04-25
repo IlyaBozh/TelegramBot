@@ -56,7 +56,8 @@
             <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="115*"/>
+                        <ColumnDefinition Width="277*"/>
                         <ColumnDefinition Width="0*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -68,12 +69,12 @@
                         <RowDefinition Height="15*"></RowDefinition>
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <RadioButton x:Name="RadioButton_Test" Content="Тест" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButton_Test_Click"/>
-                    <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click"/>
+                    <RadioButton x:Name="RadioButton_Test" Content="Тест" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click"/>
+                    <RadioButton x:Name="RadioButton_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButton_Poll_Click" Grid.ColumnSpan="2"/>
 
-                    <Label x:Name="Label_TrueAnswer" Grid.Row="5" Content="Правильный(-ые) ответ(ы):" Margin="8,0,170,50" Visibility="Hidden"/>
-                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden"/>
-                    <GroupBox x:Name="GroupBox_Test" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
+                    <Label x:Name="Label_TrueAnswer" Grid.Row="5" Content="Правильный(-ые) ответ(ы):" Margin="8,0,170,50" Visibility="Hidden" Grid.ColumnSpan="2"/>
+                    <Button x:Name="Button_AddQuestion" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden" Grid.ColumnSpan="2"/>
+                    <GroupBox x:Name="GroupBox_Test" Margin="1,1,1,81" Grid.Row="1" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -93,7 +94,7 @@
                             </ComboBox>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_Poll" Margin="1,54,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_Poll" Margin="1,54,1,81" Grid.RowSpan="3" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -113,7 +114,7 @@
                             </ComboBox>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_ChoseTypeQuestion" Grid.Row="1" Margin="1,76,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_ChoseTypeQuestion" Grid.Row="1" Margin="1,76,1,87" Grid.RowSpan="3" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -133,7 +134,7 @@
                             <Label Content="Тип:" VerticalAlignment="Center" Margin="0,0,-1,0" Visibility="Visible" Height="26"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_Question" Grid.Row="3" Margin="1,1,1,81" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_Question" Grid.Row="3" Margin="1,1,1,81" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -147,7 +148,7 @@
 
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AddVariants" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,0" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_AddVariants" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,86" BorderThickness="0" Grid.ColumnSpan="2" Grid.RowSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -175,7 +176,7 @@
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AnswerYesOrNo" Margin="0,31,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="5" Opacity="0.98" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_AnswerYesOrNo" Margin="0,31,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="5" Opacity="0.98" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -194,7 +195,7 @@
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AddTrueVarintsOrRigthOrder" Grid.Row="5" Margin="1,26,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_AddTrueVarintsOrRigthOrder" Grid.Row="5" Margin="1,26,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="9*"></ColumnDefinition>
@@ -214,7 +215,7 @@
                             <TextBox x:Name="TextBox_OneOrFewTrueAnswers" Visibility="Visible" Grid.ColumnSpan="1" Margin="4, 4, 4, 4"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_TrueAnswer" Grid.Row="5" Margin="1,31,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_TrueAnswer" Grid.Row="5" Margin="1,31,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -227,9 +228,7 @@
                     </GroupBox>
                 </Grid>
             </TabItem>
-            
-            <!--tabitem edit-->
-            <TabItem Header="EditQuestion">
+            <TabItem Header="Edit">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -237,14 +236,134 @@
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*"></RowDefinition>
-                        <RowDefinition Height="14*"></RowDefinition>
-                        <RowDefinition Height="14*"></RowDefinition>
-                        <RowDefinition Height="15*"></RowDefinition>
-                        <RowDefinition Height="15*"></RowDefinition>
-                        <RowDefinition Height="15*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="35*"></RowDefinition>
                         <RowDefinition Height="6*"></RowDefinition>
                     </Grid.RowDefinitions>
+                    <RadioButton x:Name="RadioButtonEdit_Test" Content="Тест" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButtonEdit_Test_Click"/>
+                    <RadioButton x:Name="RadioButtonEdit_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButtonEdit_Poll_Click"/>
+                    <Label x:Name="Label_TrueAnswerEdit" Grid.Row="5" Content="Правильный(-ые) ответ(ы):" Margin="8,0,170,50" Visibility="Hidden"/>
+
+                    <Button x:Name="Button_AddQuestionEdit" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden"/>
+                    <GroupBox x:Name="GroupBox_TestEdit" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"></RowDefinition>
+                                <RowDefinition Height="10*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Тест:" VerticalAlignment="Center" Margin="0,0,4,0" Visibility="Visible"/>
+                            <ComboBox x:Name="ComboBox_ChooseTestEdit" Grid.Row="1" VerticalAlignment="Bottom" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseQuestionTypeEdit_SelectionChanged">
+                                <ComboBoxItem Content="ответ пользователя"/>
+                                <ComboBoxItem Content="выбор одного варианта"/>
+                                <ComboBoxItem Content="выбор нескольких вариантов"/>
+                                <ComboBoxItem Content="да/нет"/>
+                                <ComboBoxItem Content="расположить в правильном порядке"/>
+                                <!--<ComboBoxItem Content="не выбрано"/>-->
+                            </ComboBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="GroupBox_PollEdit" Margin="1,54,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"></RowDefinition>
+                                <RowDefinition Height="10*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Опрос:" VerticalAlignment="Center" Margin="0,0,4,0" Visibility="Visible"/>
+                            <ComboBox x:Name="ComboBox_ChooseTollEdit" Grid.Row="1" VerticalAlignment="Bottom" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseQuestionTypeEdit_SelectionChanged">
+                                <ComboBoxItem Content="ответ пользователя"/>
+                                <ComboBoxItem Content="выбор одного варианта"/>
+                                <ComboBoxItem Content="выбор нескольких вариантов"/>
+                                <ComboBoxItem Content="да/нет"/>
+                                <ComboBoxItem Content="расположить в правильном порядке"/>
+                                <!--<ComboBoxItem Content="не выбрано"/>-->
+                            </ComboBox>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="GroupBox_ChoseTypeQuestionEdit" Grid.Row="1" Margin="1,76,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"></RowDefinition>
+                                <RowDefinition Height="10*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ComboBox x:Name="ComboBox_ChooseQuestionTypeEdit" Grid.Row="1" VerticalAlignment="Top" Height="20" Margin="4,1,4,0" Visibility="Visible">
+                                <ComboBoxItem Content="тут должны быть разные вопросы"/>
+                                <ComboBoxItem Content="вопрос 1"/>
+                                <ComboBoxItem Content="вопрос 2"/>
+                                <ComboBoxItem Content="вопрос 3"/>
+                                <ComboBoxItem Content="и тп и тп"/>
+                                <!--<ComboBoxItem Content="не выбрано"/>-->
+                            </ComboBox>
+                            <Label Content="Выберите вопрос:" VerticalAlignment="Center" Margin="0,0,-1,0" Visibility="Visible" Height="26"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="GroupBox_QuestionEdit" Grid.Row="3" Margin="1,1,1,81" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5*"></RowDefinition>
+                                <RowDefinition Height="10*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label x:Name="Lable_QuestionTitleEdit" Content="Твой вопрос:" Margin="0,0,4,0" Visibility="Visible" Height="26"/>
+                            <TextBox x:Name="TextBox_QuestionEdit"  Margin="4,4,4,80" Visibility="Visible" Grid.Row="1"/>
+
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="GroupBox_AddVariantsEdit" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,0" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="30*"></RowDefinition>
+                                <RowDefinition Height="13*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Label Content="Варианты ответа:" Margin="0,0,2,0" Visibility="Visible" Height="26"/>
+                            <Grid Grid.Row="1">
+                                <DataGrid x:Name="DataGrid_ChangeAnswers" CanUserAddRows = "true" AutoGenerateColumns="False"  Margin="0,-58,0,0" Loaded="DataGrid_ChangeAnswers_Loaded" MouseRightButtonDown="DataGrid_ChangeAnswers_MouseRightButtonDown">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Binding = "{Binding Path = Question}" IsReadOnly="False" Header="Варианты ответов" Width="200"/>
+                                        <DataGridTextColumn Binding = "{Binding Path = TrueAnswer}" IsReadOnly="False" Header="Правильные ответы" Width="200"/>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox x:Name="GroupBox_AnswerYesOrNoEdit" Margin="0,31,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="5" Opacity="0.98" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <RadioButton x:Name="RadioButton_NoEdit" Content="Нет" GroupName="YesOrNo" Visibility="Visible" Grid.Column="1" Grid.ColumnSpan="2"/>
+                                <RadioButton x:Name="RadioButton_YesEdit" Content="Да"  GroupName="YesOrNo" Visibility="Visible"  Grid.ColumnSpan="2"/>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+                    <Button x:Name="Button_SaveChanges" Content="Сохранить" HorizontalAlignment="Left" Height="24" Grid.Row="6" VerticalAlignment="Center" Width="134" Visibility="Hidden" Margin="10,0,0,0" />
+                    <Button x:Name="Button_CancelChanges" Content="Отменить" HorizontalAlignment="Left" Height="24" Margin="149,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="134" Visibility="Hidden" />
                 </Grid>
+
             </TabItem>
 
             <!--#region Container. хранилище всех вопросов и кластеров вопросов-->
@@ -381,6 +500,7 @@
                 <ListBoxItem>гр.3</ListBoxItem>
             </ListBox.Items>
         </ListBox>
+
 
     </Grid>
 </Window>
