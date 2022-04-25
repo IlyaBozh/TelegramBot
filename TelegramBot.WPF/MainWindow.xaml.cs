@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TelegramBot.BL;
-
+using TelegramBot.BL.Questions;
 
 namespace TelegramBot.WPF
 {
@@ -414,8 +414,6 @@ namespace TelegramBot.WPF
         private void DataGrid_ChangeAnswers_Loaded(object sender, RoutedEventArgs e)
         {
             _tryAnswers = new List<TypeOneVariant>();
-            _tryAnswers.Add(new TypeOneVariant("как дела?","все хорошо"));
-            _tryAnswers.Add(new TypeOneVariant("как дела?", "все плохо"));
 
             DataGrid_ChangeAnswers.ItemsSource = _tryAnswers;
         }
@@ -423,7 +421,6 @@ namespace TelegramBot.WPF
 
         private void DataGrid_ChangeAnswers_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _tryAnswers.Add(new TypeOneVariant("", ""));
             List<TypeOneVariant> tmp = new List<TypeOneVariant>();
 
             for (int i = 0; i < _tryAnswers.Count - 1; i++)
