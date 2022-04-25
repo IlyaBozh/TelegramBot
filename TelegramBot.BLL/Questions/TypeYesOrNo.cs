@@ -10,13 +10,13 @@ namespace TelegramBot.BL.Questions
     {
         public TypeYesOrNo(string discription, string trueAnswer)
         {
-            Discription = discription;
+            Description = discription;
             TrueAnswer = trueAnswer;
         }
 
         public TypeYesOrNo(string discription)
         {
-            Discription = discription;
+            Description = discription;
         }
 
     }

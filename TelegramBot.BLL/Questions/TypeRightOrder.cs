@@ -10,14 +10,14 @@ namespace TelegramBot.BL.Questions
     {
         public TypeRightOrder(string discription, List <string> trueAnswers, List <string> variants)
         {
-            Discription = discription;
+            Description = discription;
             TrueAnswers = trueAnswers;
             Variants = variants;
         }
 
         public TypeRightOrder(string discription, List<string> variants)
         {
-            Discription = discription;
+            Description = discription;
             Variants = variants;
         }
     }

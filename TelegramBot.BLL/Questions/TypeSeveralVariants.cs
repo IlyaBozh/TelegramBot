@@ -12,14 +12,14 @@ namespace TelegramBot.BL.Questions
 
         public TypeSeveralVariants(string discription, List<string> variants)
         {
-            Discription = discription;
+            Description = discription;
             Variants = variants;
         }
 
 
         public TypeSeveralVariants(string discription, List<string> trueAnswers, List<string> variants)
         {
-            Discription = discription;
+            Description = discription;
             Variants = variants;
             TrueAnswers = trueAnswers;
         }

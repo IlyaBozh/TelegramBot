@@ -10,7 +10,7 @@ namespace TelegramBot.BL.Questions
 {
     public abstract class AbstractQuestion
     {
-        public string Discription { get; set; }
+        public string Description { get; set; }
         public List<string> Variants { get; set; }
         public string TrueAnswer { get; set; }  
         public List<string> TrueAnswers { get; set; }
@@ -24,7 +24,7 @@ namespace TelegramBot.BL.Questions
 
         public void Ask()
         {
-            asker.Ask(Discription, Variants);
+            asker.Ask(Description, Variants);
         }
 
         public bool IsAnswerCorrect()
@@ -32,9 +32,9 @@ namespace TelegramBot.BL.Questions
             return answerer.IsAnswerCorrect(UserAnswer, UserAnswers, TrueAnswer, TrueAnswers);
         }
 
-        public void EditDiscription(string newDiscription)
+        public void EditDiscription(string newDescription)
         {
-            Discription = newDiscription;
+            Description = newDescription;
         }
 
         public void EditVariant(int index, string newVariant, bool isVariant = true)

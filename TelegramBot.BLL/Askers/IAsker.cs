@@ -8,6 +8,6 @@ namespace TelegramBot.BL.Askers
 {
     public interface IAsker
     {
-        void Ask(string discription, List<string> variants);
+        void Ask(string description, List<string> variants);
     }
 }

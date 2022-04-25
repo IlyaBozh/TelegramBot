@@ -8,7 +8,7 @@ namespace TelegramBot.BL.Askers
 {
     public class YesOrNoAsker : IAsker
     {
-        public void Ask(string discription, List<string> variants)
+        public void Ask(string description, List<string> variants)
         {
             throw new NotImplementedException();
         }

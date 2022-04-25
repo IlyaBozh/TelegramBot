@@ -10,13 +10,13 @@ namespace TelegramBot.BL.Questions
     {
         public TypeOneVariant(string discription, List<string> variants)
         {
-            Discription = discription;
+            Description = discription;
             Variants = variants;
         }
 
         public TypeOneVariant(string discription, string trueAnswer, List<string> variants)
         {
-            Discription = discription;
+            Description = discription;
             Variants = variants;
             TrueAnswer = trueAnswer;
         }
