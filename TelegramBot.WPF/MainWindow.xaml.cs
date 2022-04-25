@@ -87,8 +87,8 @@ namespace TelegramBot.WPF
                 }
             }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
-            
-           _userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
+
+            _userListBox = new ListBox();
             TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
             _listOfListBox_Users.Add(_userListBox);
