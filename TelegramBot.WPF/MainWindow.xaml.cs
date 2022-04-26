@@ -420,28 +420,34 @@ namespace TelegramBot.WPF
 
         private void MenuItemEditСhange_ClickCut(object sender, RoutedEventArgs e)
         {
-           List<TypeOneVariant> tmp = new List<TypeOneVariant>();
-            object item = DataGrid_ChangeAnswers.SelectedItem;
-            for (int i = 0; i < _tryAnswers.Count - 1; i++)
+            List<TypeOneVariant> tmp = new List<TypeOneVariant>();
+            
+            for (int i = 0; i < _tryAnswers.Count; i++)
             {
-                
-                
-                  //tmp.Remove(item);
+                tmp.Add(_tryAnswers[i]);
 
-                
+                if(i == DataGrid_ChangeAnswers.SelectedIndex)
+                {
+                   tmp.Remove(_tryAnswers[i]);
+                   break;
+                }
             }
             DataGrid_ChangeAnswers.ItemsSource = tmp;
         }
 
         private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
         {
-           
-
             _tryAnswers.Add(new TypeOneVariant("", ""));
             List<TypeOneVariant> tmp = new List<TypeOneVariant>();
             for (int i = 0; i < _tryAnswers.Count; i++)
             {
                 tmp.Add(_tryAnswers[i]);
+
+                if (i == DataGrid_ChangeAnswers.SelectedIndex)
+                {
+                    tmp.Add(_tryAnswers[i]);
+                }
+                
             }
             DataGrid_ChangeAnswers.ItemsSource = tmp;
         }
