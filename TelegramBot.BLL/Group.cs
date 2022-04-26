@@ -21,10 +21,10 @@ namespace TelegramBot.BL
             UserGroups=new List<User>();
         }
 
-        public Group(string name, List<User> userGroups)
+        public Group(string name, List<User> GroupUsers)
         {
             NameGroup = name;
-            UserGroups = userGroups;
+            UserGroups = GroupUsers;
         }
 
         public void AddUser(User user)
@@ -32,9 +32,16 @@ namespace TelegramBot.BL
             UserGroups.Add(user);
         }
 
-        public void DeleteUser(User name)
+        public void DeleteUser(long id)
         {
-            UserGroups.Remove(name);
+            foreach(User user in UserGroups)
+            {
+                if(id == user.Id)
+                {
+                    UserGroups.Remove(user);
+                    break;
+                }
+            }
         }
 
         //public void DeleteUserById(User id)

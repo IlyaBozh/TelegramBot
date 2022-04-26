@@ -25,8 +25,8 @@ namespace TelegramBot.BL
 
         public User(string firstName, string lastName, long id)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
+            Name = firstName;
+            UserName = lastName;
             Id = id;
         }
 

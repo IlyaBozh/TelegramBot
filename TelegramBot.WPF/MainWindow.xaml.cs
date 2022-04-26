@@ -24,6 +24,8 @@ namespace TelegramBot.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+        private User testContextMenu;
+
         private TBot _tbot;
         private const string _token = "5149025176:AAF9ywvM1nXIkvpfKK4wV7Fsy8nTapirCDE";
         private List<string> _labels;
@@ -45,23 +47,15 @@ namespace TelegramBot.WPF
         
         public MainWindow()
         {
-            _dataBase = new DataBase();
-
-            
-
              _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
-                   
+            
+
             _listOfListBox_Users = new List <ListBox>();//test
             _listOfListView_ClasterQuestions = new List<ListView>();//test
             _tryAnswers = new List<TypeOneVariant>();
 
             InitializeComponent();
-
-            
-
-            ListBox_Users.ItemsSource =_dataBase.UserGroups[0].UserGroups;
-
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(1);
@@ -72,6 +66,8 @@ namespace TelegramBot.WPF
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
         {
+            
+            _dataBase = new DataBase();
             ComboBox_UserGroups.SelectedIndex = 0;
 
             ListBox _userListBox = new ListBox();
@@ -101,6 +97,15 @@ namespace TelegramBot.WPF
 
         private void OnTick(object sender, EventArgs e)
         {
+
+            List<string> forUsers = new List<string>();
+
+            foreach (User user in _dataBase.UserGroups[0].UserGroups)
+            {
+                forUsers.Add($"{user.Name} {user.Id}");
+            }
+            ListBox_Users.ItemsSource = forUsers;
+
             ListBox_Users.Items.Refresh();
        
 
@@ -129,7 +134,7 @@ namespace TelegramBot.WPF
             }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
 
-           ListBox _userListBox = new ListBox();
+            ListBox _userListBox = new ListBox();
             Group newGroup = new Group(TextBox_NameOfGroup.Text);
             _userListBox.ItemsSource = newGroup.UserGroups;
             TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
@@ -186,10 +191,18 @@ namespace TelegramBot.WPF
             
             if(index == 0)
             {
+                List<string> forUsers = new List<string>();
+                foreach (User user in _dataBase.UserGroups[0].UserGroups)
+                {
+                    forUsers.Add($"{user.Name} {user.Id}");
+                }
+                _tmp = (string)ListBox_Users.Items[indexUser];
 
-                _tmp = _labels[indexUser];
-                _labels.RemoveAt(indexUser);    
-                
+                forUsers.Remove(_tmp);
+                ListBox_Users.ItemsSource = forUsers;
+    
+                testContextMenu = _dataBase.UserGroups[0].UserGroups[indexUser];
+                _dataBase.UserGroups[0].DeleteUser(testContextMenu.Id);
             }
             else 
             {
@@ -204,7 +217,7 @@ namespace TelegramBot.WPF
                             {
                                 _tmp = Convert.ToString(userListBox.Items[i]);
                                 userListBox.Items.RemoveAt(userListBox.SelectedIndex);
-
+                                
                             }         
                            
                         }
@@ -223,8 +236,15 @@ namespace TelegramBot.WPF
             {
                 return;
             }
-            
-            if( index > 0 && index < ComboBox_UserGroups.Items.Count)
+
+            List<string> forUsers = new List<string>();
+
+            foreach (User user in _dataBase.UserGroups[index].UserGroups)
+            {
+                forUsers.Add($"{user.Name} {user.Id}");
+            }
+
+            if ( index > 0 && index < ComboBox_UserGroups.Items.Count)
             {
 
                 foreach (var userListBox in _listOfListBox_Users)
@@ -234,9 +254,11 @@ namespace TelegramBot.WPF
                     {
                         if (_tmp != null)
                         {
-
-                            userListBox.Items.Add(_tmp);
+                            forUsers.Add(_tmp);
+                            userListBox.ItemsSource = forUsers;
                             _tmp = null;
+                            _dataBase.UserGroups[index].AddUser(testContextMenu);
+                            testContextMenu = null;
                         }
                     }
                 }
@@ -245,9 +267,11 @@ namespace TelegramBot.WPF
             {
                 if(_tmp != null)
                 {
-
-                    _labels.Add(_tmp);
+                    forUsers.Add(_tmp);
+                    ListBox_Users.ItemsSource = forUsers;
                     _tmp = null;
+                    _dataBase.UserGroups[0].AddUser(testContextMenu);
+                    testContextMenu = null;
                 }
             }
            
