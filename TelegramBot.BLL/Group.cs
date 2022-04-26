@@ -12,9 +12,13 @@ namespace TelegramBot.BL
 
         public string NameGroup { get; set; }
 
+
+
+
         public Group(string name)
         {
-            NameGroup = name;           
+            NameGroup = name;
+            UserGroups=new List<User>();
         }
 
         public Group(string name, List<User> userGroups)
@@ -23,9 +27,9 @@ namespace TelegramBot.BL
             UserGroups = userGroups;
         }
 
-        public void AddUser(User name)
+        public void AddUser(User user)
         {
-            UserGroups.Add(name);
+            UserGroups.Add(user);
         }
 
         public void DeleteUser(User name)

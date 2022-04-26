@@ -46,12 +46,12 @@ namespace TelegramBot.WPF
         public MainWindow()
         {
             _dataBase = new DataBase();
+
             
 
-            _tbot = new TBot(_token, AddUsers);
+             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
-            _labels.Add("sd");//test
-            _labels.Add("ssf");   //test        
+                   
             _listOfListBox_Users = new List <ListBox>();//test
             _listOfListView_ClasterQuestions = new List<ListView>();//test
             _tryAnswers = new List<TypeOneVariant>();
@@ -60,7 +60,7 @@ namespace TelegramBot.WPF
 
             
 
-            ListBox_Users.ItemsSource = _labels;
+            ListBox_Users.ItemsSource =_dataBase.UserGroups[0].UserGroups;
 
 
             _timer = new DispatcherTimer();
@@ -86,11 +86,15 @@ namespace TelegramBot.WPF
             tmp.Visibility = Visibility.Collapsed;
 
             ComboBox_UserGroups.Items.Add(_dataBase.UserGroups[0].NameGroup);
+
         }
 
-        public void AddUsers(string s)
+        public void AddUsers(User newUser)
         {
-            _labels.Add(s);
+
+             _dataBase.UserGroups[0].AddUser(newUser);
+            
+            //_labels.Add(s);
         }
 
        
@@ -98,6 +102,8 @@ namespace TelegramBot.WPF
         private void OnTick(object sender, EventArgs e)
         {
             ListBox_Users.Items.Refresh();
+       
+
         }
         private void ButtonSend_Click(object sender, RoutedEventArgs e)
         {
