@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TelegramBot.BL.Questions;
 
 namespace TelegramBot.BL
 {
@@ -10,20 +11,20 @@ namespace TelegramBot.BL
     {
         public string NameClaster { get; set; }
 
-        public List<IQuestion> Questions { get; set; }
+        public List<AbstractQuestion> Questions { get; set; }
         public bool isHasAnswer;
 
         public Claster(string name)
         {
             NameClaster = name;
         }
-        public Claster(string name, List<IQuestion> questions)
+        public Claster(string name, List<AbstractQuestion> questions)
         {
             NameClaster = name;
             Questions = questions;
         }
 
-        public void Add(IQuestion question)
+        public void Add(AbstractQuestion question)
         {
             Questions.Add(question);
         }
@@ -41,7 +42,7 @@ namespace TelegramBot.BL
             }
         }
 
-        public void ClearQuestions(List<IQuestion> questions)
+        public void ClearQuestions(List<AbstractQuestion> questions)
         {
             Questions.Clear();
         }
