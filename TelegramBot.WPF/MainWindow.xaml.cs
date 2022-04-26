@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TelegramBot.BL;
-
+using TelegramBot.BL.Questions;
 
 namespace TelegramBot.WPF
 {
@@ -76,18 +76,30 @@ namespace TelegramBot.WPF
             {
                 return;
             }
+            foreach (var item in ComboBox_UserGroups.Items)
+            {
+                string group = Convert.ToString(item);
+
+                if (group == TextBox_NameOfGroup.Text)
+                {
+                    TextBox_NameOfGroup.Text = "Такая группа уже есть";
+
+                    return;
+                }
+            }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
 
-            _userListBox = new ListBox { Name = TextBox_NameOfGroup.Text };
+            _userListBox = new ListBox();
             TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
             _listOfListBox_Users.Add(_userListBox);
 
             ControlTab_UserGroup.Items.Add(tmp);
-            TextBox_NameOfGroup.Text = "";
+            TextBox_NameOfGroup.Clear();
 
             tmp.Visibility = Visibility.Collapsed;
         }
+       
 
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
@@ -120,6 +132,7 @@ namespace TelegramBot.WPF
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;
+            int indexUser = ListBox_Users.SelectedIndex;
             int count = 0;
 
             if (ComboBox_UserGroups.SelectedIndex < 0 || _tmp is not null)
@@ -131,14 +144,9 @@ namespace TelegramBot.WPF
             if(index == 0)
             {
 
-                for (int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
-                {
-                    if(i == index)
-                    {
-                        _tmp = _labels[i];
-                        _labels.RemoveAt(index);
-                    }
-                }
+                _tmp = _labels[indexUser];
+                _labels.RemoveAt(indexUser);    
+                
             }
             else 
             {
@@ -425,5 +433,7 @@ namespace TelegramBot.WPF
             _tryAnswers.Add(new TypeOneVariant("", ""));
             DataGrid_ChangeAnswers.Items.Add(_tryAnswers);
         }
+
+       
     }
 }
