@@ -33,10 +33,16 @@ namespace TelegramBot.BL
             UserGroups.Remove(name);
         }
 
-        //public void DeleteUserById(User id)
-        //{
-        //    UserGroups.Remove(id);
-        //}
+        public void DeleteUserById(long id)
+        {
+            for (int i = 0; i < UserGroups.Count; i++)
+            {
+                if (UserGroups[i].Id == id)
+                {
+                    UserGroups.RemoveAt(i);
+                }
+            }
+        }
 
         public void Edit(string name, string newName)
         {
