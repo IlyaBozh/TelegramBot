@@ -35,6 +35,7 @@ namespace TelegramBot.BL
 
         private async Task HandleResive(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
+            
             if (update.Message != null && update.Message.Text != null)
             {
 
@@ -44,14 +45,13 @@ namespace TelegramBot.BL
                     string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
                     _users(userName);
                 }
+               
 
-                //string s = update.Message.Chat.FirstName + " "
-                //    + update.Message.Chat.LastName + " "
-                //    + update.Message.Text;
-                //_onMessage(s);
+               
             }
         }
 
+      
         private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
