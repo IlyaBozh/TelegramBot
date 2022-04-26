@@ -45,8 +45,8 @@ namespace TelegramBot.WPF
             _labels = new List<string>();
             _labels.Add("sd");//test
             _labels.Add("ssf");   //test        
-            _listOfListBox_Users = new List <ListBox>();
-            _listOfListView_ClasterQuestions = new List <ListView>();
+            _listOfListBox_Users = new List <ListBox>();//test
+            _listOfListView_ClasterQuestions = new List <ListView>();//test
             
             InitializeComponent();
 
@@ -541,6 +541,8 @@ namespace TelegramBot.WPF
         {
             if (e.Key == Key.Enter)
             {
+                _listView_ClasterQuestions= new ListView();
+                _listView_ClasterQuestions = ListView_ClasterQuestions;
                 ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
                 TextBox_ClasterName.Clear();
 
