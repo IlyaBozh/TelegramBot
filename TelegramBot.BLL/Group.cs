@@ -17,7 +17,7 @@ namespace TelegramBot.BL
             NameGroup = name;           
         }
 
-        Group(string name, List<User> userGroups)
+        public Group(string name, List<User> userGroups)
         {
             NameGroup = name;
             UserGroups = userGroups;
