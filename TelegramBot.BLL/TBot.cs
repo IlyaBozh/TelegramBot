@@ -28,6 +28,12 @@ namespace TelegramBot.BL
             }
         }
 
+        public async void SendToGroup(string message)
+        {
+
+          
+        }
+
         public void Start()
         {
             _client.StartReceiving(HandleResive, HandleError);

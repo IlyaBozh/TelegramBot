@@ -34,10 +34,11 @@ namespace TelegramBot.WPF
 
         DataBase _dataBase;
 
+
         private List<ListBox> _listOfListBox_Users;
         private List<ListView> _listOfListView_ClasterQuestions;
         private ListView _listView_ClasterQuestions;
-        private ListBox _userListBox;
+       
         private string _tmp;
         private string _tmpListView;
 
@@ -45,6 +46,7 @@ namespace TelegramBot.WPF
         public MainWindow()
         {
             _dataBase = new DataBase();
+            
 
             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
@@ -66,6 +68,24 @@ namespace TelegramBot.WPF
             _timer.Tick += OnTick;
             _timer.Start();
             _tbot.Start();
+        }
+
+        private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
+        {
+            ComboBox_UserGroups.SelectedIndex = 0;
+
+            ListBox _userListBox = new ListBox();
+
+            TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
+
+            _listOfListBox_Users.Add(_userListBox);
+
+            ControlTab_UserGroup.Items.Add(tmp);
+            TextBox_NameOfGroup.Clear();
+
+            tmp.Visibility = Visibility.Collapsed;
+
+            ComboBox_UserGroups.Items.Add(_dataBase.UserGroups[0].NameGroup);
         }
 
         public void AddUsers(string s)
@@ -90,7 +110,7 @@ namespace TelegramBot.WPF
                 return;
             }
             ListView_ClasterQuestions.Items.Add("1");//test
-            ListBox_Questions.Items.Add("Один?");
+            DataGrid_SingleQuestions.Items.Add("Один?");
             foreach (var item in ComboBox_UserGroups.Items)
             {
                 string group = Convert.ToString(item);
@@ -104,10 +124,13 @@ namespace TelegramBot.WPF
             }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
 
-            _userListBox = new ListBox();
+           ListBox _userListBox = new ListBox();
+            Group newGroup = new Group(TextBox_NameOfGroup.Text);
+            _userListBox.ItemsSource = newGroup.UserGroups;
             TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
             _listOfListBox_Users.Add(_userListBox);
+            _dataBase.UserGroups.Add(newGroup);
 
             ControlTab_UserGroup.Items.Add(tmp);
             TextBox_NameOfGroup.Clear();
@@ -196,22 +219,22 @@ namespace TelegramBot.WPF
                 return;
             }
             
-            if( index !=0)
+            if( index > 0 && index < ComboBox_UserGroups.Items.Count)
             {
 
-                foreach(var userListBox in _listOfListBox_Users)
+                foreach (var userListBox in _listOfListBox_Users)
                 {
                     count++;
-                    if(index == count)
+                    if (index == count)
                     {
-                        if(_tmp != null)
+                        if (_tmp != null)
                         {
 
                             userListBox.Items.Add(_tmp);
                             _tmp = null;
                         }
                     }
-                }      
+                }
             }
             else
             {
@@ -573,7 +596,7 @@ namespace TelegramBot.WPF
 
         private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
         {
-            var question = ListBox_Questions.SelectedItem;
+            var question = DataGrid_SingleQuestions.SelectedItem;
 
 
             string message = (string)question;
@@ -583,5 +606,11 @@ namespace TelegramBot.WPF
             
 
         }
+
+        
+
+        
+
+        
     }
 }
