@@ -109,8 +109,7 @@ namespace TelegramBot.WPF
             {
                 return;
             }
-            ListView_ClasterQuestions.Items.Add("1");//test
-            DataGrid_SingleQuestions.Items.Add("Один?");
+
             foreach (var item in ComboBox_UserGroups.Items)
             {
                 string group = Convert.ToString(item);
@@ -586,7 +585,7 @@ namespace TelegramBot.WPF
 
                  TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_ClasterName.Text }, Content = _listView_ClasterQuestions };
                 _listOfListView_ClasterQuestions.Add(_listView_ClasterQuestions);
-                
+
                 TabControll_ClasterQuestions.Items.Add(tmp);
                 
                 tmp.Visibility = Visibility.Collapsed;
