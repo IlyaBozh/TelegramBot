@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
 using TelegramBot.BL;
+using TelegramBot.BL.DataBase;
 using TelegramBot.BL.Questions;
 
 namespace TelegramBot.WPF
@@ -31,6 +32,8 @@ namespace TelegramBot.WPF
         GroupBox _formAnswer;
         List<TypeOneVariant> _tryAnswers;
 
+        DataBase _dataBase;
+
         private List<ListBox> _listOfListBox_Users;
         private List<ListView> _listOfListView_ClasterQuestions;
         private ListView _listView_ClasterQuestions;
@@ -41,6 +44,8 @@ namespace TelegramBot.WPF
         
         public MainWindow()
         {
+            _dataBase = new DataBase();
+
             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();
             _labels.Add("sd");//test
