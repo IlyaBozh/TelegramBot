@@ -45,6 +45,7 @@ namespace TelegramBot.WPF
             _labels.Add("sd");
             _labels.Add("ssf");
             _listOfListBox_Users = new List <ListBox>();
+            _tryAnswers = new List<TypeOneVariant>();
             InitializeComponent();
 
             ListBox_Users.ItemsSource = _labels;
@@ -405,51 +406,24 @@ namespace TelegramBot.WPF
 
         private void DataGrid_ChangeAnswers_Loaded(object sender, RoutedEventArgs e)
         {
-            _tryAnswers = new List<TypeOneVariant>();
-            _tryAnswers.Add(new TypeOneVariant("как дела?","все хорошо"));
-            _tryAnswers.Add(new TypeOneVariant("как дела?", "все плохо"));
-
-            DataGrid_ChangeAnswers.ItemsSource = _tryAnswers;
-        }
-
-
-        private void DataGrid_ChangeAnswers_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
             
         }
 
         private void MenuItemEditСhange_ClickCut(object sender, RoutedEventArgs e)
         {
-            List<TypeOneVariant> tmp = new List<TypeOneVariant>();
-            
-            for (int i = 0; i < _tryAnswers.Count; i++)
+            int index = DataGrid_ChangeAnswers.SelectedIndex;
+            if (index == -1)
             {
-                tmp.Add(_tryAnswers[i]);
-
-                if(i == DataGrid_ChangeAnswers.SelectedIndex)
-                {
-                   tmp.Remove(_tryAnswers[i]);
-                   break;
-                }
+                return;
             }
-            DataGrid_ChangeAnswers.ItemsSource = tmp;
+            DataGrid_ChangeAnswers.Items.RemoveAt(index);
+            
         }
 
         private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
         {
             _tryAnswers.Add(new TypeOneVariant("", ""));
-            List<TypeOneVariant> tmp = new List<TypeOneVariant>();
-            for (int i = 0; i < _tryAnswers.Count; i++)
-            {
-                tmp.Add(_tryAnswers[i]);
-
-                if (i == DataGrid_ChangeAnswers.SelectedIndex)
-                {
-                    tmp.Add(_tryAnswers[i]);
-                }
-                
-            }
-            DataGrid_ChangeAnswers.ItemsSource = tmp;
+            DataGrid_ChangeAnswers.Items.Add(_tryAnswers);
         }
     }
 }
