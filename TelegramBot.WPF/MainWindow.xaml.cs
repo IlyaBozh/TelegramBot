@@ -45,6 +45,7 @@ namespace TelegramBot.WPF
             _labels.Add("sd");
             _labels.Add("ssf");
             _listOfListBox_Users = new List <ListBox>();
+            _tryAnswers = new List<TypeOneVariant>();
             InitializeComponent();
 
             ListBox_Users.ItemsSource = _labels;
@@ -413,22 +414,24 @@ namespace TelegramBot.WPF
 
         private void DataGrid_ChangeAnswers_Loaded(object sender, RoutedEventArgs e)
         {
-            _tryAnswers = new List<TypeOneVariant>();
-
-            DataGrid_ChangeAnswers.ItemsSource = _tryAnswers;
+            
         }
 
-
-        private void DataGrid_ChangeAnswers_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        private void MenuItemEditСhange_ClickCut(object sender, RoutedEventArgs e)
         {
-            List<TypeOneVariant> tmp = new List<TypeOneVariant>();
-
-            for (int i = 0; i < _tryAnswers.Count - 1; i++)
+            int index = DataGrid_ChangeAnswers.SelectedIndex;
+            if (index == -1)
             {
-                tmp.Add(_tryAnswers[i]);
+                return;
             }
+            DataGrid_ChangeAnswers.Items.RemoveAt(index);
+            
+        }
 
-            DataGrid_ChangeAnswers.ItemsSource = tmp;
+        private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
+        {
+            _tryAnswers.Add(new TypeOneVariant("", ""));
+            DataGrid_ChangeAnswers.Items.Add(_tryAnswers);
         }
 
        
