@@ -67,6 +67,9 @@ namespace TelegramBot.WPF
         {
             _labels.Add(s);
         }
+
+       
+
         private void OnTick(object sender, EventArgs e)
         {
             ListBox_Users.Items.Refresh();
@@ -82,6 +85,7 @@ namespace TelegramBot.WPF
                 return;
             }
             ListView_ClasterQuestions.Items.Add("1");//test
+            ListBox_Questions.Items.Add("Один?");
             foreach (var item in ComboBox_UserGroups.Items)
             {
                 string group = Convert.ToString(item);
@@ -559,6 +563,19 @@ namespace TelegramBot.WPF
                 
                 tmp.Visibility = Visibility.Collapsed;
             }
+
+        }
+
+        private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
+        {
+            var question = ListBox_Questions.SelectedItem;
+
+
+            string message = (string)question;
+           
+               
+            _tbot.Send(message);
+            
 
         }
     }

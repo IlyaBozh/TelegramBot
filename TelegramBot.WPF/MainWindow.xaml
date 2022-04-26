@@ -420,7 +420,7 @@
 
                         </ListView.Resources>
                     </ListView>
-                    <Button x:Name="Button_SendToBot" Grid.Column="1" Grid.Row="4" Content="отправить боту" Margin="10,0,0,0"  VerticalAlignment="Stretch"></Button>
+                    <Button x:Name="Button_SendToBot" Grid.Column="1" Grid.Row="4" Content="отправить боту" Margin="10,0,0,0"  VerticalAlignment="Stretch" Click="Button_SendToBot_Click"></Button>
 
                 </Grid>
             </TabItem>
