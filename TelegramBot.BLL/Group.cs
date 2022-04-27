@@ -45,5 +45,49 @@ namespace TelegramBot.BL
                 NameGroup = newName;
             }
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !(obj is Group))
+            {
+                return false;
+            }
+            Group group = (Group)obj;
+            if (group.NameGroup != NameGroup)
+            {
+                return false;
+            }
+            if (group.UserGroups.Count != UserGroups.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < UserGroups.Count; i++)
+            {
+                if (UserGroups[i].Name != group.UserGroups[i].Name)
+                {
+                    return false;
+                }
+
+                if (UserGroups[i].Id != group.UserGroups[i].Id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public override string ToString()
+        {
+            string str = $"[{NameGroup}: ";
+
+            for (int i = 0; i < UserGroups.Count; i++)
+            {
+                str += $"[{UserGroups[i].Name}; {UserGroups[i].Id}; {UserGroups[i].UserName}]";
+            }
+
+            str += "]";
+
+            return str;
+        }
     }
 }
