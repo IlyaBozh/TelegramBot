@@ -407,7 +407,7 @@
                     <TextBox x:Name="TextBox_Timer" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center" Margin="26,0,0,0" HorizontalAlignment="Left" Text="таймер" Width="50"></TextBox>
                     <ListBox x:Name="ListBox_Claster" Grid.Column="1" Grid.Row="3" Margin="10,4,0,0"></ListBox>
 
-                    <Button x:Name="Button_SendToBot" Grid.Column="1" Grid.Row="4" Content="отправить" Margin="0,4,0,0"  HorizontalAlignment="Right"></Button>
+                    <Button x:Name="Button_SendToBot" Grid.Column="1" Grid.Row="4" Content="отправить" Margin="0,4,0,0"  HorizontalAlignment="Right" Click="Button_SendToBot_Click"></Button>
 
                 </Grid>
             </TabItem>

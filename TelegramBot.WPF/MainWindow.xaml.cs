@@ -28,7 +28,7 @@ namespace TelegramBot.WPF
 
         private TBot _tbot;
         private const string _token = "5149025176:AAF9ywvM1nXIkvpfKK4wV7Fsy8nTapirCDE";
-        private List<string> _labels;
+        private List<string> _labels;// test
         private DispatcherTimer _timer;
         GroupBox _formVariant;
         GroupBox _formAnswer;
@@ -49,7 +49,7 @@ namespace TelegramBot.WPF
         public MainWindow()
         {
              _tbot = new TBot(_token, AddUsers);
-            _labels = new List<string>();
+            _labels = new List<string>();//test
             
 
             _listOfListBox_Users = new List <ListBox>();//test
@@ -113,17 +113,15 @@ namespace TelegramBot.WPF
        
 
         }
-        private void ButtonSend_Click(object sender, RoutedEventArgs e)
-        {
-            _tbot.Send(TextBox_Question.Text);
-        }
+       
         private void Button_AddGroup_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox_NameOfGroup.Text =="" || TextBox_NameOfGroup.Text is null)
             {
                 return;
             }
-
+            _labels.Add("sd");//test
+            DataGrid_SingleQuestions.ItemsSource = _labels;//test
             foreach (var item in ComboBox_UserGroups.Items)
             {
                 string group = Convert.ToString(item);
@@ -136,7 +134,7 @@ namespace TelegramBot.WPF
                 }
             }
             ComboBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
-
+            
             ListBox _userListBox = new ListBox();
             Group newGroup = new Group(TextBox_NameOfGroup.Text);
             _userListBox.ItemsSource = newGroup.UserGroups;
@@ -146,6 +144,9 @@ namespace TelegramBot.WPF
             _dataBase.UserGroups.Add(newGroup);
 
             ControlTab_UserGroup.Items.Add(tmp);
+
+            ListBox_UserGroups.Items.Add(TextBox_NameOfGroup.Text);
+
             TextBox_NameOfGroup.Clear();
 
             tmp.Visibility = Visibility.Collapsed;
@@ -561,23 +562,27 @@ namespace TelegramBot.WPF
 
         }
 
+
         private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
         {
             var question = DataGrid_SingleQuestions.SelectedItem;
+            int indexGroup = ListBox_UserGroups.SelectedIndex;
 
 
             string message = (string)question;
-           
-               
-            _tbot.Send(message);
-            
 
+            if(question is null || indexGroup == -1)
+            {
+                return;
+            }
+
+            foreach(User user in _dataBase.UserGroups[indexGroup-1].UserGroups)
+            {
+                _tbot.Send(message, user.Id);
+                    
+            }
+            DataGrid_SingleQuestions.SelectedItem = null;
+            ListBox_UserGroups.SelectedIndex = -1;
         }
-
-        
-
-        
-
-        
     }
 }

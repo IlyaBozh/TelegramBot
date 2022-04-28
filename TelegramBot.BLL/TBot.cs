@@ -5,6 +5,7 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
+
 namespace TelegramBot.BL
 {
     public class TBot
@@ -12,6 +13,7 @@ namespace TelegramBot.BL
         private TelegramBotClient _client;
         private Action<User> _users;
         private List<long> _ids;
+        
 
         public TBot(string token, Action <User> users)
         {
@@ -20,19 +22,14 @@ namespace TelegramBot.BL
             _ids = new List<long>();
         }
 
-        public async void Send(string message)
+        public async void Send(string message, long id)
         {
-            foreach (var id in _ids)
-            {
-                await _client.SendTextMessageAsync(new ChatId(id), message);
-            }
+            
+             await _client.SendTextMessageAsync(new ChatId(id), message);
+            
         }
 
-        public async void SendToGroup(string message)
-        {
-
-          
-        }
+      
 
         public void Start()
         {
