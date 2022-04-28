@@ -13,7 +13,7 @@ namespace TelegramBot.BL
         public string Name { get; set; }
         public string UserName { get; set; }
 
-        User(long id, string name, string userName)
+        public User(long id, string name, string userName)
         {
             Id = id;
             Name = name;
