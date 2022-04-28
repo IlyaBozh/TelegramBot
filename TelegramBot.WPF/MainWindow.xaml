@@ -395,7 +395,7 @@
                     <DataGrid x:Name="DataGrid_SingleQuestions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"></DataGrid>
                     <Label x:Name="Label_UserGroups" Content="Группы:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom"></Label>
                     <ListBox x:Name="ListBox_UserGroups" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Margin="0,4,10,0">
-                        <ListBoxItem>все</ListBoxItem>
+                        
                         <ListBoxItem>нераспределённые</ListBoxItem>
                     </ListBox>
                     <RadioButton Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="65" Margin="10,0,0,5" Visibility="Visible"></RadioButton>

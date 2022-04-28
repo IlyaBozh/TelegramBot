@@ -568,17 +568,14 @@ namespace TelegramBot.WPF
             var question = DataGrid_SingleQuestions.SelectedItem;
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
-
-            string message = (string)question;
-
             if(question is null || indexGroup == -1)
             {
                 return;
             }
 
-            foreach(User user in _dataBase.UserGroups[indexGroup-1].UserGroups)
+            foreach(User user in _dataBase.UserGroups[indexGroup].UserGroups)
             {
-                _tbot.Send(message, user.Id);
+                _tbot.Send((string)question, user.Id);
                     
             }
             DataGrid_SingleQuestions.SelectedItem = null;
