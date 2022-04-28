@@ -241,26 +241,7 @@ namespace TelegramBot.WPF
 
         }
        
-        private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
-        {
-            GroupBox_Test.Visibility = Visibility.Visible;
 
-            GroupBox_Poll.Visibility = Visibility.Hidden;
-
-            ComboBox_ChooseToll.Text = "";
-
-            HideExtraBoxes();
-        }
-        private void RadioButton_Poll_Click(object sender, RoutedEventArgs e)
-        {
-            GroupBox_Test.Visibility = Visibility.Hidden;
-
-            GroupBox_Poll.Visibility = Visibility.Visible;
-
-            ComboBox_ChooseTest.Text = "";
-
-            HideExtraBoxes();
-        }
         private void RadioButtonEdit_Test_Click(object sender, RoutedEventArgs e)
         {
             GroupBox_TestEdit.Visibility = Visibility.Visible;
@@ -281,58 +262,14 @@ namespace TelegramBot.WPF
 
             HideExtraBoxes();
         }
-        private void ComboBox_ChooseTest_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+
+        private void ComboBox_ChooseTestOrPoll_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Visible;
         }
-        private void ComboBox_ChooseToll_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GroupBox_ChoseTypeQuestion.Visibility = Visibility.Visible;
-        }
 
-        private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GroupBox_Question.Visibility = Visibility.Visible;
-
-            if (_formVariant is not null)
-            {
-                _formVariant.Visibility = Visibility.Hidden;
-            }
-
-            if (_formAnswer is not null)
-            {
-                _formAnswer.Visibility = Visibility.Hidden;
-            }
-
-            int tmp = ComboBox_ChooseQuestionType.SelectedIndex;
-
-            if (tmp == 1 || tmp == 2 || tmp == 4)
-            {
-                GroupBox_AddVariants.Visibility = Visibility.Visible;
-                _formVariant = GroupBox_AddVariants;
-            }
-
-            if (RadioButton_Test.IsChecked == true)
-            {
-                Label_TrueAnswer.Visibility = Visibility.Visible;
-
-                if (tmp == 3)
-                {
-                    GroupBox_AnswerYesOrNo.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AnswerYesOrNo;
-                }
-                else if (tmp == 0 || tmp == 1)
-                {
-                    GroupBox_TrueAnswer.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_TrueAnswer;
-                }
-                else
-                {
-                    GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AddTrueVarintsOrRigthOrder;
-                }
-            }
-        }
+       
         private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
@@ -392,6 +329,8 @@ namespace TelegramBot.WPF
             GroupBox_ChoseTypeQuestion.Visibility = Visibility.Hidden;
 
             ComboBox_ChooseQuestionType.Text = "";
+
+            Button_AddQuestion.Visibility = Visibility.Hidden;
 
             GroupBox_Question.Visibility = Visibility.Hidden;
 
@@ -568,6 +507,7 @@ namespace TelegramBot.WPF
             var question = DataGrid_SingleQuestions.SelectedItem;
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
+
             if(question is null || indexGroup == -1)
             {
                 return;
@@ -581,5 +521,334 @@ namespace TelegramBot.WPF
             DataGrid_SingleQuestions.SelectedItem = null;
             ListBox_UserGroups.SelectedIndex = -1;
         }
+
+        private void RadioButton_Test_Checked(object sender, RoutedEventArgs e)
+        {
+            Label_TestOrPoll.Content = "Тест:";
+            
+
+            foreach (Claster test in _dataBase.Tests)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Add(test.NameClaster);
+            }
+
+            foreach (Claster poll in _dataBase.Polls)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Remove(poll.NameClaster);
+            }
+        }
+
+        private void RadioButton_Poll_Checked(object sender, RoutedEventArgs e)
+        {
+            Label_TestOrPoll.Content = "Опрос:";
+           
+
+            foreach (Claster poll in _dataBase.Polls)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Add(poll.NameClaster);
+            }
+
+            foreach (Claster test in _dataBase.Tests)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Remove(test.NameClaster);
+            }
+        }
+
+
+
+
+        private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
+        {
+            GroupBox_Test.Visibility = Visibility.Visible;
+
+            ComboBox_ChooseTestOrPoll.Text = "";
+
+            HideExtraBoxes();
+
+          
+        }
+        private void RadioButton_Poll_Click(object sender, RoutedEventArgs e)
+        {
+            GroupBox_Test.Visibility = Visibility.Visible;
+
+            ComboBox_ChooseTestOrPoll.Text = "";
+
+            HideExtraBoxes();
+        }
+
+        private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GroupBox_Question.Visibility = Visibility.Visible;
+            Button_AddQuestion.Visibility = Visibility.Visible;
+
+            if (_formVariant is not null)
+            {
+                _formVariant.Visibility = Visibility.Hidden;
+            }
+
+            if (_formAnswer is not null)
+            {
+                _formAnswer.Visibility = Visibility.Hidden;
+            }
+
+            int tmp = ComboBox_ChooseQuestionType.SelectedIndex;
+
+            if (tmp == 1 || tmp == 2 || tmp == 4)
+            {
+                GroupBox_AddVariants.Visibility = Visibility.Visible;
+                _formVariant = GroupBox_AddVariants;
+            }
+
+            if (RadioButton_Test.IsChecked == true)
+            {
+                Label_TrueAnswer.Visibility = Visibility.Visible;
+
+                if (tmp == 3)
+                {
+                    GroupBox_AnswerYesOrNo.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AnswerYesOrNo;
+                }
+                else if (tmp == 0 || tmp == 1)
+                {
+                    GroupBox_TrueAnswer.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_TrueAnswer;
+                }
+                else
+                {
+                    GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AddTrueVarintsOrRigthOrder;
+                }
+            }
+        }
+
+
+        #region Add Question in TAB CreateQuestion
+        private void Button_AddQuestion_Click(object sender, RoutedEventArgs e)
+        {
+            if(!CheckBoxes())
+            {
+                return;
+            }
+
+            if (ComboBox_ChooseTestOrPoll.SelectedIndex == 0)
+            {
+                if(RadioButton_Test.IsChecked == true)
+                {
+                    _dataBase.TestSingelQuestions.Add(GetQuestionWhithAnswer());
+                    ClearBoxes();
+                }
+                else
+                {
+                    _dataBase.TestSingelPolls.Add(GetQuestionWhithoutAnswer());
+                    ClearBoxes();
+                }
+            }
+            else
+            {
+                if (RadioButton_Test.IsChecked == true)
+                {
+                    _dataBase.Tests[ComboBox_ChooseTestOrPoll.SelectedIndex].Add(GetQuestionWhithAnswer());
+                    ClearBoxes();
+                }
+                else
+                {
+                    _dataBase.Polls[ComboBox_ChooseTestOrPoll.SelectedIndex].Add(GetQuestionWhithoutAnswer());
+                    ClearBoxes();
+                }
+            }
+        }
+
+        private void ClearBoxes()
+        {
+            TextBox_Question.Text = "";
+            TextBox_OneOrFewVariants.Text = "";
+            ComboBox_AllVariants.Items.Clear();
+            /*ComboBox_AllVariants.SelectedIndex = 0;*/
+            TextBox_TrueAnswer.Text = "";
+            TextBox_OneOrFewTrueAnswers.Text = "";
+            ComboBox_AllTrueVariants.Items.Clear();
+            RadioButton_No.IsChecked = false;
+            RadioButton_Yes.IsChecked = false;
+        }
+
+        private AbstractQuestion GetQuestionWhithoutAnswer()
+        {
+            List<string> tmp_1 = new List<string>();
+
+            foreach (string variant in ComboBox_AllVariants.Items)
+            {
+                tmp_1.Add(variant);
+            }
+
+            switch (ComboBox_ChooseQuestionType.SelectedIndex)
+            {
+                case 0:
+                    return new TypeUserAnswer(TextBox_Question.Text);
+                case 1:
+                    return new TypeOneVariant(TextBox_Question.Text, tmp_1);
+                case 2:
+                    return new TypeSeveralVariants(TextBox_Question.Text, tmp_1);
+                case 3:
+                    return new TypeYesOrNo(TextBox_Question.Text);
+                case 4:
+                    return new TypeRightOrder(TextBox_Question.Text, tmp_1);
+                default:
+                    return new TypeRightOrder("adwad", tmp_1);
+            }
+        }
+
+        private AbstractQuestion GetQuestionWhithAnswer()
+        {
+            List<string> tmp_1 = new List<string>();
+            List<string> tmp_2 = new List<string>();
+            string tmp_3;
+            if(RadioButton_Yes.IsChecked == true)
+            {
+                tmp_3 = "Да";
+            }
+            else
+            {
+                tmp_3 = "Нет";
+            }
+
+            foreach (string variant in ComboBox_AllVariants.Items)
+            {
+                tmp_1.Add(variant);
+            }
+            foreach (string variant in ComboBox_AllTrueVariants.Items)
+            {
+                tmp_2.Add(variant);
+            }
+
+            switch (ComboBox_ChooseQuestionType.SelectedIndex)
+            { 
+                case 0:
+                    return new TypeUserAnswer(TextBox_Question.Text, TextBox_TrueAnswer.Text);
+                case 1:
+                    return new TypeOneVariant(TextBox_Question.Text, TextBox_TrueAnswer.Text, tmp_1);
+                case 2:
+                    return new TypeSeveralVariants(TextBox_Question.Text, tmp_2, tmp_1);
+                case 3:
+                    return new TypeYesOrNo(TextBox_Question.Text, tmp_3);
+                case 4:
+                    return new TypeRightOrder(TextBox_Question.Text, tmp_2, tmp_1);
+                default:
+                    return new TypeRightOrder("adwad", tmp_2, tmp_1);
+            }    
+        }
+
+
+        private bool CheckBoxes()
+        {
+            if (RadioButton_Test.IsChecked == true)
+            {
+                if (!IsNotEmptyBoxQuestion() || !IsNotEmptyBoxAnswer())
+                {
+                    MessageBox.Show("Fill in the fields", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+            else
+            {
+                if (!IsNotEmptyBoxQuestion())
+                {
+                    MessageBox.Show("Fill in the fields", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool IsNotEmptyBoxQuestion()
+        {
+            bool result = true;
+            int index = ComboBox_ChooseQuestionType.SelectedIndex;
+
+            if (TextBox_Question.Text == "")
+            {
+                result = false;
+            }
+
+            if (index == 2 || index == 4)
+            {
+                if (ComboBox_AllVariants.Items.Count < 2)
+                {
+                    result = false;
+                }
+            }
+            else
+            {
+                if (ComboBox_AllVariants.Items.Count < 2 && index != 0 && index != 3)
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        private bool IsNotEmptyBoxAnswer()
+        {
+            bool result = true;
+            int index = ComboBox_ChooseQuestionType.SelectedIndex;
+
+            if (index == 2 || index == 4)
+            {
+                if (ComboBox_AllTrueVariants.Items.Count < 2)
+                {
+                    result = false;
+                }
+            }
+            else if (index == 0 || index == 1)
+            {
+                if (TextBox_TrueAnswer.Text == "")
+                {
+                    result = false;
+                }
+            }
+            else
+            {
+                if (RadioButton_No.IsChecked == false && RadioButton_Yes.IsChecked == false)
+                {
+                    result = false;
+                }
+            }
+
+            return result;
+        }
+
+        private void Button_AddOneOrFewVariants_Click(object sender, RoutedEventArgs e)
+        {
+            if(TextBox_OneOrFewVariants.Text != "")
+            {
+                ComboBox_AllVariants.Items.Add(TextBox_OneOrFewVariants.Text);
+            }
+        }
+
+        private void Button_RemoveOneOrFewVariants_Click(object sender, RoutedEventArgs e)
+        {
+            if(ComboBox_AllVariants.Items.Count != 0)
+            {
+                ComboBox_AllVariants.Items.RemoveAt(ComboBox_AllVariants.Items.Count - 1);
+            }
+        }
+
+        private void Button_RemoveOneOrFewTrueAnswers_Click(object sender, RoutedEventArgs e)
+        {
+            if (ComboBox_AllTrueVariants.Items.Count != 0)
+            {
+                ComboBox_AllTrueVariants.Items.RemoveAt(ComboBox_AllTrueVariants.Items.Count - 1);
+            }
+        }
+
+        private void Button_AddOneOrFewTrueAnswers_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_OneOrFewTrueAnswers.Text != "")
+            {
+                ComboBox_AllTrueVariants.Items.Add(TextBox_OneOrFewVariants.Text);
+            }
+        }
+        #endregion
     }
 }
