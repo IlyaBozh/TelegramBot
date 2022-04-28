@@ -195,7 +195,7 @@ namespace TelegramBot.WPF
 
             
            _tmpUser = _dataBase.UserGroups[indexGroup].UserGroups[indexUser];
-           _dataBase.UserGroups[indexGroup].DeleteUser(_tmpUser.Id);
+           _dataBase.UserGroups[indexGroup].DeleteUserById(_tmpUser.Id);
 
 
         }
