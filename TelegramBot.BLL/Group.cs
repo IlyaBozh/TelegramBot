@@ -10,15 +10,17 @@ namespace TelegramBot.BL
     {
         public List<User> UserGroups { get; set; }
         public string NameGroup { get; set; }
+
         public Group(string name)
         {
-            NameGroup = name;           
+            NameGroup = name;
+            UserGroups=new List<User>();
         }
 
-        public Group(string name, List<User> userGroups)
+        public Group(string name, List<User> GroupUsers)
         {
             NameGroup = name;
-            UserGroups = userGroups;
+            UserGroups = GroupUsers;
         }
         public void AddUser(User newUser)
         {

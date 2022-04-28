@@ -8,16 +8,26 @@ namespace TelegramBot.BL
 {
     public class User
     {
+        private string? firstName;
+        private string? lastName;
+
         public long Id { get; set; }
 
         public string Name { get; set; }
         public string UserName { get; set; }
 
-        public User(long id, string name, string userName)
+        //User(long id, string name, string userName)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    UserName = userName;
+        //}
+
+        public User(string firstName, string lastName, long id)
         {
+            Name = firstName;
+            UserName = lastName;
             Id = id;
-            Name = name;
-            UserName = userName;
         }
 
         public void ChangeName(string newName)

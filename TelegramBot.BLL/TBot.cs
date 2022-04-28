@@ -5,28 +5,31 @@ using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
 
+
 namespace TelegramBot.BL
 {
     public class TBot
     {
         private TelegramBotClient _client;
-        private Action<string> _users;
+        private Action<User> _users;
         private List<long> _ids;
+        
 
-        public TBot(string token, Action<string> users)
+        public TBot(string token, Action <User> users)
         {
             _client = new TelegramBotClient(token);
             _users = users;
             _ids = new List<long>();
         }
 
-        public async void Send(string message)
+        public async void Send(string message, long id)
         {
-            foreach (var id in _ids)
-            {
-                await _client.SendTextMessageAsync(new ChatId(id), message);
-            }
+            
+             await _client.SendTextMessageAsync(new ChatId(id), message);
+            
         }
+
+      
 
         public void Start()
         {
@@ -42,8 +45,10 @@ namespace TelegramBot.BL
                 if (!_ids.Contains(update.Message.Chat.Id))
                 {
                     _ids.Add(update.Message.Chat.Id);
-                    string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
-                    _users(userName);
+                    User newUser = new User(update.Message.Chat.FirstName, update.Message.Chat.LastName, update.Message.Chat.Id);
+                    _users(newUser);
+                    //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
+                    //_users(userName);
                 }
                
 
