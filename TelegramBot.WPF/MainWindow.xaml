@@ -39,11 +39,7 @@
                     <MenuItem Header="Вставить" Click="MenuItem_ClickInsert"/>
                 </ContextMenu>
             </TabControl.ContextMenu>
-            <TabItem Header="Unallocated" Visibility="Collapsed" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Opacity="0">
-                <Grid Background="#FFE5E5E5">
-                    <ListBox x:Name="ListBox_Users" Grid.Column="1" Grid.Row="3" Background="#FF4D5456" Margin="0" d:ItemsSource="{d:SampleData ItemCount=0}"/>
-                </Grid>
-            </TabItem>
+            
 
 
         </TabControl>

@@ -24,7 +24,7 @@ namespace TelegramBot.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private User testContextMenu;
+        
 
         private TBot _tbot;
         private const string _token = "5149025176:AAF9ywvM1nXIkvpfKK4wV7Fsy8nTapirCDE";
@@ -41,7 +41,8 @@ namespace TelegramBot.WPF
         private List<ListView> _listOfListView_ClasterQuestions;
         private ListView _listView_ClasterQuestions;
        
-        private string _tmp;
+       
+        private User _tmpUser;
         private string _tmpListView;
 
         
@@ -68,6 +69,7 @@ namespace TelegramBot.WPF
         {
             
             _dataBase = new DataBase();
+
             ComboBox_UserGroups.SelectedIndex = 0;
 
             ListBox _userListBox = new ListBox();
@@ -79,7 +81,7 @@ namespace TelegramBot.WPF
             ControlTab_UserGroup.Items.Add(tmp);
             TextBox_NameOfGroup.Clear();
 
-            tmp.Visibility = Visibility.Collapsed;
+            tmp.Visibility = Visibility.Hidden;
 
             ComboBox_UserGroups.Items.Add(_dataBase.UserGroups[0].NameGroup);
 
@@ -90,23 +92,24 @@ namespace TelegramBot.WPF
 
              _dataBase.UserGroups[0].AddUser(newUser);
             
-            //_labels.Add(s);
+            
         }
 
        
 
         private void OnTick(object sender, EventArgs e)
         {
+            int indexGroup = ComboBox_UserGroups.SelectedIndex;
 
             List<string> forUsers = new List<string>();
 
-            foreach (User user in _dataBase.UserGroups[0].UserGroups)
+            foreach (User user in _dataBase.UserGroups[indexGroup].UserGroups)
             {
                 forUsers.Add($"{user.Name} {user.Id}");
             }
-            ListBox_Users.ItemsSource = forUsers;
+            _listOfListBox_Users[indexGroup].ItemsSource = forUsers;
 
-            ListBox_Users.Items.Refresh();
+            
        
 
         }
@@ -179,102 +182,37 @@ namespace TelegramBot.WPF
        
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
         {
-            int index = ComboBox_UserGroups.SelectedIndex;
-            int indexUser = ListBox_Users.SelectedIndex;
-            int count = 0;
+            int indexGroup = ComboBox_UserGroups.SelectedIndex;
+            int indexUser = _listOfListBox_Users[indexGroup].SelectedIndex;
 
-            if (ComboBox_UserGroups.SelectedIndex < 0 || _tmp is not null)
+
+
+            if (ComboBox_UserGroups.SelectedIndex < 0 || indexUser < 0 || _tmpUser is not null)
             {
                 return;
             }
 
             
-            if(index == 0)
-            {
-                List<string> forUsers = new List<string>();
-                foreach (User user in _dataBase.UserGroups[0].UserGroups)
-                {
-                    forUsers.Add($"{user.Name} {user.Id}");
-                }
-                _tmp = (string)ListBox_Users.Items[indexUser];
+           _tmpUser = _dataBase.UserGroups[indexGroup].UserGroups[indexUser];
+           _dataBase.UserGroups[indexGroup].DeleteUser(_tmpUser.Id);
 
-                forUsers.Remove(_tmp);
-                ListBox_Users.ItemsSource = forUsers;
-    
-                testContextMenu = _dataBase.UserGroups[0].UserGroups[indexUser];
-                _dataBase.UserGroups[0].DeleteUser(testContextMenu.Id);
-            }
-            else 
-            {
-                foreach (var userListBox in _listOfListBox_Users)
-                {
-                    count++;
-                    if(index == count)
-                    {
-                        for(int i = 0; i < userListBox.Items.Count; i++)
-                        {
-                            if(userListBox.SelectedIndex>=0 && i == userListBox.SelectedIndex)
-                            {
-                                _tmp = Convert.ToString(userListBox.Items[i]);
-                                userListBox.Items.RemoveAt(userListBox.SelectedIndex);
-                                
-                            }         
-                           
-                        }
-                    }
-                }
-            }
+
         }
 
 
         private void MenuItem_ClickInsert(object sender, RoutedEventArgs e)
         {
-            int index = ComboBox_UserGroups.SelectedIndex;
-            int count = 0;
+            int indexGroup = ComboBox_UserGroups.SelectedIndex;
+            int indexUser = _listOfListBox_Users[indexGroup].SelectedIndex;
 
-            if (ComboBox_UserGroups.SelectedIndex < 0 )
+            if (ComboBox_UserGroups.SelectedIndex < 0 || _tmpUser is null)
             {
                 return;
             }
 
-            List<string> forUsers = new List<string>();
+            _dataBase.UserGroups[indexGroup].AddUser(_tmpUser);
+            _tmpUser = null;
 
-            foreach (User user in _dataBase.UserGroups[index].UserGroups)
-            {
-                forUsers.Add($"{user.Name} {user.Id}");
-            }
-
-            if ( index > 0 && index < ComboBox_UserGroups.Items.Count)
-            {
-
-                foreach (var userListBox in _listOfListBox_Users)
-                {
-                    count++;
-                    if (index == count)
-                    {
-                        if (_tmp != null)
-                        {
-                            forUsers.Add(_tmp);
-                            userListBox.ItemsSource = forUsers;
-                            _tmp = null;
-                            _dataBase.UserGroups[index].AddUser(testContextMenu);
-                            testContextMenu = null;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                if(_tmp != null)
-                {
-                    forUsers.Add(_tmp);
-                    ListBox_Users.ItemsSource = forUsers;
-                    _tmp = null;
-                    _dataBase.UserGroups[0].AddUser(testContextMenu);
-                    testContextMenu = null;
-                }
-            }
-           
         }
 
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
