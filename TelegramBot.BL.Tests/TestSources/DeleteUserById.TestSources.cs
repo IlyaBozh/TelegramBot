@@ -27,8 +27,6 @@ namespace TelegramBot.BL.Tests.TestSources
             };
             List<User> TestUsersGroupThree = new List<User>()
             {
-                new User(123456781, "Valera", "Val123"),
-                new User(123456782, "Kesha", "Kesha123"),
                 new User(123456783, "Nusha", "Nusha123"),
             };
 
@@ -42,11 +40,8 @@ namespace TelegramBot.BL.Tests.TestSources
                 new User(123456782, "Kesha", "Kesha123"),
                 new User(123456783, "Nusha", "Nusha123"),
             };
-            List<User> ThirdNewUsersGroup = new List<User>()
-            {
-                new User(123456781, "Valera", "Val123"),
-                new User(123456782, "Kesha", "Kesha123"),
-            };
+            List<User> ThirdNewUsersGroup = new List<User>();
+            
 
 
             long id = 123456782;

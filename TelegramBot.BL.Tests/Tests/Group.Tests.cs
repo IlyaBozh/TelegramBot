@@ -41,5 +41,14 @@ namespace TelegramBot.BL.Tests
 
             Assert.AreEqual(expectedGroup, actualGroup);
         }
+        [TestCaseSource(typeof(EditTestSource))]
+        public void EditTest(string newName, Group newGroup, Group expectedGroup)
+        {
+            Group actualGroup = newGroup;
+            actualGroup.Edit(newName);
+
+            Assert.AreEqual(expectedGroup, actualGroup);
+        }
+
     }
 }

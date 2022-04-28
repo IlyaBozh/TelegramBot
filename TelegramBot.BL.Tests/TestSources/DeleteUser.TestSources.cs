@@ -18,15 +18,31 @@ namespace TelegramBot.BL.Tests.TestSources
                 new User(123456782, "Kesha", "Kesha123"),
                 new User(123456783, "Nusha", "Nusha123"),
             };
+            List<User> UsersGroupTwo = new List<User>()
+            {
+                new User(123456781, "Valera", "Val123"),
+                new User(123456782, "Kesha", "Kesha123"),
+                new User(123456783, "Nusha", "Nusha123"),
+            };
             List<User> newUsersGroup = new List<User>()
             {
                 new User(123456781, "Valera", "Val123"),
+                new User(123456783, "Nusha", "Nusha123"),
+            };
+            List<User> newUsersGroupTwo = new List<User>()
+            {
+                new User(123456782, "Kesha", "Kesha123"),
                 new User(123456783, "Nusha", "Nusha123"),
             };
 
             User newUser = new User(123456782, "Kesha", "Kesha123");
             Group actualGroup = new Group("Красавчики", UsersGroup);
             Group expectedGroup = new Group("Красавчики", newUsersGroup);
+            yield return new object[] { newUser, actualGroup, expectedGroup };
+
+            newUser = new User(123456781, "Valera", "Val123");
+            actualGroup = new Group("Красавчики", UsersGroupTwo);
+            expectedGroup = new Group("Красавчики", newUsersGroupTwo);
             yield return new object[] { newUser, actualGroup, expectedGroup };
 
         }

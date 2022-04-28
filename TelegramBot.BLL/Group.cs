@@ -38,15 +38,23 @@ namespace TelegramBot.BL
         }
         public void DeleteUserById(long id)
         {
-            UserGroups.RemoveAll(User => User.Id == id);
+            foreach (User user in UserGroups)
+            {
+                if (id == user.Id)
+                {
+                    UserGroups.Remove(user);
+                    break;
+                }
+            }
         }
 
-        public void Edit(string name, string newName)
+        public void Edit(string newName)
         {
-            if (newName != "" && newName != " ")
+            if (newName == null)
             {
-                NameGroup = newName;
+                throw new ArgumentNullException(nameof(newName));
             }
+            NameGroup = newName;
         }
 
         public override bool Equals(object? obj)
