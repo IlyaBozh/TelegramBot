@@ -9,12 +9,15 @@ namespace TelegramBot.BL
     public class Group
     {
         public List<User> UserGroups { get; set; }
-
         public string NameGroup { get; set; }
+<<<<<<<
 
 
 
 
+=======
+
+>>>>>>>
         public Group(string name)
         {
             NameGroup = name;
@@ -26,17 +29,27 @@ namespace TelegramBot.BL
             NameGroup = name;
             UserGroups = GroupUsers;
         }
-
-        public void AddUser(User user)
+        public void AddUser(User newUser)
         {
-            UserGroups.Add(user);
-        }
-
-        public void DeleteUser(long id)
-        {
-            foreach(User user in UserGroups)
+            if(newUser is null)
             {
-                if(id == user.Id)
+                throw new ArgumentNullException(nameof(newUser));
+            }
+            UserGroups.Add(newUser);
+        }
+        public void DeleteUser(User newUser)
+        {
+            if (newUser is null)
+            {
+                throw new ArgumentNullException(nameof(newUser));
+            }
+            UserGroups.RemoveAll(User => User.Name == newUser.Name);
+        }
+        public void DeleteUserById(long id)
+        {
+            foreach (User user in UserGroups)
+            {
+                if (id == user.Id)
                 {
                     UserGroups.Remove(user);
                     break;
@@ -44,17 +57,57 @@ namespace TelegramBot.BL
             }
         }
 
-        //public void DeleteUserById(User id)
-        //{
-        //    UserGroups.Remove(id);
-        //}
-
-        public void Edit(string name, string newName)
+        public void Edit(string newName)
         {
-            if (newName != "" && newName != " ")
+            if (newName == null)
             {
-                NameGroup = newName;
+                throw new ArgumentNullException(nameof(newName));
             }
+            NameGroup = newName;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !(obj is Group))
+            {
+                return false;
+            }
+            Group group = (Group)obj;
+            if (group.NameGroup != NameGroup)
+            {
+                return false;
+            }
+            if (group.UserGroups.Count != UserGroups.Count)
+            {
+                return false;
+            }
+            for (int i = 0; i < UserGroups.Count; i++)
+            {
+                if (UserGroups[i].Name != group.UserGroups[i].Name)
+                {
+                    return false;
+                }
+
+                if (UserGroups[i].Id != group.UserGroups[i].Id)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public override string ToString()
+        {
+            string str = $"[{NameGroup}: ";
+
+            for (int i = 0; i < UserGroups.Count; i++)
+            {
+                str += $"[{UserGroups[i].Name}; {UserGroups[i].Id}; {UserGroups[i].UserName}]";
+            }
+
+            str += "]";
+
+            return str;
         }
     }
 }
