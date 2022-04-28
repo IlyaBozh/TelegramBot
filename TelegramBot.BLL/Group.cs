@@ -9,9 +9,7 @@ namespace TelegramBot.BL
     public class Group
     {
         public List<User> UserGroups { get; set; }
-
         public string NameGroup { get; set; }
-
         public Group(string name)
         {
             NameGroup = name;           
@@ -22,21 +20,26 @@ namespace TelegramBot.BL
             NameGroup = name;
             UserGroups = userGroups;
         }
-
-        public void AddUser(User name)
+        public void AddUser(User newUser)
         {
-            UserGroups.Add(name);
+            if(newUser is null)
+            {
+                throw new ArgumentNullException(nameof(newUser));
+            }
+            UserGroups.Add(newUser);
         }
-
-        public void DeleteUser(User name)
+        public void DeleteUser(User newUser)
         {
-            UserGroups.Remove(name);
+            if (newUser is null)
+            {
+                throw new ArgumentNullException(nameof(newUser));
+            }
+            UserGroups.RemoveAll(User => User.Name == newUser.Name);
         }
-
-        //public void DeleteUserById(User id)
-        //{
-        //    UserGroups.Remove(id);
-        //}
+        public void DeleteUserById(long id)
+        {
+            UserGroups.RemoveAll(User => User.Id == id);
+        }
 
         public void Edit(string name, string newName)
         {
