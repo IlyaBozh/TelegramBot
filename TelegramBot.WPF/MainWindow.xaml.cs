@@ -348,7 +348,9 @@ namespace TelegramBot.WPF
 
             GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Hidden;
 
-            TextBox_OneOrFewTrueAnswers.Text = "";
+            /*TextBox_OneOrFewTrueAnswers.Text = "";*/
+
+            ListBox_Variants.Items.Clear();
 
             GroupBox_TrueAnswer.Visibility = Visibility.Hidden;
 
@@ -576,51 +578,6 @@ namespace TelegramBot.WPF
             HideExtraBoxes();
         }
 
-        private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            GroupBox_Question.Visibility = Visibility.Visible;
-            Button_AddQuestion.Visibility = Visibility.Visible;
-
-            if (_formVariant is not null)
-            {
-                _formVariant.Visibility = Visibility.Hidden;
-            }
-
-            if (_formAnswer is not null)
-            {
-                _formAnswer.Visibility = Visibility.Hidden;
-            }
-
-            int tmp = ComboBox_ChooseQuestionType.SelectedIndex;
-
-            if (tmp == 1 || tmp == 2 || tmp == 4)
-            {
-                GroupBox_AddVariants.Visibility = Visibility.Visible;
-                _formVariant = GroupBox_AddVariants;
-            }
-
-            if (RadioButton_Test.IsChecked == true)
-            {
-                Label_TrueAnswer.Visibility = Visibility.Visible;
-
-                if (tmp == 3)
-                {
-                    GroupBox_AnswerYesOrNo.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AnswerYesOrNo;
-                }
-                else if (tmp == 0 || tmp == 1)
-                {
-                    GroupBox_TrueAnswer.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_TrueAnswer;
-                }
-                else
-                {
-                    GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AddTrueVarintsOrRigthOrder;
-                }
-            }
-        }
-
 
         #region Add Question in TAB CreateQuestion
         private void Button_AddQuestion_Click(object sender, RoutedEventArgs e)
@@ -658,15 +615,55 @@ namespace TelegramBot.WPF
             }
         }
 
+        private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            GroupBox_Question.Visibility = Visibility.Visible;
+            Button_AddQuestion.Visibility = Visibility.Visible;
+
+            if (_formVariant is not null)
+            {
+                _formVariant.Visibility = Visibility.Hidden;
+            }
+
+            if (_formAnswer is not null)
+            {
+                _formAnswer.Visibility = Visibility.Hidden;
+            }
+
+            int tmp = ComboBox_ChooseQuestionType.SelectedIndex;
+
+            if (tmp == 1 || tmp == 2 || tmp == 4)
+            {
+                GroupBox_AddVariants.Visibility = Visibility.Visible;
+                GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Visible;
+                _formAnswer = GroupBox_AddTrueVarintsOrRigthOrder;
+                _formVariant = GroupBox_AddVariants;
+            }
+
+            if (RadioButton_Test.IsChecked == true)
+            {
+                Label_TrueAnswer.Visibility = Visibility.Visible;
+
+                if (tmp == 3)
+                {
+                    GroupBox_AnswerYesOrNo.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AnswerYesOrNo;
+                }
+                else if (tmp == 0)
+                {
+                    GroupBox_TrueAnswer.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_TrueAnswer;
+                }
+            }
+            ClearBoxes();
+        }
+
         private void ClearBoxes()
         {
             TextBox_Question.Text = "";
             TextBox_OneOrFewVariants.Text = "";
-            ComboBox_AllVariants.Items.Clear();
-            /*ComboBox_AllVariants.SelectedIndex = 0;*/
             TextBox_TrueAnswer.Text = "";
-            TextBox_OneOrFewTrueAnswers.Text = "";
-            ComboBox_AllTrueVariants.Items.Clear();
+            ListBox_Variants.Items.Clear();
             RadioButton_No.IsChecked = false;
             RadioButton_Yes.IsChecked = false;
         }
@@ -675,9 +672,9 @@ namespace TelegramBot.WPF
         {
             List<string> tmp_1 = new List<string>();
 
-            foreach (string variant in ComboBox_AllVariants.Items)
+            foreach (RadioButton variant in ListBox_Variants.Items)
             {
-                tmp_1.Add(variant);
+                tmp_1.Add((string)variant.Content);
             }
 
             switch (ComboBox_ChooseQuestionType.SelectedIndex)
@@ -711,13 +708,16 @@ namespace TelegramBot.WPF
                 tmp_3 = "Нет";
             }
 
-            foreach (string variant in ComboBox_AllVariants.Items)
+            foreach (RadioButton variant in ListBox_Variants.Items)
             {
-                tmp_1.Add(variant);
+                tmp_1.Add((string) variant.Content);
             }
-            foreach (string variant in ComboBox_AllTrueVariants.Items)
+            foreach (RadioButton answer in ListBox_Variants.Items)
             {
-                tmp_2.Add(variant);
+                if (answer.IsChecked == true)
+                {
+                    tmp_2.Add((string)answer.Content);
+                }
             }
 
             switch (ComboBox_ChooseQuestionType.SelectedIndex)
@@ -772,14 +772,14 @@ namespace TelegramBot.WPF
 
             if (index == 2 || index == 4)
             {
-                if (ComboBox_AllVariants.Items.Count < 2)
+                if (ListBox_Variants.Items.Count < 2)
                 {
                     result = false;
                 }
             }
             else
             {
-                if (ComboBox_AllVariants.Items.Count < 2 && index != 0 && index != 3)
+                if (ListBox_Variants.Items.Count < 2 && index != 0 && index != 3)
                 {
                     result = false;
                 }
@@ -792,10 +792,19 @@ namespace TelegramBot.WPF
         {
             bool result = true;
             int index = ComboBox_ChooseQuestionType.SelectedIndex;
+            int countAnswer = 0;
+
+            foreach (RadioButton answer in ListBox_Variants.Items)
+            {
+                if (answer.IsChecked == true)
+                {
+                    countAnswer += 1;
+                }
+            }
 
             if (index == 2 || index == 4)
-            {
-                if (ComboBox_AllTrueVariants.Items.Count < 2)
+            { 
+                if (countAnswer < 2)
                 {
                     result = false;
                 }
@@ -820,33 +829,30 @@ namespace TelegramBot.WPF
 
         private void Button_AddOneOrFewVariants_Click(object sender, RoutedEventArgs e)
         {
-            if(TextBox_OneOrFewVariants.Text != "")
+            if(TextBox_OneOrFewVariants.Text == "")
             {
-                ComboBox_AllVariants.Items.Add(TextBox_OneOrFewVariants.Text);
+                return;
             }
+
+            if(ComboBox_ChooseQuestionType.SelectedIndex == 1)
+            {
+                RadioButton variant = new RadioButton() { Content = TextBox_OneOrFewVariants.Text};
+                ListBox_Variants.Items.Add(variant);
+            }
+            else
+            {
+                CheckBox variant = new CheckBox() { Content = TextBox_OneOrFewVariants.Text};
+                ListBox_Variants.Items.Add(variant);
+            }
+
+            TextBox_OneOrFewVariants.Text = "";
         }
 
         private void Button_RemoveOneOrFewVariants_Click(object sender, RoutedEventArgs e)
         {
-            if(ComboBox_AllVariants.Items.Count != 0)
+            if(ListBox_Variants.Items.Count != 0)
             {
-                ComboBox_AllVariants.Items.RemoveAt(ComboBox_AllVariants.Items.Count - 1);
-            }
-        }
-
-        private void Button_RemoveOneOrFewTrueAnswers_Click(object sender, RoutedEventArgs e)
-        {
-            if (ComboBox_AllTrueVariants.Items.Count != 0)
-            {
-                ComboBox_AllTrueVariants.Items.RemoveAt(ComboBox_AllTrueVariants.Items.Count - 1);
-            }
-        }
-
-        private void Button_AddOneOrFewTrueAnswers_Click(object sender, RoutedEventArgs e)
-        {
-            if (TextBox_OneOrFewTrueAnswers.Text != "")
-            {
-                ComboBox_AllTrueVariants.Items.Add(TextBox_OneOrFewVariants.Text);
+                ListBox_Variants.Items.RemoveAt(ListBox_Variants.Items.Count - 1);
             }
         }
         #endregion
