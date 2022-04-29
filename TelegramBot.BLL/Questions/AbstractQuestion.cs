@@ -128,63 +128,54 @@ namespace TelegramBot.BL.Questions
             {
                 return false;
             }
-            if (question.TrueAnswers.Count != TrueAnswers.Count)
-            {
-                return false;
-            }
-            if (question.UserAnswers.Count != UserAnswers.Count)
-            {
-                return false;
-            }
+            //if (question.TrueAnswers.Count != TrueAnswers.Count)
+            //{
+            //    return false;
+            //}
+            //if (question.UserAnswers.Count != UserAnswers.Count)
+            //{
+            //    return false;
+            //}
             for (int i = 0; i < Variants.Count; i++)
             {
                 if (Variants[i] != question.Variants[i])
                 {
                     return false;
                 }
-
             }
-            for (int i = 0; i < TrueAnswers.Count; i++)
-            {
-                if (TrueAnswers[i] != question.TrueAnswers[i])
-                {
-                    return false;
-                }
-            }
-            for (int i = 0; i < UserAnswers.Count; i++)
-            {
-                if (UserAnswers[i] != question.UserAnswers[i])
-                {
-                    return false;
-                }
-            }
+            //for (int i = 0; i < TrueAnswers.Count; i++)
+            //{
+            //    if (TrueAnswers[i] != question.TrueAnswers[i])
+            //    {
+            //        return false;
+            //    }
+            //}
+            //for (int i = 0; i < UserAnswers.Count; i++)
+            //{
+            //    if (UserAnswers[i] != question.UserAnswers[i])
+            //    {
+            //        return false;
+            //    }
+            //}
             return true;
         }
         public override string ToString()
         {
-            string tmp = $"{Description},{TrueAnswer},{UserAnswer} ";
+            string tmp = $"[{Description}]";
 
-            if (Variants.Count > 0)
+            for (int i = 0; i < Variants.Count; i++)
             {
-                for (int i = 0; i < Variants.Count; i++)
-                {
-                    tmp += $"[{Variants[i]}]";
-                }
+                tmp += $"[{Variants[i]}]";
             }
-            if (TrueAnswers.Count > 0)
-            {
-                for (int i = 0; i < TrueAnswers.Count; i++)
-                {
-                    tmp += $"[{TrueAnswers[i]}]";
-                }
-            }
-            if (UserAnswers.Count > 0)
-            {
-                for (int i = 0; i < UserAnswers.Count; i++)
-                {
-                    tmp += $"[{UserAnswers[i]}]";
-                }
-            }
+            //for (int i = 0; i < TrueAnswers.Count; i++)
+            //{
+            //    tmp += $"[{TrueAnswers[i]}]";
+            //}
+            //for (int i = 0; i < UserAnswers.Count; i++)
+            //{
+            //    tmp += $"[{UserAnswers[i]}]";
+            //}
+
             return tmp;
         }
     }

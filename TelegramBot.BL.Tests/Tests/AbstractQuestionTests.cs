@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TelegramBot.BL;
 using TelegramBot.BL.Questions;
-using TelegramBot.BL.Tests.TestSources;
+using TelegramBot.BL.Tests.TestSources.AbstractQuestions;
 
 
 namespace TelegramBot.BL.Tests
