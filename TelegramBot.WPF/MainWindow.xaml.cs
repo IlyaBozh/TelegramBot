@@ -94,8 +94,8 @@ namespace TelegramBot.WPF
 
             ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
 
-            _dataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
-            _dataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
+            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
         }
 
         public void AddUsers(User newUser)
@@ -601,12 +601,12 @@ namespace TelegramBot.WPF
 
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
         {
-            DataGrid_SingleQuestions.ItemsSource = _dataBase.TestSingelPolls;
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelPolls;
         }
 
         private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
         {
-            DataGrid_SingleQuestions.ItemsSource = _dataBase.TestSingelQuestions;
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelQuestions;
         }
     }
 }
