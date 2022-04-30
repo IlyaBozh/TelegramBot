@@ -33,8 +33,13 @@ namespace TelegramBot.WPF
         GroupBox _formVariant;
         GroupBox _formAnswer;
         List<TypeOneVariant> _tryAnswers;
+        List<TypeRightOrder> _typeRightOrder;
+        List<TypeSeveralVariants> _typeSeveralVariants;
+        List<TypeUserAnswer> _typeUserAnswer;
+        List<TypeYesOrNo> _typeYesOrNo;
 
-        DataBase _dataBase;
+        TestsDataBase _testsDataBase;
+        UsersDataBase _usersDataBase;
 
 
         private List<ListBox> _listOfListBox_Users;
@@ -55,6 +60,10 @@ namespace TelegramBot.WPF
             _listOfListBox_Users = new List <ListBox>();//test
             _listOfListView_ClasterQuestions = new List<ListView>();//test
             _tryAnswers = new List<TypeOneVariant>();
+            _typeRightOrder = new List<TypeRightOrder>();
+            _typeSeveralVariants = new List<TypeSeveralVariants>();
+            _typeUserAnswer = new List<TypeUserAnswer>();
+            _typeYesOrNo = new List<TypeYesOrNo>();
 
             InitializeComponent();
 
@@ -67,8 +76,8 @@ namespace TelegramBot.WPF
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
         {
-            
-            _dataBase = new DataBase();
+            _testsDataBase = TestsDataBase.GetInstance();
+            _usersDataBase = UsersDataBase.GetInstance();
 
             ComboBox_UserGroups.SelectedIndex = 0;
 
@@ -83,14 +92,14 @@ namespace TelegramBot.WPF
 
             tmp.Visibility = Visibility.Hidden;
 
-            ComboBox_UserGroups.Items.Add(_dataBase.UserGroups[0].NameGroup);
+            ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
 
         }
 
         public void AddUsers(User newUser)
         {
 
-             _dataBase.UserGroups[0].AddUser(newUser);
+            _usersDataBase.UserGroups[0].AddUser(newUser);
             
             
         }
@@ -103,7 +112,7 @@ namespace TelegramBot.WPF
 
             List<string> forUsers = new List<string>();
 
-            foreach (User user in _dataBase.UserGroups[indexGroup].UserGroups)
+            foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
             {
                 forUsers.Add($"{user.Name} {user.Id}");
             }
@@ -141,7 +150,7 @@ namespace TelegramBot.WPF
             TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
             _listOfListBox_Users.Add(_userListBox);
-            _dataBase.UserGroups.Add(newGroup);
+            _usersDataBase.UserGroups.Add(newGroup);
 
             ControlTab_UserGroup.Items.Add(tmp);
 
@@ -194,8 +203,8 @@ namespace TelegramBot.WPF
             }
 
             
-           _tmpUser = _dataBase.UserGroups[indexGroup].UserGroups[indexUser];
-           _dataBase.UserGroups[indexGroup].DeleteUserById(_tmpUser.Id);
+           _tmpUser = _usersDataBase.UserGroups[indexGroup].UserGroups[indexUser];
+            _usersDataBase.UserGroups[indexGroup].DeleteUserById(_tmpUser.Id);
 
 
         }
@@ -211,7 +220,7 @@ namespace TelegramBot.WPF
                 return;
             }
 
-            _dataBase.UserGroups[indexGroup].AddUser(_tmpUser);
+            _usersDataBase.UserGroups[indexGroup].AddUser(_tmpUser);
             _tmpUser = null;
 
         }
@@ -515,7 +524,7 @@ namespace TelegramBot.WPF
                 return;
             }
 
-            foreach(User user in _dataBase.UserGroups[indexGroup].UserGroups)
+            foreach(User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
             {
                 _tbot.Send((string)question, user.Id);
                     
