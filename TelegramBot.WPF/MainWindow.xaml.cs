@@ -33,8 +33,12 @@ namespace TelegramBot.WPF
         GroupBox _formVariant;
         GroupBox _formAnswer;
         List<TypeOneVariant> _tryAnswers;
+        List<TypeRightOrder> _typeRightOrder;
+        List<TypeSeveralVariants> _typeSeveralVariants;
+        List<TypeUserAnswer> _typeUserAnswer;
+        List<TypeYesOrNo> _typeYesOrNo;
 
-        DataBase _dataBase;
+        TestsDatabase _dataBase;
 
 
         private List<ListBox> _listOfListBox_Users;
@@ -55,6 +59,10 @@ namespace TelegramBot.WPF
             _listOfListBox_Users = new List <ListBox>();//test
             _listOfListView_ClasterQuestions = new List<ListView>();//test
             _tryAnswers = new List<TypeOneVariant>();
+            _typeRightOrder = new List<TypeRightOrder>();
+            _typeSeveralVariants = new List<TypeSeveralVariants>();
+            _typeUserAnswer = new List<TypeUserAnswer>();
+            _typeYesOrNo = new List<TypeYesOrNo>();
 
             InitializeComponent();
 
@@ -68,7 +76,7 @@ namespace TelegramBot.WPF
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
         {
             
-            _dataBase = new DataBase();
+            _dataBase = new TestsDatabase();
 
             ComboBox_UserGroups.SelectedIndex = 0;
 
