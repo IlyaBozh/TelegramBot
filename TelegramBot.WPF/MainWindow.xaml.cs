@@ -175,22 +175,23 @@ namespace TelegramBot.WPF
                 return;
             }
 
-            foreach (var userListBox in _listOfListBox_Users)
-            {
-                count++;
-                if (index == count)
-                {
-                    foreach (var user in userListBox.Items)
-                    {
+            //foreach (var userListBox in _listOfListBox_Users)
+            //{
+            //    count++;
+            //    if (index == count)
+            //    {
+            //        foreach (var user in userListBox.Items)
+            //        {
 
-                        _labels.Add(Convert.ToString(user));
-                    }
-                }
-            }
+            //            _labels.Add(Convert.ToString(user)); ????
+            //        }
+            //    }
+            //} 
 
             ComboBox_UserGroups.Items.RemoveAt(index);
             ControlTab_UserGroup.Items.RemoveAt(index);
-            _listOfListBox_Users.RemoveAt(index - 1);
+            _usersDataBase.UserGroups.RemoveAt(index);
+            
         }
        
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
