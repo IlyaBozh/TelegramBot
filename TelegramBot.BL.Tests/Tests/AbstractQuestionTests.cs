@@ -28,5 +28,16 @@ namespace TelegramBot.BL.Tests
             Assert.Throws<ArgumentNullException>(() => newQuestion.EditDiscription(newDescription));
         }
 
+        [TestCaseSource(typeof)]
+        public void EditVariantTest(int index, string newVariant, bool isVariant, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
+        {
+            AbstractQuestion actualQuestion = newQuestion;
+            actualQuestion.EditVariant(index, newVariant, isVariant);
+
+            Assert.AreEqual(expectedQuestion, actualQuestion);
+        }
+
+       
+
     }
 }
