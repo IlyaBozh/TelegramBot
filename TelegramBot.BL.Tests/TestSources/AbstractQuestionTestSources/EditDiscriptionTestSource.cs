@@ -16,16 +16,52 @@ namespace TelegramBot.BL.Tests.TestSources.AbstractQuestions
         {
             List<string> variants = new List<string>()
             {
-                new string("njg")
+                new string("хорошо")
             };
-            
-            string newDescription = "вопросы математика";
-            AbstractQuestion actualQuestion = new TypeOneVariant("уравнение", variants);
-            AbstractQuestion expectedQuestion = new TypeOneVariant("вопросы математика", variants);
+
+            List<string> TrueAnswers = new List<string>()
+            {
+                new string("хорошо")
+            };
+            string newDescription = "как дела?";
+            AbstractQuestion actualQuestion = new TypeOneVariant("как настроение?", variants);
+            AbstractQuestion expectedQuestion = new TypeOneVariant("как дела?", variants);
             yield return new object[] { newDescription, actualQuestion, expectedQuestion };
 
+            newDescription = "Расположите в правильном порядке:021293282";
+            actualQuestion = new TypeRightOrder("сколько тебе лет?", variants);
+            expectedQuestion = new TypeRightOrder("Расположите в правильном порядке:021293282", variants);
+            yield return new object[] { newDescription, actualQuestion, expectedQuestion };
 
+            newDescription = "Перечислите горы";
+            actualQuestion = new TypeSeveralVariants(" ", variants);
+            expectedQuestion = new TypeSeveralVariants("Перечислите горы", variants);
+            yield return new object[] { newDescription, actualQuestion, expectedQuestion };
 
+            newDescription = "你好嗎？";
+            actualQuestion = new TypeUserAnswer(" ");
+            expectedQuestion = new TypeUserAnswer("你好嗎？");
+            yield return new object[] { newDescription, actualQuestion, expectedQuestion };
+
+            newDescription = "Вы голодный？";
+            actualQuestion = new TypeYesOrNo(" ");
+            expectedQuestion = new TypeYesOrNo("Вы голодный？");
+            yield return new object[] { newDescription, actualQuestion, expectedQuestion };
+        }
+    }
+
+    public class EditDiscriptionNegativeTestSource : IEnumerable
+    {
+        public IEnumerator GetEnumerator()
+        {
+            List<string> variants = new List<string>()
+            {
+                new string("хорошо")
+            };
+
+            string newDescription = " ";
+            AbstractQuestion actualQuestion = new TypeOneVariant("как настроение?", variants);
+            yield return new object[] { newDescription, actualQuestion };
         }
     }
 }

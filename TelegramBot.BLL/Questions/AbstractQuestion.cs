@@ -34,6 +34,10 @@ namespace TelegramBot.BL.Questions
 
         public void EditDiscription(string newDescription)
         {
+            if(newDescription == " " )
+            {
+                throw new ArgumentNullException(nameof(newDescription));
+            }
             Description = newDescription;
         }
 
@@ -124,58 +128,66 @@ namespace TelegramBot.BL.Questions
             {
                 return false;
             }
-            if (question.Variants.Count != Variants.Count)
+            if (question.Variants is not null && question.Variants.Count != Variants.Count)
             {
                 return false;
-            }
-            //if (question.TrueAnswers.Count != TrueAnswers.Count)
-            //{
-            //    return false;
-            //}
-            //if (question.UserAnswers.Count != UserAnswers.Count)
-            //{
-            //    return false;
-            //}
-            for (int i = 0; i < Variants.Count; i++)
-            {
-                if (Variants[i] != question.Variants[i])
+                for (int i = 0; i < Variants.Count; i++)
                 {
-                    return false;
+                    if (Variants[i] != question.Variants[i])
+                    {
+                        return false;
+                    }
                 }
             }
-            //for (int i = 0; i < TrueAnswers.Count; i++)
-            //{
-            //    if (TrueAnswers[i] != question.TrueAnswers[i])
-            //    {
-            //        return false;
-            //    }
-            //}
-            //for (int i = 0; i < UserAnswers.Count; i++)
-            //{
-            //    if (UserAnswers[i] != question.UserAnswers[i])
-            //    {
-            //        return false;
-            //    }
-            //}
+            if (question.TrueAnswers is not null && question.TrueAnswers.Count != TrueAnswers.Count)
+            {
+                return false;
+                for (int i = 0; i < TrueAnswers.Count; i++)
+                {
+                    if (TrueAnswers[i] != question.TrueAnswers[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (question.UserAnswers is not null && question.UserAnswers.Count != UserAnswers.Count)
+            {
+                return false;
+                for (int i = 0; i < UserAnswers.Count; i++)
+                {
+                    if (UserAnswers[i] != question.UserAnswers[i])
+                    {
+                        return false;
+                    }
+                }
+            }
             return true;
         }
         public override string ToString()
         {
             string tmp = $"[{Description}]";
 
-            for (int i = 0; i < Variants.Count; i++)
+            if(Variants != null)
             {
-                tmp += $"[{Variants[i]}]";
+                for (int i = 0; i < Variants.Count; i++)
+                {
+                    tmp += $"[{Variants[i]}]";
+                }
             }
-            //for (int i = 0; i < TrueAnswers.Count; i++)
-            //{
-            //    tmp += $"[{TrueAnswers[i]}]";
-            //}
-            //for (int i = 0; i < UserAnswers.Count; i++)
-            //{
-            //    tmp += $"[{UserAnswers[i]}]";
-            //}
-
+            if(TrueAnswers != null)
+            {
+                for (int i = 0; i < TrueAnswers.Count; i++)
+                {
+                    tmp += $"[{TrueAnswers[i]}]";
+                }
+            }
+            if(UserAnswers != null)
+            {
+                for (int i = 0; i < UserAnswers.Count; i++)
+                {
+                    tmp += $"[{UserAnswers[i]}]";
+                }
+            }
             return tmp;
         }
     }

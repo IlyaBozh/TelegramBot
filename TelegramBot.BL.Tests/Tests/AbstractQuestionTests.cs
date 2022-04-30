@@ -22,5 +22,11 @@ namespace TelegramBot.BL.Tests
             Assert.AreEqual(expectedQuestion, actualQuestion);
         }
 
+        [TestCaseSource(typeof(EditDiscriptionNegativeTestSource))]
+        public void EditDiscriptionTest_WhenNewDiscriptionIsNull_ShouldThrowArgumentNullException(string newDescription, AbstractQuestion newQuestion)
+        {
+            Assert.Throws<ArgumentNullException>(() => newQuestion.EditDiscription(newDescription));
+        }
+
     }
 }
