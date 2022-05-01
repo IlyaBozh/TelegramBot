@@ -19,6 +19,8 @@ namespace TelegramBot.BL.Questions
         public List<string> UserAnswers { get; set; }
         /*public bool UserAnswerYesOrNo { get; set; }*/
 
+       
+
         protected IAsker asker;
         protected IAnswerer answerer;
 
