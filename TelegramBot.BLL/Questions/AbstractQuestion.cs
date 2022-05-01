@@ -41,32 +41,61 @@ namespace TelegramBot.BL.Questions
             Description = newDescription;
         }
 
-        public void EditVariant(int index, string newVariant, bool isVariant = true)
+        public void EditVariant(int index, string newVariant)
         {
-            if (isVariant)
+            if(index < 0 || index >= Variants.Count)
             {
-                Variants[index] = newVariant;
+                throw new IndexOutOfRangeException();
+            }
+            if (Variants is null)
+            {
+                throw new NullReferenceException(nameof(Variants));
             }
             else
             {
-                TrueAnswers[index] = newVariant;
+                Variants[index] = newVariant;
             }
         }
-
-        public void ChangeTrueAnswer (string newTrueAnswer)
+        public void ChangeTrueAnswer(int index, string newTrueAnswer)
+        {
+            if(index < 0 || index > Variants.Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if(TrueAnswers is null)
+            {
+                throw new NullReferenceException(nameof(TrueAnswers));
+            }
+            else
+            {
+                TrueAnswers[index] = newTrueAnswer;
+            }
+        }
+        public void ChangeTrueAnswer(string newTrueAnswer)
         {
             TrueAnswer = newTrueAnswer;
         }
 
-        public void AddVariant(string newVariant, bool isVariant = true)
+        public void AddVariant(string newVariant)
         {
-            if (isVariant)
+            if (newVariant == null)
             {
-                Variants.Add(newVariant);
+                throw new ArgumentNullException();
             }
             else
             {
-                TrueAnswers.Add(newVariant);
+                Variants.Add(newVariant);
+            }
+        }
+        public void AddTrueAnswer(string newAnswer)
+        {
+            if (newAnswer == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                TrueAnswers.Add(newAnswer);
             }
         }
 

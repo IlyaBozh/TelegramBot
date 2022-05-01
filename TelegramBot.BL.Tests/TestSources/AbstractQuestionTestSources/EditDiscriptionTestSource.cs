@@ -18,11 +18,11 @@ namespace TelegramBot.BL.Tests.TestSources.AbstractQuestions
             {
                 new string("хорошо")
             };
-
             List<string> TrueAnswers = new List<string>()
             {
                 new string("хорошо")
             };
+
             string newDescription = "как дела?";
             AbstractQuestion actualQuestion = new TypeOneVariant("как настроение?", variants);
             AbstractQuestion expectedQuestion = new TypeOneVariant("как дела?", variants);
