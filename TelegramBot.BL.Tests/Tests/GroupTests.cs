@@ -9,7 +9,7 @@ using TelegramBot.BL.Tests.TestSources;
 
 namespace TelegramBot.BL.Tests
 {
-    public class Tests
+    public class GroupTests
     {
         [TestCaseSource(typeof(AddUserTestSource))]
         public void AddUserTest(User newUser, Group newGroup, Group expectedGroup)
