@@ -75,6 +75,20 @@ namespace TelegramBot.BL.Tests
             Assert.AreEqual(expectedQuestion, actualQuestion);
         }
         [TestCaseSource(typeof(AddVariantNegativeTestSource))]
+        public void AddVariantTest_WhenNewVariantIsNull_ShouldThrowArgumentNullException(string newVariant, AbstractQuestion newQuestion)
+        {
+            Assert.Throws<ArgumentNullException>(() => newQuestion.AddVariant(newVariant));
+        }
+
+        [TestCaseSource(typeof(AddTrueAnswerTestSource))]
+        public void AddTrueAnswer(string newVariant, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
+        {
+            AbstractQuestion actualQuestion = newQuestion;
+            actualQuestion.AddTrueAnswer(newVariant);
+
+            Assert.AreEqual(expectedQuestion, actualQuestion);
+        }
+        [TestCaseSource(typeof(AddTrueAnswerNegativeTestSource))]
         public void ChangeTrueAnswerTest_WhenTrueAnswersIsNull_ShouldThrowArgumentNullException(string newVariant, AbstractQuestion newQuestion)
         {
             Assert.Throws<ArgumentNullException>(() => newQuestion.AddTrueAnswer(newVariant));

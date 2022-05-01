@@ -21,19 +21,20 @@ namespace TelegramBot.BL.Tests.TestSources.AbstractQuestionTestSources
             };
             List<string> newVariantTwo= new List<string>()
             {
+
                 new string("арбуз"),
             };
 
 
-            string newTrueAnswer = "1";
+            string newAnswer = "1";
             AbstractQuestion actualQuestion = new TypeRightOrder("как дела?", answers, variants);
             AbstractQuestion expectedQuestion = new TypeRightOrder("как дела?", answers, newVariant);
-            yield return new object[] { newTrueAnswer, actualQuestion, expectedQuestion };
+            yield return new object[] { newAnswer, actualQuestion, expectedQuestion };
 
-            newTrueAnswer = "арбуз";
+            newAnswer = "арбуз";
             actualQuestion = new TypeSeveralVariants("как дела?", answers, variants);
             expectedQuestion = new TypeSeveralVariants("как дела?", answers, newVariantTwo);
-            yield return new object[] { newTrueAnswer, actualQuestion, expectedQuestion };
+            yield return new object[] { newAnswer, actualQuestion, expectedQuestion };
 
         }
     }
@@ -43,9 +44,9 @@ namespace TelegramBot.BL.Tests.TestSources.AbstractQuestionTestSources
         {
             List<string> variants = new List<string>();
 
-            string newTrueAnswer = null;
+            string newAnswer = null;
             AbstractQuestion actualQuestion = new TypeRightOrder("как дела?", variants);
-            yield return new object[] { newTrueAnswer, actualQuestion};
+            yield return new object[] { newAnswer, actualQuestion};
         }
     }
 

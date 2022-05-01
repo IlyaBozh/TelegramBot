@@ -98,19 +98,14 @@ namespace TelegramBot.BL.Questions
                 TrueAnswers.Add(newAnswer);
             }
         }
-
-        public void RemoveVariant(bool isVariant = true)
+        public void RemoveVariant()
         {
-            if (isVariant)
+            if (Variants is not null)
             {
                 int lastIndex = Variants.Count - 1;
                 Variants.RemoveAt(lastIndex);
             }
-            else
-            {
-                int lastIndex = TrueAnswers.Count - 1;
-                TrueAnswers.RemoveAt(lastIndex);
-            }
+            
         }
 
         public void RemoveVariantByIndex(int index, bool isVariant = true)
