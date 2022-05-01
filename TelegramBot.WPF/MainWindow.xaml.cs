@@ -95,6 +95,8 @@ namespace TelegramBot.WPF
 
             ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
 
+            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
         }
 
         public void AddUsers(User newUser)
@@ -119,8 +121,9 @@ namespace TelegramBot.WPF
             }
             _listOfListBox_Users[indexGroup].ItemsSource = forUsers;
 
-            
-       
+            ControlTab_UserGroup.Items.Refresh();
+
+
 
         }
        
@@ -230,6 +233,11 @@ namespace TelegramBot.WPF
         {
             int index = ComboBox_UserGroups.SelectedIndex;
 
+            if(index == -1)
+            {
+                ComboBox_UserGroups.SelectedIndex = 0;
+                
+            }
 
             if (ControlTab_UserGroup != null)
             {
@@ -530,6 +538,16 @@ namespace TelegramBot.WPF
             }
             DataGrid_SingleQuestions.SelectedItem = null;
             ListBox_UserGroups.SelectedIndex = -1;
+        }
+
+        private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
+        {
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelPolls;
+        }
+
+        private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
+        {
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelQuestions;
         }
 
         private void RadioButton_Test_Checked(object sender, RoutedEventArgs e)

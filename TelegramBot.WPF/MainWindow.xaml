@@ -356,8 +356,8 @@
                         <RowDefinition Height="13*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <RadioButton x:Name="RadioButton_TestContainer" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="50" GroupName="TestOrPoolContainer" Height="15"/>
-                    <RadioButton x:Name="RadioButton_PollContainer" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPoolContainer" Height="15"/>
+                    <RadioButton x:Name="RadioButton_TestContainer" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="50" GroupName="TestOrPoolContainer" Height="15" Checked="RadioButton_TestContainer_Checked"/>
+                    <RadioButton x:Name="RadioButton_PollContainer" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPoolContainer" Height="15" Checked="RadioButton_PollContainer_Checked"/>
                     <ComboBox x:Name="ComboBox_QuestionContainer" Text="вид опроса" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0">
                         <ComboBoxItem Content="вид вопроса" IsSelected="True"/>
                         <ComboBoxItem Content="ответ пользователя"/>
