@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.BL;
 using TelegramBot.BL.DataBase;
 using TelegramBot.BL.Questions;
@@ -132,7 +133,7 @@ namespace TelegramBot.WPF
             {
                 return;
             }
-            _labels.Add("sd");//test
+            _labels.Add("Выбери Друга");//test
             DataGrid_SingleQuestions.ItemsSource = _labels;//test
             foreach (var item in ComboBox_UserGroups.Items)
             {
@@ -168,7 +169,7 @@ namespace TelegramBot.WPF
         private void MenuItem_ClickDelete(object sender, RoutedEventArgs e)
         {
             int index = ComboBox_UserGroups.SelectedIndex;
-            int count = 0;
+            
 
             if (ComboBox_UserGroups.SelectedIndex < 1)
             {
@@ -591,14 +592,98 @@ namespace TelegramBot.WPF
                 return;
             }
 
+            if(1 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+
+                    _tbot.Send((string)question, user.Id);
+                }
+            }
+
+            if (2 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                      InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup(
+                          new[]
+                          {
+                                 new[]
+                                 {
+                                      InlineKeyboardButton.WithCallbackData("Один", "1")
+
+                                 },
+
+                                 new[]
+                                 {
+                                      InlineKeyboardButton.WithCallbackData("Два")
+
+                                 },
+
+                                 new[]
+                                 {
+                                       InlineKeyboardButton.WithCallbackData("Три")
+
+                                 },
+
+                                new[]
+                                {
+                                         InlineKeyboardButton.WithCallbackData("Четыре")
+
+                                },
+                               
+                          });
+
+                    _tbot.Send((string)question, user.Id, inlineKeyboardMarkup);
+                }
+
+            }
+
+            if (3 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+
+            }
+
+            if (4 == ComboBox_QuestionContainer.SelectedIndex)
+            { 
             foreach(User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
             {
-                _tbot.Send((string)question, user.Id);
-                    
+
+                ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
+                new[]
+                {
+                     new[]
+                     {
+                          new KeyboardButton("Пидор")
+                     },
+
+                     new[]
+                     {
+                        new KeyboardButton("Гей")
+                     },
+
+                }
+                );
+
+                _tbot.Send((string)question, user.Id, replyKeyboardMarkup);               
             }
+            
+            
+            }
+
+            if (5 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+
+            }
+
             DataGrid_SingleQuestions.SelectedItem = null;
             ListBox_UserGroups.SelectedIndex = -1;
+
         }
+
+
+
+
 
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
         {
