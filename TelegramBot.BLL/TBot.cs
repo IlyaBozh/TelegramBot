@@ -36,15 +36,14 @@ namespace TelegramBot.BL
 
         }
 
-        public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
-        {
+        //public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
+        //{
 
             
-            await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup:inlineKeyboardMarkup);
+        //    await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup:inlineKeyboardMarkup);
 
             
-
-        }
+        //}
 
         
 
