@@ -17,6 +17,7 @@ namespace TelegramBot.BL.Questions
         {
             Description = discription;
             Variants = variants;
+            
         }
 
         public TypeOneVariant(string discription, string trueAnswer, List<string> variants)
@@ -24,6 +25,7 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             Variants = variants;
             TrueAnswer = trueAnswer;
+            
         }
 
         
