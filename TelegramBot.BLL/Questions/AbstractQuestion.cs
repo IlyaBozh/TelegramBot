@@ -36,50 +36,78 @@ namespace TelegramBot.BL.Questions
 
         public void EditDiscription(string newDescription)
         {
+            if(newDescription == " " )
+            {
+                throw new ArgumentNullException(nameof(newDescription));
+            }
             Description = newDescription;
         }
 
-        public void EditVariant(int index, string newVariant, bool isVariant = true)
+        public void EditVariant(int index, string newVariant)
         {
-            if (isVariant)
+            if(index < 0 || index >= Variants.Count)
             {
-                Variants[index] = newVariant;
+                throw new IndexOutOfRangeException();
+            }
+            if (Variants is null)
+            {
+                throw new NullReferenceException(nameof(Variants));
             }
             else
             {
-                TrueAnswers[index] = newVariant;
+                Variants[index] = newVariant;
             }
         }
-
-        public void ChangeTrueAnswer (string newTrueAnswer)
+        public void ChangeTrueAnswer(int index, string newTrueAnswer)
+        {
+            if(index < 0 || index > Variants.Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            if(TrueAnswers is null)
+            {
+                throw new NullReferenceException(nameof(TrueAnswers));
+            }
+            else
+            {
+                TrueAnswers[index] = newTrueAnswer;
+            }
+        }
+        public void ChangeTrueAnswer(string newTrueAnswer)
         {
             TrueAnswer = newTrueAnswer;
         }
 
-        public void AddVariant(string newVariant, bool isVariant = true)
+        public void AddVariant(string newVariant)
         {
-            if (isVariant)
+            if (newVariant == null)
             {
-                Variants.Add(newVariant);
+                throw new ArgumentNullException();
             }
             else
             {
-                TrueAnswers.Add(newVariant);
+                Variants.Add(newVariant);
             }
         }
-
-        public void RemoveVariant(bool isVariant = true)
+        public void AddTrueAnswer(string newAnswer)
         {
-            if (isVariant)
+            if (newAnswer == null)
+            {
+                throw new ArgumentNullException();
+            }
+            else
+            {
+                TrueAnswers.Add(newAnswer);
+            }
+        }
+        public void RemoveVariant()
+        {
+            if (Variants is not null)
             {
                 int lastIndex = Variants.Count - 1;
                 Variants.RemoveAt(lastIndex);
             }
-            else
-            {
-                int lastIndex = TrueAnswers.Count - 1;
-                TrueAnswers.RemoveAt(lastIndex);
-            }
+            
         }
 
         public void RemoveVariantByIndex(int index, bool isVariant = true)
@@ -104,6 +132,89 @@ namespace TelegramBot.BL.Questions
             {
                 TrueAnswers.Clear();
             }
+
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !(obj is AbstractQuestion))
+            {
+                return false;
+            }
+            AbstractQuestion question = (AbstractQuestion)obj;
+            if (question.Description != Description)
+            {
+                return false;
+            }
+            if (question.TrueAnswer != TrueAnswer)
+            {
+                return false;
+            }
+            if (question.UserAnswer != UserAnswer)
+            {
+                return false;
+            }
+            if (question.Variants is not null && question.Variants.Count != Variants.Count)
+            {
+                return false;
+                for (int i = 0; i < Variants.Count; i++)
+                {
+                    if (Variants[i] != question.Variants[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (question.TrueAnswers is not null && question.TrueAnswers.Count != TrueAnswers.Count)
+            {
+                return false;
+                for (int i = 0; i < TrueAnswers.Count; i++)
+                {
+                    if (TrueAnswers[i] != question.TrueAnswers[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            if (question.UserAnswers is not null && question.UserAnswers.Count != UserAnswers.Count)
+            {
+                return false;
+                for (int i = 0; i < UserAnswers.Count; i++)
+                {
+                    if (UserAnswers[i] != question.UserAnswers[i])
+                    {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        public override string ToString()
+        {
+            string tmp = $"[{Description}]";
+
+            if(Variants != null)
+            {
+                for (int i = 0; i < Variants.Count; i++)
+                {
+                    tmp += $"[{Variants[i]}]";
+                }
+            }
+            if(TrueAnswers != null)
+            {
+                for (int i = 0; i < TrueAnswers.Count; i++)
+                {
+                    tmp += $"[{TrueAnswers[i]}]";
+                }
+            }
+            if(UserAnswers != null)
+            {
+                for (int i = 0; i < UserAnswers.Count; i++)
+                {
+                    tmp += $"[{UserAnswers[i]}]";
+                }
+            }
+            return tmp;
         }
     }
 }

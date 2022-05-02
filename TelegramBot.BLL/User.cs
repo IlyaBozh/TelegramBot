@@ -16,6 +16,11 @@ namespace TelegramBot.BL
         public string Name { get; set; }
         public string UserName { get; set; }
 
+        public User()
+        {
+
+        }
+
         public User(long id, string name, string userName)
         {
             Id = id;
@@ -35,7 +40,37 @@ namespace TelegramBot.BL
             if (newName != "" && newName != " ")
             {
                 Name = newName;
-            }          
+            }
+            else
+            {
+                throw new ArgumentNullException();
+            }
+        }
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !(obj is User))
+            {
+                return false;
+            }
+            User user = (User)obj;
+            if (user.Id != Id)
+            {
+                return false;
+            }
+            if (user.Name != Name)
+            {
+                return false;
+            }
+            if(user.UserName != UserName)
+            {
+                return false;
+            }
+            return true;
+        }
+        public override string ToString()
+        {
+            string tmp = $"[{Id}, {Name}, {UserName}] ";
+            return tmp;
         }
     }
 }
