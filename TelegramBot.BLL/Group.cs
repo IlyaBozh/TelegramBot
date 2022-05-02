@@ -11,6 +11,11 @@ namespace TelegramBot.BL
         public List<User> UserGroups { get; set; }
         public string NameGroup { get; set; }
 
+        public Group()
+        {
+
+        }
+
         public Group(string name)
         {
             NameGroup = name;
