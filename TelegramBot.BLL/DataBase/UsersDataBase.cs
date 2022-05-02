@@ -12,7 +12,7 @@ namespace TelegramBot.BL.DataBase
     {
         public List<Group> UserGroups { get; set; }
         private static UsersDataBase _instance;
-        private const string filePath = @"usergroups.data"; // добавить в wpf
+        private const string filePath = @"usergroups.data"; 
 
         private UsersDataBase()
         {
@@ -47,10 +47,10 @@ namespace TelegramBot.BL.DataBase
             }
         }
 
-        public void Save(List<Group> UserGroups)
+        public void Save()
         {
             string json = Serialize(UserGroups);
-            using(StreamWriter sw = new StreamWriter(filePath, true))
+            using(StreamWriter sw = new StreamWriter(filePath, false))
             {
                 sw.WriteLine(json);
             }

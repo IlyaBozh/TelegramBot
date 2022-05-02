@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TelegramBot.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="635" Width="904" Background="#FF353B3A" Initialized="Window_MainWindow_Initialized_1">
+        Title="MainWindow" Height="635" Width="904" Background="#FF353B3A" Initialized="Window_MainWindow_Initialized_1" Closed="Window_MainWindow_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="22*"></RowDefinition>
