@@ -207,8 +207,9 @@ namespace TelegramBot.WPF
 
             ComboBox_UserGroups.Items.RemoveAt(index);
             ControlTab_UserGroup.Items.RemoveAt(index);
-            _listOfListBox_Users.RemoveAt(index - 1);
+            _listOfListBox_Users.RemoveAt(index);
             _usersDataBase.UserGroups.RemoveAt(index);
+            ListBox_UserGroups.Items.RemoveAt(index);
         }
 
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
