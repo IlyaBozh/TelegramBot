@@ -287,16 +287,20 @@ namespace TelegramBot.WPF
 
         private void RadioButtonEdit_Test_Click(object sender, RoutedEventArgs e)
         {
+            ComboBox_ChooseQuestionTypeEdit.Items.Clear();
             GroupBox_TestEdit.Visibility = Visibility.Visible;
+            GroupBox_PollEdit.Visibility = Visibility.Hidden;
             GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
-            HideExtraBoxes();
+            HideExtraBoxesEdit();
         } //+
 
         private void RadioButtonEdit_Poll_Click(object sender, RoutedEventArgs e) // моё
         {
-            GroupBox_TestEdit.Visibility = Visibility.Visible;
+            ComboBox_ChooseQuestionTypeEdit.Items.Clear();
+            GroupBox_TestEdit.Visibility = Visibility.Hidden;
+            GroupBox_PollEdit.Visibility= Visibility.Visible;
             GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
-            HideExtraBoxes();
+            HideExtraBoxesEdit();
         } //+
 
 
@@ -309,103 +313,167 @@ namespace TelegramBot.WPF
         private void ComboBox_ChooseTestEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox_ChooseQuestionTypeEdit.Items.Clear();
+            GroupBox_QuestionEdit.Visibility = Visibility.Visible;
+            Button_SaveChanges.Visibility = Visibility.Visible;
+            Button_CancelChanges.Visibility = Visibility.Visible;
 
             if (DataGrid_SingleQuestions == null)
             {
                 return;
             }
+            if (_editFormAnswer is not null)
+            {
+                _editFormAnswer.Visibility = Visibility.Hidden;
+            }
 
             _testsDataBase = TestsDataBase.GetInstance();
             List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
 
-            foreach (var type in tmpTestPoll)
+            if (RadioButtonEdit_Test.IsChecked == true)
             {
-                switch (ComboBox_ChooseTestEdit.SelectedIndex)
+                foreach (var type in tmpTestPoll)
                 {
-                    case 0:
-                        if(type is TypeUserAnswer)
-                        {
-                          ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                    switch (ComboBox_ChooseTestEdit.SelectedIndex)
+                    {
+                        case 0:
+                            if (type is TypeUserAnswer)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_ChangeOneAnswerEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_ChangeOneAnswerEdit;
+                            }
+                            break;
+                        case 1:
+                            if (type is TypeOneVariant)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddVariantsEdit;
+                            }
+                            break;
 
-                        }
-                        break;
-                    case 1:
-                        if (type is TypeOneVariant)
-                        {
-                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                        }
-                        break;
+                        case 2:
+                            if (type is TypeSeveralVariants)
+                            {
 
-                    case 2:
-                        if (type is TypeSeveralVariants)
-                        {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddVariantsEdit;
+                            }
+                            break;
 
-                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                        }
-                        break;
+                        case 3:
+                            if (type is TypeYesOrNo)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AnswerYesOrNoEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AnswerYesOrNoEdit;
+                            }
+                            break;
 
-                    case 3:
-                        if (type is TypeYesOrNo)
-                        {
-                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                        }
-                        break;
-
-                    case 4:
-                        if (type is TypeRightOrder)
-                        {
-                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                        }
-                        break;
+                        case 4:
+                            if (type is TypeRightOrder)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddVariantsEdit;
+                            }
+                            break;
+                    }
                 }
             }
+        }
 
+        private void ComboBox_ChoosePollEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ComboBox_ChooseQuestionTypeEdit.Items.Clear();
             GroupBox_QuestionEdit.Visibility = Visibility.Visible;
             Button_SaveChanges.Visibility = Visibility.Visible;
             Button_CancelChanges.Visibility = Visibility.Visible;
 
-            if (_formVariant is not null)
+            if (DataGrid_SingleQuestions == null)
             {
-                _formVariant.Visibility = Visibility.Hidden;
+                return;
             }
-            if (_formAnswer is not null)
+            if (_editFormAnswer is not null)
             {
-                _formAnswer.Visibility = Visibility.Hidden;
-            }
-            int tmp = ComboBox_ChooseTestEdit.SelectedIndex;
-
-            if (RadioButtonEdit_Test.IsChecked == true)
-            {
-                Label_TrueAnswerEdit.Visibility = Visibility.Visible;
-
-                if (tmp == 0)
-                {
-                    GroupBox_AnswerEdit.Visibility = Visibility.Visible;
-                    _formVariant = GroupBox_AnswerEdit;
-
-                }
-                else if (tmp == 1 || tmp == 2 || tmp == 4)
-                {
-                    GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AddVariantsEdit;
-                }
-                else
-                {
-                    GroupBox_AnswerYesOrNoEdit.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AnswerYesOrNoEdit;
-                }
+                _editFormAnswer.Visibility = Visibility.Hidden;
             }
 
+            _testsDataBase = TestsDataBase.GetInstance();
+            List<AbstractQuestion> tmpPoll = _testsDataBase.TestSingelQuestions;
+
+            if (RadioButtonEdit_Poll.IsChecked == true)
+            {
+                foreach (var type in tmpPoll)
+                {
+                    switch (ComboBox_ChoosePollEdit.SelectedIndex)
+                    {
+                        case 0:
+                            if (type is TypeUserAnswer)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                            }
+                            break;
+                        case 1:
+                            if (type is TypeOneVariant)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AddVarEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddVarEdit;
+                            }
+                            break;
+
+                        case 2:
+                            if (type is TypeSeveralVariants)
+                            {
+
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AddVarEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddVarEdit;
+                            }
+                            break;
+
+                        case 3:
+                            if (type is TypeYesOrNo)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                            }
+                            break;
+
+                        case 4:
+                            if (type is TypeRightOrder)
+                            {
+                                ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                                GroupBox_AddVarEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddVarEdit;
+                            }
+                            break;
+                    }
+                }
+            }
         }
 
-        private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+
+        private void HideExtraBoxesEdit()
         {
-            
-            
+
+            Button_SaveChanges.Visibility = Visibility.Hidden;
+
+            Button_CancelChanges.Visibility = Visibility.Hidden;
+
+            GroupBox_AddVariantsEdit.Visibility = Visibility.Hidden;
+
+            GroupBox_AnswerYesOrNo.Visibility = Visibility.Hidden;
+
+            RadioButton_YesEdit.IsChecked = false;
+
+            RadioButton_NoEdit.IsChecked = false;
+
+            GroupBox_TrueAnswer.Visibility = Visibility.Hidden;
+
+            Label_TrueAnswerEdit.Visibility = Visibility.Hidden;
         }
-
-
-
 
 
 
