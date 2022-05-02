@@ -392,7 +392,11 @@
                         <ComboBoxItem Content="да/нет"/>
                         <ComboBoxItem Content="расположить в правильном порядке"/>
                     </ComboBox>
-                    <DataGrid x:Name="DataGrid_SingleQuestions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1"></DataGrid>
+                    
+                    <DataGrid x:Name="DataGrid_SingleQuestions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" SelectionChanged="DataGrid_SingleQuestions_SelectionChanged" >
+                        
+                    </DataGrid>
+                    
                     <Label x:Name="Label_UserGroups" Content="Группы:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom"></Label>
                     <ListBox x:Name="ListBox_UserGroups" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Margin="0,4,10,0">
                         

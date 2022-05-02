@@ -52,6 +52,8 @@ namespace TelegramBot.WPF
         private User _tmpUser;
         private string _tmpListView;
 
+        ContextMenu testMenu = new ContextMenu();
+
 
         public MainWindow()
         {
@@ -96,6 +98,7 @@ namespace TelegramBot.WPF
 
             ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
 
+
             _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("ДаИлиНет", "DA"));//test
             _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("ДаИлиНет"));//test
             _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("YesOr", "DA"));//test
@@ -106,10 +109,17 @@ namespace TelegramBot.WPF
             _testsDataBase.TestSingelQuestions.Add(new TypeOneVariant("TypeOneVariant", "Odin", truVar));//test
             _testsDataBase.TestSingelPolls.Add(new TypeOneVariant("TypeOneVariant", truVar));//test
             List<string> truVarSeveral = new List<string>() { "Odin", "Dva", "tri", "CHetiru", "paty" }; // test
-            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("TypeSeveralVariants", truVarSeveral));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("TypeSeveralVariants", truVar, truVarSeveral));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeRightOrder("TypeRightOrder", truVarSeveral));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeRightOrder("TypeRightOrder", truVar, truVarSeveral));//test
+
+
+            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("ТестСеверал", truVarSeveral, truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("ПулСеверал", truVar));//test
+            List<string> truVarSeveral1 = new List<string>() { "1", "2", "3", "4", "5" };
+            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("ТСев", truVarSeveral1, truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("Псве", truVarSeveral1));//test
+
+
+            _testsDataBase.TestSingelQuestions.Add(new TypeRightOrder("TypeRightOrder", truVarSeveral, truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeRightOrder("TypeRightOrder", truVar));//test
         }
 
         public void AddUsers(User newUser)
@@ -135,7 +145,7 @@ namespace TelegramBot.WPF
             _listOfListBox_Users[indexGroup].ItemsSource = forUsers;
 
             ControlTab_UserGroup.Items.Refresh();
-
+           
 
 
         }
@@ -146,8 +156,7 @@ namespace TelegramBot.WPF
             {
                 return;
             }
-            _labels.Add("Выбери Друга");//test
-                                        // DataGrid_SingleQuestions.ItemsSource = _labels;//test
+            
             foreach (var item in ComboBox_UserGroups.Items)
             {
                 string group = Convert.ToString(item);
@@ -729,6 +738,7 @@ namespace TelegramBot.WPF
 
         private void ComboBox_QuestionContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+         
             if (DataGrid_SingleQuestions == null)
             {
                 return;
@@ -739,6 +749,7 @@ namespace TelegramBot.WPF
             List<AbstractQuestion> tmpTestOrPoll = RadioButton_TestContainer.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.TestSingelPolls;
 
             List<AbstractQuestion> tmp = new List<AbstractQuestion>();
+
             
             foreach (var type in tmpTestOrPoll)
             {
@@ -758,15 +769,14 @@ namespace TelegramBot.WPF
                     case 2:
                         if (type is TypeOneVariant)
                         {
-                            
-                            tmp.Add(type);
-                           
+                            tmp.Add(type);                         
                         }
                         break;
 
                     case 3:
                         if (type is TypeSeveralVariants)
                         {
+
                             tmp.Add(type);
                         }
                         break;
@@ -780,7 +790,7 @@ namespace TelegramBot.WPF
 
                     default:
                         if (type is TypeRightOrder)
-                        {
+                        {  
                             tmp.Add(type);
                         }
                         break;
@@ -796,8 +806,71 @@ namespace TelegramBot.WPF
 
             }
 
+           testMenu.Items.Clear();
         }
 
-       
+        private void MenuItem_ClickAnswers(object sender, RoutedEventArgs e)
+        {
+            
+
+        }
+        private void MenuItem_ClickTryAnswers(object sender, RoutedEventArgs e)
+        {
+            
+
+        }
+
+        private void DataGrid_SingleQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            int index = ComboBox_QuestionContainer.SelectedIndex;
+
+            AbstractQuestion tmp =(AbstractQuestion) DataGrid_SingleQuestions.SelectedItem;
+
+            if(tmp == null|| tmp.Variants == null)
+            {
+                return;
+            }
+
+            if (testMenu.Items != null)
+            {
+                testMenu.Items.Clear();
+
+            }
+
+
+            testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:");
+            foreach (var variants in tmp.Variants)
+            {
+                testMenu.Items.Add(variants);
+            }
+
+           if(RadioButton_TestContainer.IsChecked == true)
+           {
+                testMenu.Items.Add("ПРАВИЛЬНЫЕ ОТВЕТЫ:");
+                if(tmp.TrueAnswers == null)
+                {
+                    testMenu.Items.Add(tmp.TrueAnswer);
+
+                }
+                else
+                {
+                    foreach (var trueAnswer in tmp.TrueAnswers)
+                    {
+                        testMenu.Items.Add(trueAnswer);
+                    }
+
+                }
+
+
+           }
+                
+
+            
+
+            DataGrid_SingleQuestions.ContextMenu = testMenu;
+            this.ContextMenu = testMenu;
+
+            tmp = null;
+        }
     }
 }
