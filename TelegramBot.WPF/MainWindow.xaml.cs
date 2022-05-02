@@ -59,8 +59,10 @@ namespace TelegramBot.WPF
         public MainWindow()
         {
              _tbot = new TBot(_token, AddUsers);
-            _labels = new List<string>();//test
-            _listOfListBox_Users = new List<ListBox>();
+            _labels = new List<string>();//test 
+            _listOfListBox_Users = new List<ListBox>();//test
+            _listView_ClasterQuestions = new ListView(); //test
+            _listOfListView_ClasterQuestions = new List<ListView>();//test
 
             InitializeComponent();
 
@@ -413,127 +415,6 @@ namespace TelegramBot.WPF
             List<string> list = new List<string>();
             _tryAnswers.Add(new TypeOneVariant("", "", list));
             DataGrid_ChangeAnswers.Items.Add(_tryAnswers);
-        }
-
-
-
-        private void MenuItem_ClickCutListView_ClasterQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_ClasterQuestions.SelectedIndex;
-
-            if (index < 0)
-            {
-                return;
-            }
-            _tmpListView = (string)ListView_ClasterQuestions.SelectedItem;
-
-
-            ListView_ClasterQuestions.Items.RemoveAt(index);
-        }
-
-        private void MenuItem_ClickInsertListView_ClasterQuestions(object sender, RoutedEventArgs e)
-        {
-            if (_tmpListView == null)
-            {
-                return;
-            }
-
-            ListView_ClasterQuestions.Items.Add(_tmpListView);
-            _tmpListView = null;
-        }
-
-        private void MenuItem_ClickDeleteListView_ClasterQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_ClasterQuestions.SelectedIndex;
-
-            if (index < 0)
-            {
-                return;
-            }
-            ListView_ClasterQuestions.Items.RemoveAt(index);
-        }
-
-        private void MenuItem_ClickCutListView_SingleQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_SingleQuestions.SelectedIndex;
-
-            if (index < 0)
-            {
-                return;
-            }
-
-            _tmpListView = (string)ListView_SingleQuestions.SelectedItem;
-
-
-            ListView_SingleQuestions.Items.RemoveAt(index);
-
-        }
-
-        private void MenuItem_ClickInsertListView_SingleQuestions(object sender, RoutedEventArgs e)
-        {
-
-            if (_tmpListView == null)
-            {
-                return;
-            }
-
-            ListView_SingleQuestions.Items.Add(_tmpListView);
-            _tmpListView = null;
-        }
-
-        private void MenuItem_ClickDeleteListView_SingleQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_SingleQuestions.SelectedIndex;
-            if (index < 0)
-            {
-                return;
-            }
-            ListView_SingleQuestions.Items.RemoveAt(index);
-        }
-
-        private void MenuItem_ClickDeleteComboBox_Claster(object sender, RoutedEventArgs e)
-        {
-            int index = ComboBox_Claster.SelectedIndex;
-
-            if (index <= 0)
-            {
-                return;
-            }
-
-            ComboBox_Claster.Items.RemoveAt(index);
-        }
-
-        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int index = ComboBox_Claster.SelectedIndex;
-
-
-            if (TabControll_ClasterQuestions != null)
-            {
-
-                TabControll_ClasterQuestions.SelectedIndex = index;
-            }
-        }
-
-
-
-        private void TextBox_ClasterName_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-            {
-                _listView_ClasterQuestions = new ListView();
-                _listView_ClasterQuestions = ListView_ClasterQuestions;
-                ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
-                TextBox_ClasterName.Clear();
-
-                TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_ClasterName.Text }, Content = _listView_ClasterQuestions };
-                _listOfListView_ClasterQuestions.Add(_listView_ClasterQuestions);
-
-                TabControll_ClasterQuestions.Items.Add(tmp);
-
-                tmp.Visibility = Visibility.Collapsed;
-            }
-
         }
 
 
@@ -1085,7 +966,164 @@ namespace TelegramBot.WPF
         {
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
-     #endregion
+
+        #endregion
+
+        #region Кластер вопросов
+        private void TextBox_ClasterName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+                TextBox_ClasterName.Clear();
+            }
+        }
+        private void Button_AddClasterName_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+            TextBox_ClasterName.Clear();
+        }
+
+        private void RadioButton_TestClaster_Click(object sender, RoutedEventArgs e)
+        {
+            ListView_SingleQuestions.Items.Clear();
+
+            foreach (var question in _testsDataBase.TestSingelQuestions)
+            {
+                ListView_SingleQuestions.Items.Add(question.Description);
+            }                     
+        }
+
+        private void RadioButton_PoolClaster_Click(object sender, RoutedEventArgs e)
+        {
+            ListView_SingleQuestions.Items.Clear();
+            foreach (var question in _testsDataBase.TestSingelPolls)
+            {
+                ListView_SingleQuestions.Items.Add(question.Description);
+            }
+        }
+
+        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        #region context menu        
+        private void MenuItem_ClickCutListView_SingleQuestions(object sender, RoutedEventArgs e)
+        {
+            int index = ListView_SingleQuestions.SelectedIndex;
+
+            if (index < 0)
+            {
+                return;
+            }
+
+            _tmpListView = (string)ListView_SingleQuestions.SelectedItem;
+            ListView_SingleQuestions.Items.RemoveAt(index);
+
+        }
+
+        private void MenuItem_ClickInsertListView_SingleQuestions(object sender, RoutedEventArgs e)
+        {
+            if (_tmpListView == null)
+            {
+                return;
+            }
+
+            ListView_SingleQuestions.Items.Add(_tmpListView);
+            _tmpListView = null;
+        }
+
+        private void MenuItem_ClickDeleteListView_SingleQuestions(object sender, RoutedEventArgs e)
+        {
+            int index = ListView_SingleQuestions.SelectedIndex;
+            if (index < 0)
+            {
+                return;
+            }
+            ListView_SingleQuestions.Items.RemoveAt(index);
+        }
+
+        private void MenuItem_ClickCutListView_ClasterQuestions(object sender, RoutedEventArgs e)
+        {
+            int index = ListView_ClasterQuestions.SelectedIndex;
+
+            if (index < 0)
+            {
+                return;
+            }
+
+            _tmpListView = (string)ListView_ClasterQuestions.SelectedItem;
+            ListView_ClasterQuestions.Items.RemoveAt(index);
+        }
+
+        private void MenuItem_ClickInsertListView_ClasterQuestions(object sender, RoutedEventArgs e)
+        {
+            if (_tmpListView == null)
+            {
+                return;
+            }
+
+            ListView_ClasterQuestions.Items.Add(_tmpListView);
+            _tmpListView = null;
+        }
+
+        private void MenuItem_ClickDeleteListView_ClasterQuestions(object sender, RoutedEventArgs e)
+        {
+            int index = ListView_ClasterQuestions.SelectedIndex;
+
+            if (index < 0)
+            {
+                return;
+            }
+            ListView_ClasterQuestions.Items.RemoveAt(index);
+        }
+
+        private void MenuItem_ClickDeleteComboBox_Claster(object sender, RoutedEventArgs e)
+        {
+            int index = ComboBox_Claster.SelectedIndex;
+
+            if (index <= 0)
+            {
+                return;
+            }
+
+            ComboBox_Claster.Items.RemoveAt(index);
+        }
+        #endregion
+
+        //private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
+        //    int index = ComboBox_Claster.SelectedIndex;
+
+        //    if (TabControll_ClasterQuestions != null)
+        //    {
+
+        //        TabControll_ClasterQuestions.SelectedIndex = index;
+        //    }
+        //}
+
+        //private void TextBox_ClasterName_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    if (e.Key == Key.Enter)
+        //    {
+        //        _listView_ClasterQuestions = new ListView();
+        //        _listView_ClasterQuestions = ListView_ClasterQuestions;
+        //        ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+        //        TextBox_ClasterName.Clear();
+
+        //        TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_ClasterName.Text }, Content = _listView_ClasterQuestions };
+        //        _listOfListView_ClasterQuestions.Add(_listView_ClasterQuestions);
+
+        //        TabControll_ClasterQuestions.Items.Add(tmp);
+
+        //        tmp.Visibility = Visibility.Collapsed;
+        //    }
+
+        //}
+
+        #endregion
+
         private void Window_MainWindow_Closed(object sender, EventArgs e)
         {
             _usersDataBase.Save();
@@ -1224,6 +1262,7 @@ namespace TelegramBot.WPF
 
             tmp = null;
         }
+
     }
-   
+
 }
