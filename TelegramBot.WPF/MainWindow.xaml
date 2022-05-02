@@ -214,7 +214,7 @@
                         <RowDefinition Height="10*"></RowDefinition>
                     </Grid.RowDefinitions>
                     <GroupBox x:Name="GroupBox_AnswerEdit" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
-                        <Label x:Name="Label_TrueAnswerEdit" Grid.Row="4" Content="Правильный(-ые) ответ(ы):" Margin="10,27,168,100" Visibility="Hidden"/>
+                        <Label x:Name="Label_TrueAnswerEdit" Grid.Row="4" Content="Правильный(-ые) ответ(ы):" Margin="10,27,168,100" Visibility="Visible"/>
                     </GroupBox>
                     <RadioButton x:Name="RadioButtonEdit_Test" Content="Тест" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButtonEdit_Test_Click"/>
                     <RadioButton x:Name="RadioButtonEdit_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15"/>
@@ -263,8 +263,10 @@
                                 <RowDefinition Height="10*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <Label x:Name="Lable_QuestionTitleEdit" Content="Твой вопрос:" Margin="0,0,0,29" Visibility="Visible" Height="26" Grid.RowSpan="2"/>
-                            <TextBox x:Name="TextBox_QuestionEdit"  Margin="4,8,4,0" Visibility="Visible" Grid.Row="1"/>
                         </Grid>
+                    </GroupBox>
+                    <GroupBox>
+                        <TextBox x:Name="TextBox_QuestionEdit"  Margin="4,8,4,0" Visibility="Visible" Grid.Row="1"/>
                     </GroupBox>
 
 

@@ -377,10 +377,11 @@ namespace TelegramBot.WPF
             if (RadioButtonEdit_Test.IsChecked == true)
             {
                 Label_TrueAnswerEdit.Visibility = Visibility.Visible;
+
                 if (tmp == 0)
                 {
                     GroupBox_AnswerEdit.Visibility = Visibility.Visible;
-                    _formAnswer = GroupBox_AnswerEdit;
+                    _formVariant = GroupBox_AnswerEdit;
 
                 }
                 else if (tmp == 1 || tmp == 2 || tmp == 4)
@@ -392,8 +393,6 @@ namespace TelegramBot.WPF
                 {
                     GroupBox_AnswerYesOrNoEdit.Visibility = Visibility.Visible;
                     _formAnswer = GroupBox_AnswerYesOrNoEdit;
-
-
                 }
             }
 
