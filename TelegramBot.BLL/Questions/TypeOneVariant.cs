@@ -20,5 +20,7 @@ namespace TelegramBot.BL.Questions
             Variants = variants;
             TrueAnswer = trueAnswer;
         }
+
+        
     }
 }

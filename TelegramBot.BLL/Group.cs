@@ -91,16 +91,14 @@ namespace TelegramBot.BL
 
         public override string ToString()
         {
-            string str = $"[{NameGroup}: ";
+            string tmp = $"{NameGroup}: ";
 
             for (int i = 0; i < UserGroups.Count; i++)
             {
-                str += $"[{UserGroups[i].Name}; {UserGroups[i].Id}; {UserGroups[i].UserName}]";
+                tmp += $"[{UserGroups[i].Name}; {UserGroups[i].Id}; {UserGroups[i].UserName}]";
             }
 
-            str += "]";
-
-            return str;
+            return tmp;
         }
     }
 }
