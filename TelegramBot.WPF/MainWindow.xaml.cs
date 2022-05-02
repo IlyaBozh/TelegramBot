@@ -54,13 +54,13 @@ namespace TelegramBot.WPF
         
         public MainWindow()
         {
-             _tbot = new TBot(_token, AddUsers);     
-
-            InitializeComponent();
-
+             _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();//test 
             _listOfListBox_Users = new List<ListBox>();//test
             _listOfListView_ClasterQuestions = new List<ListView>();//test
+
+            InitializeComponent();
+
             _tryAnswers = new List<TypeOneVariant>();
             _typeRightOrder = new List<TypeRightOrder>();
             _typeSeveralVariants = new List<TypeSeveralVariants>();
