@@ -79,6 +79,7 @@ namespace TelegramBot.WPF
             _testsDataBase = TestsDataBase.GetInstance();
             _usersDataBase = UsersDataBase.GetInstance();
             _usersDataBase.UserGroups = _usersDataBase.Load();
+
             foreach(var group in _usersDataBase.UserGroups)
             {
                 ComboBox_UserGroups.Items.Add(group.NameGroup);
@@ -88,16 +89,20 @@ namespace TelegramBot.WPF
 
             ListBox _userListBox = new ListBox();
 
-            TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
+            for(int i = 0; i < _usersDataBase.UserGroups.Count; i++)
+            {
+                 TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_NameOfGroup.Text }, Content = _userListBox };
 
-            _listOfListBox_Users.Add(_userListBox);
+                 _listOfListBox_Users.Add(_userListBox);
 
-            ControlTab_UserGroup.Items.Add(tmp);
-            TextBox_NameOfGroup.Clear();
+                 ControlTab_UserGroup.Items.Add(tmp);
+                 TextBox_NameOfGroup.Clear();
 
-            tmp.Visibility = Visibility.Hidden;
+                 tmp.Visibility = Visibility.Hidden;
+            }
 
-            ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
+
+           //ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);---------?
 
             _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
             _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
@@ -196,6 +201,7 @@ namespace TelegramBot.WPF
             ComboBox_UserGroups.Items.RemoveAt(index);
             ControlTab_UserGroup.Items.RemoveAt(index);
             _listOfListBox_Users.RemoveAt(index - 1);
+            _usersDataBase.UserGroups.RemoveAt(index);
         }
        
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
