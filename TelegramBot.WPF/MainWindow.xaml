@@ -15,10 +15,16 @@
             <RowDefinition Height="34*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="34*"></ColumnDefinition>
-            <ColumnDefinition Width="209*"></ColumnDefinition>
+            <ColumnDefinition Width="0*"></ColumnDefinition>
+            <ColumnDefinition Width="140*"></ColumnDefinition>
             <ColumnDefinition Width="209*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
+        <!--#region toolbar-->        
+        <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,30" Grid.RowSpan="2">
+            <Button Content="Подключить бота"  Margin="0,-4,0,0"/>
+        </ToolBar>
+        <!--#endregion-->
 
         <!--отображение пользователей-->
         <ComboBox x:Name="ComboBox_UserGroups" Grid.Column="1" Grid.Row="1" Margin="10,2,10,2" SelectionChanged="ComboBox_UserGroups_SelectionChanged">
@@ -39,16 +45,13 @@
                     <MenuItem Header="Вставить" Click="MenuItem_ClickInsert"/>
                 </ContextMenu>
             </TabControl.ContextMenu>
-
-
-
         </TabControl>
 
 
         <!--tabitems-->
         <TabControl Grid.Column="2" Grid.Row="1" Grid.RowSpan="4" Background="#FF4D5456" Margin="10,0,10,46">
             <!--tabitem create single question-->
-            <TabItem x:Name="TabItem_Create" Header="CreateQuestion">
+            <TabItem x:Name="TabItem_Create" Header="Создать вопрос">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="0*"/>
@@ -197,7 +200,7 @@
                     </Grid>
                 </Grid>
             </TabItem>
-            <TabItem Header="Edit">
+            <TabItem Header="Отредактировать вопрос">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -342,7 +345,7 @@
             </TabItem>
 
             <!--#region Container. хранилище всех вопросов и кластеров вопросов-->
-            <TabItem x:Name="TabItem_Container" Header="Container" VerticalAlignment="Bottom">
+            <TabItem x:Name="TabItem_Container" Header="Контейнер" VerticalAlignment="Bottom">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="53*"/>
@@ -388,7 +391,7 @@
             <!--#endregion-->
 
             <!--#region Claster. Объединение вопросов в один кластер-->
-            <TabItem x:Name="Claster" Header="Claster">
+            <TabItem x:Name="Claster" Header="Кластер вопросов">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="50*" />
@@ -461,38 +464,6 @@
             </TabItem>
             <!--#endregion-->
         </TabControl>
-
-        <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,30" Grid.RowSpan="2">
-            <Button Content="Bot"  Margin="0,-4,0,0"/>
-        </ToolBar>
-
-
-
-        <!--listbox слева-->
-        <ListBox x:Name="ListBox_Groups" Grid.Column="0" Grid.Row="1" Grid.RowSpan="4" Background="#FF353B3A" Margin="0,0,0,46">
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="ListBoxItem">
-                                <StackPanel>
-                                    <TextBlock
-                                    Text="{TemplateBinding Content}" />
-                                </StackPanel>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </ListBox.ItemContainerStyle>
-
-            <ListBox.Items>
-                <ListBoxItem>все</ListBoxItem>
-                <ListBoxItem>остальные</ListBoxItem>
-                <ListBoxItem>гр.1</ListBoxItem>
-                <ListBoxItem>гр.2</ListBoxItem>
-                <ListBoxItem>гр.3</ListBoxItem>
-            </ListBox.Items>
-        </ListBox>
 
 
     </Grid>
