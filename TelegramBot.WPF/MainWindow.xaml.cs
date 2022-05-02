@@ -854,19 +854,26 @@ namespace TelegramBot.WPF
 
         private void RadioButton_TestClaster_Click(object sender, RoutedEventArgs e)
         {
-            //список свободных вопросов типа тест
-            ListView_SingleQuestions.Items.Refresh();
-            
-            ListView_SingleQuestions.Items.Add(_listView_ClasterQuestions.);
-           
-            ComboBox_Claster.SelectedItem
+            ListView_SingleQuestions.Items.Clear();
+
+            foreach (var question in _testsDataBase.TestSingelQuestions)
+            {
+                ListView_SingleQuestions.Items.Add(question.Description);
+            }                     
         }
 
         private void RadioButton_PoolClaster_Click(object sender, RoutedEventArgs e)
         {
-            //список свободных вопросов типа опрос
-            ListView_SingleQuestions.Items.Refresh();
-            ListView_SingleQuestions.Items.Add(_listView_ClasterQuestions.Items);
+            ListView_SingleQuestions.Items.Clear();
+            foreach (var question in _testsDataBase.TestSingelPolls)
+            {
+                ListView_SingleQuestions.Items.Add(question.Description);
+            }
+        }
+
+        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
 
         #region context menu        
