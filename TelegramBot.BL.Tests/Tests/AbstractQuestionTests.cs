@@ -94,6 +94,50 @@ namespace TelegramBot.BL.Tests
             Assert.Throws<ArgumentNullException>(() => newQuestion.AddTrueAnswer(newVariant));
         }
 
+        [TestCaseSource(typeof(RemoveVariantTestSource))]
+        public void RemoveVariantTest(AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
+        {
+            AbstractQuestion actualQuestion = newQuestion;
+            actualQuestion.RemoveVariant();
 
+            Assert.AreEqual(expectedQuestion, actualQuestion);
+        }
+        [TestCaseSource(typeof(RemoveVariantNegativeTestSource))]
+        public void RemoveVariantTest_WhenVariantsIsNull_ShouldThrowArgumentNullException(AbstractQuestion newQuestion)
+        {
+            Assert.Throws<ArgumentNullException>(() => newQuestion.RemoveVariant());
+        }
+        [TestCaseSource(typeof(RemoveVariantByIndexTestSource))]
+        public void RemoveVariantByIndexTest(int index, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
+        {
+            AbstractQuestion actualQuestion = newQuestion;
+            actualQuestion.RemoveVariantByIndex(index);
+
+            Assert.AreEqual(expectedQuestion, actualQuestion);
+        }
+        [TestCaseSource(typeof(RemoveVariantByIndexNegativeTestSource))]
+        public void RemoveVariantByIndexTest_WhenIndexIsOutOfRange_ShouldThrowIndexIsOutOfRangeExeption(int index, AbstractQuestion newQuestion)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => newQuestion.RemoveVariantByIndex(index));
+        }
+        [TestCaseSource(typeof(RemoveVariantByIndexEmptyTestSource))]
+        public void RemoveVariantByIndexTest_WhenVariantsIsNull_ShouldThrowNullReferenceException(int index, AbstractQuestion newQuestion)
+        {
+            Assert.Throws<NullReferenceException>(() => newQuestion.RemoveVariantByIndex(index));
+        }
+        [TestCaseSource(typeof(RemoveTrueAnswerByIndexTestSource))]
+        public void RemoveTrueAnswerByIndexTest(int index, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
+        {
+            AbstractQuestion actualQuestion = newQuestion;
+            actualQuestion.RemoveTrueAnswerByIndex(index);
+
+            Assert.AreEqual(expectedQuestion, actualQuestion);
+        }
+
+        [TestCaseSource(typeof(RemoveTrueAnswerByIndexNegativeTestSource))]
+        public void RemoveTrueAnswerByIndexTest_WhenIndexIsOutOfRange_ShouldThrowIndexIsOutOfRangeExeption(int index, AbstractQuestion newQuestion)
+        {
+            Assert.Throws<IndexOutOfRangeException>(() => newQuestion.RemoveTrueAnswerByIndex(index));
+        }
     }
 }
