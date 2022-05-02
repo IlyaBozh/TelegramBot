@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -95,15 +96,10 @@ namespace TelegramBot.WPF
 
             ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
 
-<<<<<<< HEAD
             _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("ДаИлиНет", "DA"));//test
             _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("ДаИлиНет"));//test
             _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("YesOr", "DA"));//test
             _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("YesOr"));//test
-=======
-            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("TypeYesOrNo", "DA"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("TypeYesOrNo"));//test
->>>>>>> TB-67
             _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TypeUserAnswer", "Otvet"));//test
             _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TypeUserAnswer"));//test
             List<string> truVar = new List<string>() { "Odin", "Dva", "tri" }; // test
@@ -606,11 +602,7 @@ namespace TelegramBot.WPF
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-<<<<<<< HEAD
                     
-=======
-                    question = abstractQuestion.Description;
->>>>>>> TB-67
                    
                     _tbot.Send((string)question, user.Id);
                 }
@@ -620,7 +612,6 @@ namespace TelegramBot.WPF
 
             if (2 == ComboBox_QuestionContainer.SelectedIndex)
             {
-<<<<<<< HEAD
                 question = abstractQuestion.Description;
                 answers = abstractQuestion.Variants;
 
@@ -633,18 +624,6 @@ namespace TelegramBot.WPF
                 {
 
                     replyMarkup.OneTimeKeyboard = true;
-=======
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    question = abstractQuestion.Description;
-                    answers = abstractQuestion.Variants;
-                    
-             
-                    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                        .ToArray();
-                    var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
->>>>>>> TB-67
                     _tbot.Send((string)question, user.Id, replyMarkup);
                 }
 
@@ -652,7 +631,6 @@ namespace TelegramBot.WPF
 
             if (3 == ComboBox_QuestionContainer.SelectedIndex)
             {
-<<<<<<< HEAD
                 question = abstractQuestion.Description;
                 answers = abstractQuestion.Variants;
 
@@ -664,38 +642,18 @@ namespace TelegramBot.WPF
                 {
 
                     replyMarkup.OneTimeKeyboard = true;
-=======
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    question = abstractQuestion.Description;
-                    answers = abstractQuestion.Variants;
-
-
-                    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                        .ToArray();
-                    var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
->>>>>>> TB-67
                     _tbot.Send((string)question, user.Id, replyMarkup);
                 }
             }
 
             if (4 == ComboBox_QuestionContainer.SelectedIndex)
             {
-<<<<<<< HEAD
                 question = abstractQuestion.Description;
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
                     
                     ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(
-=======
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    question = abstractQuestion.Description;
-
-                    ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup(
->>>>>>> TB-67
                     new[]
                     {
                      new[]
@@ -711,12 +669,8 @@ namespace TelegramBot.WPF
                     }
                     );
 
-<<<<<<< HEAD
                     replyMarkup.OneTimeKeyboard = true;
                     _tbot.Send((string)question, user.Id, replyMarkup);
-=======
-                    _tbot.Send((string)question, user.Id, replyKeyboardMarkup);
->>>>>>> TB-67
                 }
 
 
@@ -724,7 +678,6 @@ namespace TelegramBot.WPF
 
             if (5 == ComboBox_QuestionContainer.SelectedIndex)
             {
-<<<<<<< HEAD
                 question = abstractQuestion.Description;
                 answers = abstractQuestion.Variants;
 
@@ -734,20 +687,8 @@ namespace TelegramBot.WPF
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-
+                    
                     replyMarkup.OneTimeKeyboard = true;
-=======
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    question = abstractQuestion.Description;
-                    answers = abstractQuestion.Variants;
-
-
-                    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                        .ToArray();
-                    var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
->>>>>>> TB-67
                     _tbot.Send((string)question, user.Id, replyMarkup);
                 }
             }
@@ -763,15 +704,17 @@ namespace TelegramBot.WPF
 
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
         {
-
+           
             DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelPolls;
+            ComboBox_QuestionContainer.SelectedIndex = 0;
         }
 
         private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
         {
 
+            
             DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelQuestions;
-
+            ComboBox_QuestionContainer.SelectedIndex = 0;
         }
 
         private void ComboBox_QuestionContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -786,12 +729,13 @@ namespace TelegramBot.WPF
             List<AbstractQuestion> tmpTestOrPoll = RadioButton_TestContainer.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.TestSingelPolls;
 
             List<AbstractQuestion> tmp = new List<AbstractQuestion>();
-
+            
             foreach (var type in tmpTestOrPoll)
             {
                 switch (ComboBox_QuestionContainer.SelectedIndex)
                 {
                     case 0:
+                        tmp.Add(type);
                         break;
 
                     case 1:
@@ -804,7 +748,9 @@ namespace TelegramBot.WPF
                     case 2:
                         if (type is TypeOneVariant)
                         {
+                            
                             tmp.Add(type);
+                           
                         }
                         break;
 
@@ -831,7 +777,10 @@ namespace TelegramBot.WPF
                 }
             }
 
+           
             DataGrid_SingleQuestions.ItemsSource = tmp;
+            
+
         }
     }
 }
