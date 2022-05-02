@@ -4,6 +4,7 @@ using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
+using Telegram.Bot.Types.InlineQueryResults;
 
 
 namespace TelegramBot.BL
@@ -30,12 +31,27 @@ namespace TelegramBot.BL
             _client.StartReceiving(HandleUpdateAsync, HandleErrorAsync);
         }
 
-        public async Task HandleUpdateAsync()
+        public async void Send()
         {
 
         }
 
-        public Task HandleErrorAsync()
+        public async Task HandleUpdateAsync(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        {
+            if (update.Message != null && update.Message.Text != null)
+            {
+                if (!_ids.Contains(update.Message.Chat.Id))
+                {
+                    _ids.Add(update.Message.Chat.Id);
+                    User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
+                    _users(newUser);
+                    //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
+                    //_users(userName);
+                }
+            }
+        }
+
+        public Task HandleErrorAsync(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
         }
