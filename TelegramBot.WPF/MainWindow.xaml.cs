@@ -953,6 +953,24 @@ namespace TelegramBot.WPF
         {
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
+
+        #endregion
+
+        #region Кластер вопросов
+        private void TextBox_ClasterName_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+                TextBox_ClasterName.Clear();
+            }
+        }
+        private void Button_AddClasterName_Click(object sender, RoutedEventArgs e)
+        {
+            ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+            TextBox_ClasterName.Clear();
+        }
+
+        #endregion
     }
-    #endregion
 }

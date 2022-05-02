@@ -401,43 +401,31 @@
                         <RowDefinition Height="10*" />
                         <RowDefinition Height="90*" />
                     </Grid.RowDefinitions>
-                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="0,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged">
+                    
+                    <!--верхний ряд-->
+                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,40,0" KeyUp="TextBox_ClasterName_KeyUp"/>
+                    <Button x:Name="Button_AddClasterName" Grid.Column="0" Grid.Row="0" Content="+" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0" Width="30" Click="Button_AddClasterName_Click"></Button>
+
+                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged">
                         <ComboBox.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Удалить" Click="MenuItem_ClickDeleteComboBox_Claster"/>
+                                <MenuItem Header="Редактировать название" Click="MenuItem_RenameClaster_Click"/>
+                                <MenuItem Header="Удалить" Click="MenuItem_RemoveClaster_Click"/>
                             </ContextMenu>
                         </ComboBox.ContextMenu>
                         <ComboBoxItem Content="название кластера" IsSelected="True"></ComboBoxItem>
                     </ComboBox>
 
-
-                    <TabControl x:Name="TabControll_ClasterQuestions"  Grid.Column="0" Grid.Row="2"  Margin="0,0,10,0" Visibility="Visible">
-                        <TabItem Header="NameClaster" Visibility="Collapsed" BorderThickness="0,0,0,0" SnapsToDevicePixels="True" Opacity="0">
-                            <ListView x:Name="ListView_ClasterQuestions" Grid.Column="0" Grid.Row="0" Margin="0" >
-                                <ListView.ContextMenu>
-                                    <ContextMenu>
-                                        <MenuItem Header="Вырезать" Click="MenuItem_ClickCutListView_ClasterQuestions"/>
-                                        <MenuItem Header="Вставить" Click="MenuItem_ClickInsertListView_ClasterQuestions"/>
-                                        <MenuItem Header="Удалить" Click="MenuItem_ClickDeleteListView_ClasterQuestions"/>
-                                    </ContextMenu>
-                                </ListView.ContextMenu>
-                                <ListView.View>
-                                    <GridView>
-                                        <GridViewColumn Header="вопрос" Width="52"></GridViewColumn>
-                                        <GridViewColumn Header="варианты" Width="57"></GridViewColumn>
-                                        <GridViewColumn Header="+" Width="57"></GridViewColumn>
-                                    </GridView>
-                                </ListView.View>
-
-                                <ListView.Resources>
-
-                                </ListView.Resources>
-                            </ListView>
-                        </TabItem>
-                    </TabControl>
-
-                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0" KeyDown="TextBox_ClasterName_KeyDown"/>
-                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,0,0">
+                    <!--нижний ряд-->
+                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>Вопрос</GridViewColumn>
+                                <GridViewColumn>Варианты</GridViewColumn>
+                                <GridViewColumn>Правильный(-ые)</GridViewColumn>
+                                <GridViewColumn>Тип</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
                         <ListView.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Вырезать" Click="MenuItem_ClickCutListView_SingleQuestions"/>
@@ -445,13 +433,7 @@
                                 <MenuItem Header="Удалить" Click="MenuItem_ClickDeleteListView_SingleQuestions"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
-                        <ListView.View>
-                            <GridView>
-                                <GridViewColumn Header="вопрос" Width="52"></GridViewColumn>
-                                <GridViewColumn Header="варианты" Width="57"></GridViewColumn>
-                                <GridViewColumn Header="+" Width="57"></GridViewColumn>
-                            </GridView>
-                        </ListView.View>
+
 
                         <ListView.Resources>
 
@@ -459,10 +441,24 @@
 
                     </ListView>
 
+                    <ListView x:Name="ListView_Claster" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn>Вопрос</GridViewColumn>
+                                <GridViewColumn>Варианты</GridViewColumn>
+                                <GridViewColumn>Правильный(-ые)</GridViewColumn>
+                                <GridViewColumn>Тип</GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
+
+
                 </Grid>
 
             </TabItem>
             <!--#endregion-->
+            
         </TabControl>
 
 
