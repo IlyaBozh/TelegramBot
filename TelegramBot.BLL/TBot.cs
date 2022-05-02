@@ -13,7 +13,9 @@ namespace TelegramBot.BL
         private TelegramBotClient _client;
         private Action<User> _users;
         private List<long> _ids;
-        
+        #region лена
+
+        #endregion
 
         public TBot(string token, Action <User> users)
         {
@@ -22,61 +24,81 @@ namespace TelegramBot.BL
             _ids = new List<long>();
         }
 
-        public async void Send(string message, long id, ReplyKeyboardMarkup replyKeyboardMarkup) /// --------------????
+        #region лена
+        public void Start()
         {
-            
-             await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup: replyKeyboardMarkup);
+            _client.StartReceiving(HandleUpdateAsync, HandleErrorAsync);
+        }
+
+        public async Task HandleUpdateAsync()
+        {
 
         }
 
-        public async void Send(string message, long id) /// --------------????
-        {
-
-            await _client.SendTextMessageAsync(new ChatId(id), message);
-
-        }
-
-        //public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
-        //{
-
-            
-        //    await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup:inlineKeyboardMarkup);
-
-            
-        //}
-
-        
-
-
-    public void Start()
-        {
-            _client.StartReceiving(HandleResive, HandleError);
-        }
-
-        private async Task HandleResive(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
-        {
-            
-            if (update.Message != null && update.Message.Text != null)
-            {
-
-                if (!_ids.Contains(update.Message.Chat.Id))
-                {
-                    _ids.Add(update.Message.Chat.Id);
-                    User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
-                    _users(newUser);
-                    //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
-                    //_users(userName);
-                }
-               
-
-               
-            }
-        }
-
-      
-        private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        public Task HandleErrorAsync()
         {
             return Task.CompletedTask;
         }
+        #endregion
+
+        #region лев
+        //public async void Send(string message, long id, ReplyKeyboardMarkup replyKeyboardMarkup) /// --------------????
+        //{
+
+        //    await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup: replyKeyboardMarkup);
+
+        //}
+
+        //public async void Send(string message, long id) /// --------------????
+        //{
+
+        //    await _client.SendTextMessageAsync(new ChatId(id), message);
+
+        //}
+
+        ////public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
+        ////{
+
+
+        ////    await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup:inlineKeyboardMarkup);
+
+
+        ////}
+
+
+
+
+        //public void Start()
+        //{
+        //    _client.StartReceiving(HandleResive, HandleError);
+        //}
+
+        //private async Task HandleResive(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
+        //{
+
+        //    if (update.Message != null && update.Message.Text != null)
+        //    {
+
+        //        if (!_ids.Contains(update.Message.Chat.Id))
+        //        {
+        //            _ids.Add(update.Message.Chat.Id);
+        //            User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
+        //            _users(newUser);
+        //            //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
+        //            //_users(userName);
+        //        }
+
+
+
+        //    }
+        //}
+
+
+        //private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
+        //{
+        //    return Task.CompletedTask;
+        //}
+        #endregion
+
     }
 }

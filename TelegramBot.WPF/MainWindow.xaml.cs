@@ -56,6 +56,9 @@ namespace TelegramBot.WPF
         public MainWindow()
         {
             _tbot = new TBot(_token, AddUsers);
+            #region лена
+            _tbot.Start();
+            #endregion
             _labels = new List<string>();//test
 
 
