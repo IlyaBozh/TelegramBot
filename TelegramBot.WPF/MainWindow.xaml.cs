@@ -33,6 +33,8 @@ namespace TelegramBot.WPF
         private DispatcherTimer _timer;
         GroupBox _formVariant;
         GroupBox _formAnswer;
+        GroupBox _editFormVariants;
+        GroupBox _editFormAnswer;
         List<TypeOneVariant> _tryAnswers;
         List<TypeRightOrder> _typeRightOrder;
         List<TypeSeveralVariants> _typeSeveralVariants;
@@ -73,6 +75,28 @@ namespace TelegramBot.WPF
             _timer.Tick += OnTick;
             _timer.Start();
             _tbot.Start();
+
+            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("ДаИлиНет", "DA"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("ДаИлиНет"));//test
+            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("YesOr", "DA"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("YesOr"));//test
+            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TypeUserAnswer", "Otvet"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TypeUserAnswer"));//test
+            List<string> truVar = new List<string>() { "Odin", "Dva", "tri" }; // test
+            _testsDataBase.TestSingelQuestions.Add(new TypeOneVariant("TypeOneVariant", "Odin", truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeOneVariant("TypeOneVariant", truVar));//test
+            List<string> truVarSeveral = new List<string>() { "Odin", "Dva", "tri", "CHetiru", "paty" }; // test
+
+
+            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("ТестСеверал", truVarSeveral, truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("ПулСеверал", truVar));//test
+            List<string> truVarSeveral1 = new List<string>() { "1", "2", "3", "4", "5" };
+            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("ТСев", truVarSeveral1, truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("Псве", truVarSeveral1));//test
+
+
+            _testsDataBase.TestSingelQuestions.Add(new TypeRightOrder("TypeRightOrder", truVarSeveral, truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeRightOrder("TypeRightOrder", truVar));//test
         }
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
@@ -264,12 +288,14 @@ namespace TelegramBot.WPF
         private void RadioButtonEdit_Test_Click(object sender, RoutedEventArgs e)
         {
             GroupBox_TestEdit.Visibility = Visibility.Visible;
+            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
             HideExtraBoxes();
         } //+
 
         private void RadioButtonEdit_Poll_Click(object sender, RoutedEventArgs e) // моё
         {
             GroupBox_TestEdit.Visibility = Visibility.Visible;
+            GroupBox_ChoseTypeQuestionEdit.Visibility = Visibility.Visible;
             HideExtraBoxes();
         } //+
 
@@ -280,59 +306,119 @@ namespace TelegramBot.WPF
         }
 
        
-        private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_ChooseTestEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            GroupBox_QuestionEdit.Visibility = Visibility.Visible;
+            ComboBox_ChooseQuestionTypeEdit.Items.Clear();
 
             if (DataGrid_SingleQuestions == null)
             {
                 return;
             }
+
             _testsDataBase = TestsDataBase.GetInstance();
-            List<AbstractQuestion> tmpTestPoll = RadioButtonEdit_Test.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.TestSingelPolls;
+            List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
 
             foreach (var type in tmpTestPoll)
             {
                 switch (ComboBox_ChooseTestEdit.SelectedIndex)
                 {
+                    case 0:
+                        if(type is TypeUserAnswer)
+                        {
+                          ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+
+                        }
+                        break;
                     case 1:
-                            ComboBox_ChooseTestEdit.Items.Add(type.Description);
+                        if (type is TypeOneVariant)
+                        {
+                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+                        }
                         break;
 
                     case 2:
-                        if (type is TypeOneVariant)
+                        if (type is TypeSeveralVariants)
                         {
-                            ComboBox_ChooseTestEdit.Items.Add(type.Description);
+
+                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
                         }
                         break;
 
                     case 3:
-                        if (type is TypeSeveralVariants)
+                        if (type is TypeYesOrNo)
                         {
-
-                            ComboBox_ChooseTestEdit.Items.Add(type.Description);
+                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
                         }
                         break;
 
                     case 4:
-                        if (type is TypeYesOrNo)
-                        {
-                            ComboBox_ChooseTestEdit.Items.Add(type.Description);
-                        }
-                        break;
-
-                    default:
                         if (type is TypeRightOrder)
                         {
-                            ComboBox_ChooseTestEdit.Items.Add(type.Description);
+                            ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
                         }
                         break;
                 }
-
             }
 
+            GroupBox_QuestionEdit.Visibility = Visibility.Visible;
+            Button_SaveChanges.Visibility = Visibility.Visible;
+            Button_CancelChanges.Visibility = Visibility.Visible;
+
+            if (_formVariant is not null)
+            {
+                _formVariant.Visibility = Visibility.Hidden;
+            }
+            if (_formAnswer is not null)
+            {
+                _formAnswer.Visibility = Visibility.Hidden;
+            }
+            int tmp = ComboBox_ChooseTestEdit.SelectedIndex;
+
+            if (RadioButtonEdit_Test.IsChecked == true)
+            {
+                Label_TrueAnswerEdit.Visibility = Visibility.Visible;
+                if (tmp == 0)
+                {
+                    GroupBox_AnswerEdit.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AnswerEdit;
+
+                }
+                else if (tmp == 1 || tmp == 2 || tmp == 4)
+                {
+                    GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AddVariantsEdit;
+                }
+                else
+                {
+                    GroupBox_AnswerYesOrNoEdit.Visibility = Visibility.Visible;
+                    _formAnswer = GroupBox_AnswerYesOrNoEdit;
+
+
+                }
+            }
+
+        }
+
+        private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
             
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #endregion
 
@@ -695,6 +781,7 @@ namespace TelegramBot.WPF
             RadioButton_Yes.IsChecked = false;
         }
 
+
         private AbstractQuestion GetQuestionWhithoutAnswer()
         {
             List<string> tmp_1 = new List<string>();
@@ -947,6 +1034,16 @@ namespace TelegramBot.WPF
         private void ListBox_RightOrder_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
+        }
+
+        private void ComboBox_ChooseTestEdit_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void ComboBox_ChooseTestEdit_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
     #endregion
