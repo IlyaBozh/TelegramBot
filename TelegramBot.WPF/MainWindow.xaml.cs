@@ -706,14 +706,24 @@ namespace TelegramBot.WPF
         {
            
             DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelPolls;
+
+            for(int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
+            {
+                DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
+            }
+                
             ComboBox_QuestionContainer.SelectedIndex = 0;
         }
 
         private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
         {
 
-            
             DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelQuestions;
+
+            for (int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
+            {
+                DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
+            }
             ComboBox_QuestionContainer.SelectedIndex = 0;
         }
 
@@ -779,8 +789,15 @@ namespace TelegramBot.WPF
 
            
             DataGrid_SingleQuestions.ItemsSource = tmp;
-            
+
+            for(int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
+            {
+                 DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
+
+            }
 
         }
+
+       
     }
 }
