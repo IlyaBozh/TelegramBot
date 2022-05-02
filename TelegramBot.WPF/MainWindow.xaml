@@ -377,7 +377,7 @@
                     <Label x:Name="Label_UserGroups" Content="Группы:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom"></Label>
                     <ListBox x:Name="ListBox_UserGroups" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Margin="0,4,10,0">
 
-                        <ListBoxItem>нераспределённые</ListBoxItem>
+                        
                     </ListBox>
                     <RadioButton Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="65" Margin="10,0,0,5" Visibility="Visible"></RadioButton>
                     <ComboBox x:Name="ComboBox_ClasterName" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="30,0,0,0" Visibility="Visible" >

@@ -60,7 +60,7 @@ namespace TelegramBot.WPF
         {
              _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();//test
-            
+            _listOfListBox_Users = new List<ListBox>();
 
             InitializeComponent();
 
@@ -104,9 +104,29 @@ namespace TelegramBot.WPF
                  tmp.Visibility = Visibility.Hidden;
             }
 
-
+            
             _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
             _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
+
+            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("ДаИлиНет", "DA"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("ДаИлиНет"));//test
+            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("YesOr", "DA"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("YesOr"));//test
+            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TypeUserAnswer", "Otvet"));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TypeUserAnswer"));//test
+            List<string> truVar = new List<string>() { "Odin", "Dva", "tri" }; // test
+            _testsDataBase.TestSingelQuestions.Add(new TypeOneVariant("TypeOneVariant", "Odin", truVar));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeOneVariant("TypeOneVariant", truVar));//test
+            List<string> truVarSeveral = new List<string>() { "Odin", "Dva", "tri", "CHetiru", "paty" }; // test
+            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("TypeSeveralVariants", truVarSeveral));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("TypeSeveralVariants", truVar, truVarSeveral));//test
+            _testsDataBase.TestSingelQuestions.Add(new TypeRightOrder("TypeRightOrder", truVarSeveral));//test
+            _testsDataBase.TestSingelPolls.Add(new TypeRightOrder("TypeRightOrder", truVar, truVarSeveral));//test
+
+            for(int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
+            {
+                  ListBox_UserGroups.Items.Add(ComboBox_UserGroups.Items[i]);
+            }
         }
 
         public void AddUsers(User newUser)
@@ -524,7 +544,7 @@ namespace TelegramBot.WPF
             List<string> answers= new List<string>();
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
-            if(question is null || indexGroup == -1)
+            if( indexGroup == -1)
             {
                 return;
             }
@@ -1199,9 +1219,6 @@ namespace TelegramBot.WPF
 
            }
                 
-
-            
-
             DataGrid_SingleQuestions.ContextMenu = testMenu;
             this.ContextMenu = testMenu;
 
