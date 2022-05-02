@@ -57,6 +57,7 @@ namespace TelegramBot.WPF
              _tbot = new TBot(_token, AddUsers);
             _labels = new List<string>();//test 
             _listOfListBox_Users = new List<ListBox>();//test
+            _listView_ClasterQuestions = new ListView(); //test
             _listOfListView_ClasterQuestions = new List<ListView>();//test
 
             InitializeComponent();
@@ -851,6 +852,23 @@ namespace TelegramBot.WPF
             TextBox_ClasterName.Clear();
         }
 
+        private void RadioButton_TestClaster_Click(object sender, RoutedEventArgs e)
+        {
+            //список свободных вопросов типа тест
+            ListView_SingleQuestions.Items.Refresh();
+            
+            ListView_SingleQuestions.Items.Add(_listView_ClasterQuestions.);
+           
+            ComboBox_Claster.SelectedItem
+        }
+
+        private void RadioButton_PoolClaster_Click(object sender, RoutedEventArgs e)
+        {
+            //список свободных вопросов типа опрос
+            ListView_SingleQuestions.Items.Refresh();
+            ListView_SingleQuestions.Items.Add(_listView_ClasterQuestions.Items);
+        }
+
         #region context menu        
         private void MenuItem_ClickCutListView_SingleQuestions(object sender, RoutedEventArgs e)
         {
@@ -966,5 +984,6 @@ namespace TelegramBot.WPF
         //}
 
         #endregion
+
     }
 }
