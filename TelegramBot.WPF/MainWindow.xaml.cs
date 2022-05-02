@@ -80,6 +80,15 @@ namespace TelegramBot.WPF
             _testsDataBase = TestsDataBase.GetInstance();
             _usersDataBase = UsersDataBase.GetInstance();
 
+            List<List<AbstractQuestion>> loadData = _testsDataBase.LoadSingel();
+            List<List<Claster>> loadClasters = _testsDataBase.LoadClaster();
+
+            _testsDataBase.TestSingelQuestions = loadData[0];
+            _testsDataBase.PollSingelQuestions = loadData[1];
+            _testsDataBase.Tests = loadClasters[0];
+            _testsDataBase.Polls = loadClasters[1];
+
+
             ComboBox_UserGroups.SelectedIndex = 0;
 
             ListBox _userListBox = new ListBox();
@@ -94,9 +103,6 @@ namespace TelegramBot.WPF
             tmp.Visibility = Visibility.Hidden;
 
             ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
-
-            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
         }
 
         public void AddUsers(User newUser)
@@ -338,6 +344,8 @@ namespace TelegramBot.WPF
             {
                 Label_TrueAnswerEdit.Visibility = Visibility.Hidden;
             }
+
+            ///ТУТ ЕБАТЬ ТЕСТЫ ТЕСТОВ
         }
 
 
@@ -507,6 +515,7 @@ namespace TelegramBot.WPF
                 _listView_ClasterQuestions= new ListView();
                 _listView_ClasterQuestions = ListView_ClasterQuestions;
                 ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+                _testsDataBase.Tests.Add(new Claster(TextBox_ClasterName.Text));
                 TextBox_ClasterName.Clear();
 
                  TabItem tmp = new TabItem { Header = new TextBlock { Text = TextBox_ClasterName.Text }, Content = _listView_ClasterQuestions };
@@ -515,6 +524,7 @@ namespace TelegramBot.WPF
                 TabControll_ClasterQuestions.Items.Add(tmp);
                 
                 tmp.Visibility = Visibility.Collapsed;
+
             }
 
         }
@@ -542,7 +552,7 @@ namespace TelegramBot.WPF
 
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
         {
-            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelPolls;
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.PollSingelQuestions;
         }
 
         private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
@@ -619,7 +629,7 @@ namespace TelegramBot.WPF
                 }
                 else
                 {
-                    _testsDataBase.TestSingelPolls.Add(GetQuestionWhithoutAnswer());
+                    _testsDataBase.PollSingelQuestions.Add(GetQuestionWhithoutAnswer());
                 }
             }
             else
@@ -954,6 +964,14 @@ namespace TelegramBot.WPF
         {
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
+
+        #endregion
+
+        private void Window_MainWindow_Closed(object sender, EventArgs e)
+        {
+            _testsDataBase.SaveSingel(_testsDataBase.TestSingelQuestions, _testsDataBase.PollSingelQuestions);
+            _testsDataBase.SaveClaster(_testsDataBase.Tests, _testsDataBase.Polls);
+        }
     }
-    #endregion
+    
 }

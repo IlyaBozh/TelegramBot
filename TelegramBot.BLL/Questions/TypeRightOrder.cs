@@ -8,6 +8,11 @@ namespace TelegramBot.BL.Questions
 {
     public class TypeRightOrder : AbstractQuestion
     {
+        public TypeRightOrder()
+        {
+
+        }
+
         public TypeRightOrder(string discription, List <string> trueAnswers, List <string> variants)
         {
             Description = discription;

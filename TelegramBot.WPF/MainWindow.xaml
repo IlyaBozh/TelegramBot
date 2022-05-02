@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TelegramBot.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="635" Width="904" Background="#FF353B3A" Initialized="Window_MainWindow_Initialized_1">
+        Title="MainWindow" Height="635" Width="904" Background="#FF353B3A" Initialized="Window_MainWindow_Initialized_1" Closed="Window_MainWindow_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="22*"></RowDefinition>
@@ -266,12 +266,6 @@
                                 <RowDefinition Height="10*"></RowDefinition>
                             </Grid.RowDefinitions>
                             <ComboBox x:Name="ComboBox_ChooseQuestionTypeEdit" Grid.Row="1" VerticalAlignment="Top" Height="20" Margin="4,1,4,0" Visibility="Visible">
-                                <ComboBoxItem Content="тут должны быть разные вопросы"/>
-                                <ComboBoxItem Content="вопрос 1"/>
-                                <ComboBoxItem Content="вопрос 2"/>
-                                <ComboBoxItem Content="вопрос 3"/>
-                                <ComboBoxItem Content="и тп и тп"/>
-                                <!--<ComboBoxItem Content="не выбрано"/>-->
                             </ComboBox>
                             <Label Content="Выберите вопрос:" VerticalAlignment="Center" Margin="0,0,-1,0" Visibility="Visible" Height="26"/>
                         </Grid>
