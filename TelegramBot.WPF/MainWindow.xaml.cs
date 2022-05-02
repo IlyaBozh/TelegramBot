@@ -78,6 +78,11 @@ namespace TelegramBot.WPF
         {
             _testsDataBase = TestsDataBase.GetInstance();
             _usersDataBase = UsersDataBase.GetInstance();
+            _usersDataBase.UserGroups = _usersDataBase.Load();
+            foreach(var group in _usersDataBase.UserGroups)
+            {
+                ComboBox_UserGroups.Items.Add(group.NameGroup);
+            }
 
             ComboBox_UserGroups.SelectedIndex = 0;
 
@@ -953,6 +958,11 @@ namespace TelegramBot.WPF
         {
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
+     #endregion
+        private void Window_MainWindow_Closed(object sender, EventArgs e)
+        {
+            _usersDataBase.Save();
+        }
     }
-    #endregion
+   
 }
