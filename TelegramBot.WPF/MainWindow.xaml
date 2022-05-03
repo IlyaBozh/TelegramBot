@@ -309,8 +309,8 @@
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                         <ColumnDefinition Width="1*"></ColumnDefinition>
                                     </Grid.ColumnDefinitions>
-                                    <Button x:Name="Button_AddOneOrFewVariantsEdit" Content="Добавить"  Margin ="-32,10,36,2" Visibility="Visible" Grid.Column="0" FontSize="10"/>
-                                    <Button x:Name="Button_RemoveOneOrFewVariantsEdit" Content="Удалить выбранный" Visibility="Visible" Margin="42,10,0,2" Grid.ColumnSpan="2" FontSize="10"/>
+                                    <Button x:Name="Button_AddOneOrFewVariantsEdit" Content="Добавить"  Margin ="-32,10,36,2" Visibility="Visible" Grid.Column="0" FontSize="10" Click="Button_AddOneOrFewVariantsEdit_Click"/>
+                                    <Button x:Name="Button_RemoveOneOrFewVariantsEdit" Content="Удалить выбранный" Visibility="Visible" Margin="42,10,0,2" Grid.ColumnSpan="2" FontSize="10" Click="Button_RemoveOneOrFewVariantsEdit_Click"/>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -322,7 +322,7 @@
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
-                            <ListBox x:Name="ListBox_VariantsEdit" Grid.Column="0" Margin="4,4,4,4" Visibility="Visible"/>
+                            <ListBox x:Name="ListBox_VariantsEdit" Grid.Column="0" Margin="4,4,4,4" Visibility="Visible" SelectionChanged="ListBox_VariantsEdit_SelectionChanged"/>
                             <ListBox x:Name="ListBox_RightOrderEdit" Grid.Column="1" Margin="4,4,4,4" Visibility="Hidden" AllowDrop="True"/>
                         </Grid>
                     </GroupBox>

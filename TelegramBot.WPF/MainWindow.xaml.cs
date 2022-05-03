@@ -313,6 +313,8 @@ namespace TelegramBot.WPF
         private void ComboBox_ChooseTestEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ComboBox_ChooseQuestionTypeEdit.Items.Clear();
+            TextBox_AnswersEdit.Clear();
+            TextBox_QuestionEdit.Text = "";
             GroupBox_QuestionEdit.Visibility = Visibility.Visible;
             Button_SaveChanges.Visibility = Visibility.Visible;
             Button_CancelChanges.Visibility = Visibility.Visible;
@@ -399,7 +401,9 @@ namespace TelegramBot.WPF
 
         private void ComboBox_ChoosePollEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
             ComboBox_ChooseQuestionTypeEdit.Items.Clear();
+            TextBox_AnswersEdit.Clear();
             GroupBox_QuestionEdit.Visibility = Visibility.Visible;
             Button_SaveChanges.Visibility = Visibility.Visible;
             Button_CancelChanges.Visibility = Visibility.Visible;
@@ -472,6 +476,8 @@ namespace TelegramBot.WPF
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
                                 GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
                                 _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                GroupBox_AddVariantEdit.Visibility = Visibility.Visible;
+                                _editFormVariants = GroupBox_AddVariantEdit;
                                 ListBox_RightOrderEdit.Visibility = Visibility.Hidden;
                             }
                             break;
@@ -483,6 +489,7 @@ namespace TelegramBot.WPF
         private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             ListBox_VariantsEdit.Items.Clear();
+            TextBox_AnswersEdit.Clear();
             _testsDataBase = TestsDataBase.GetInstance();
             List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
             int index = ComboBox_ChooseTestEdit.SelectedIndex;
@@ -491,7 +498,7 @@ namespace TelegramBot.WPF
             {
                 ChooseTypeTestToEdit();
             }
-            else
+            else if (RadioButtonEdit_Test.IsChecked == false)
             {
                 foreach (var type in tmpTestPoll)
                 {
@@ -499,53 +506,37 @@ namespace TelegramBot.WPF
                     {
                         TextBox_QuestionEdit.Text = type.Description;
 
-                        if (type is TypeUserAnswer)
+                        if(type is TypeUserAnswer)
                         {
-                            TextBox_AnswersEdit.Text = type.TrueAnswer;
+                            TextBox_QuestionEdit.Text = type.Description;
                         }
-                        else if (type is TypeOneVariant)
+                        if (type is TypeOneVariant)
                         {
+                            TextBox_QuestionEdit.Text = type.Description;
                             foreach (var variant in type.Variants)
                             {
-                                RadioButton radioButton_editVariants = new RadioButton() { Content = variant };
-                                ListBox_VariantsEdit.Items.Add(radioButton_editVariants);
-                                if (variant == type.TrueAnswer)
-                                {
-                                    radioButton_editVariants.IsChecked = true;
-                                }
+                                ListBox_VariantsEdit.Items.Add(variant);
                             }
                         }
                         else if (type is TypeSeveralVariants)
                         {
+                            TextBox_QuestionEdit.Text = type.Description;
                             foreach (var variant in type.Variants)
                             {
-                                CheckBox CheckBox_editVariants = new CheckBox() { Content = variant };
-                                ListBox_VariantsEdit.Items.Add(CheckBox_editVariants);
-                                foreach (var trueAnswer in type.TrueAnswers)
-                                {
-                                    if (variant == trueAnswer)
-                                    {
-                                        CheckBox_editVariants.IsChecked = true;
-                                    }
-                                }
+                                ListBox_VariantsEdit.Items.Add(variant);
                             }
                         }
-                        else if (type is TypeYesOrNo)
+                        else if(type is TypeYesOrNo)
                         {
-                            if (type.TrueAnswer.ToLower() == (string)RadioButton_No.Content)
-                            {
-                                RadioButton_No.IsChecked = true;
-                            }
-                            else
-                            {
-                                RadioButton_Yes.IsChecked = true;
-                            }
-
+                            TextBox_QuestionEdit.Text = type.Description;
                         }
                         else
                         {
-                            ListBox_VariantsEdit.ItemsSource = type.Variants;
-                            ListBox_RightOrderEdit.ItemsSource = type.TrueAnswers;
+                            TextBox_QuestionEdit.Text = type.Description;
+                            foreach (var variant in type.Variants)
+                            {
+                                ListBox_VariantsEdit.Items.Add(variant);
+                            }
                         }
                     }
                 }
@@ -565,7 +556,7 @@ namespace TelegramBot.WPF
                     {
                         TextBox_QuestionEdit.Text = type.Description;
 
-                        if (type is TypeUserAnswer)
+                        if(type is TypeUserAnswer)
                         {
                             TextBox_AnswersEdit.Text = type.TrueAnswer;
                         }
@@ -617,9 +608,48 @@ namespace TelegramBot.WPF
                 }
         }
 
+        private void Button_AddOneOrFewVariantsEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_OneOrFewVariantsEdit.Text == "")
+            {
+                return;
+            }
+            if (ComboBox_ChooseTestEdit.SelectedIndex == 1 && RadioButtonEdit_Test.IsChecked == true)
+            {
+                RadioButton variant = new RadioButton() { Content = TextBox_OneOrFewVariantsEdit.Text };
+                ListBox_VariantsEdit.Items.Add(variant);
+            }
+            else if (ComboBox_ChooseTestEdit.SelectedIndex == 2 && RadioButtonEdit_Test.IsChecked == true)
+            {
+                CheckBox variant = new CheckBox() { Content = TextBox_OneOrFewVariantsEdit.Text };
+                ListBox_VariantsEdit.Items.Add(variant);
+            }
+            else
+            {
+                string variant = TextBox_OneOrFewVariantsEdit.Text;
+                ListBox_VariantsEdit.Items.Add(variant);
+            }
 
+            TextBox_OneOrFewVariantsEdit.Text = "";
+        }
 
+        private void Button_RemoveOneOrFewVariantsEdit_Click(object sender, RoutedEventArgs e)
+        {
+            if (ListBox_VariantsEdit.Items.Count != 0)
+            {
+                ListBox_RightOrderEdit.Items.Remove(ListBox_VariantsEdit.Items[ListBox_VariantsEdit.Items.Count - 1]);
+                ListBox_VariantsEdit.Items.RemoveAt(ListBox_VariantsEdit.Items.Count - 1);
 
+            }
+        }
+
+        private void ListBox_VariantsEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!ListBox_RightOrderEdit.Items.Contains(ListBox_VariantsEdit.SelectedItem))
+            {
+                ListBox_RightOrderEdit.Items.Add(ListBox_VariantsEdit.SelectedItem);
+            }
+        }
 
 
         private void Button_ChangeTrueAnswers_Click(object sender, RoutedEventArgs e)
@@ -637,7 +667,7 @@ namespace TelegramBot.WPF
 
             Button_CancelChanges.Visibility = Visibility.Hidden;
 
-            //GroupBox_AddVariantsEdit.Visibility = Visibility.Hidden;
+            GroupBox_AddVariantEdit.Visibility = Visibility.Hidden;
 
             GroupBox_AnswerYesOrNo.Visibility = Visibility.Hidden;
 
@@ -645,9 +675,11 @@ namespace TelegramBot.WPF
 
             RadioButton_NoEdit.IsChecked = false;
 
-            GroupBox_TrueAnswer.Visibility = Visibility.Hidden;
+            GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Hidden;
 
-            Label_TrueAnswerEdit.Visibility = Visibility.Hidden;
+            TextBox_QuestionEdit.Clear();
+
+            TextBox_QuestionEdit.Text = "";
         }
 
 
