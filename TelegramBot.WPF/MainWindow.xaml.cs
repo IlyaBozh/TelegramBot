@@ -78,8 +78,8 @@ namespace TelegramBot.WPF
             _timer.Start();
             _tbot.Start();
 
-            ComboBox_UserGroups.Items[0] = "Пользователи без групп";
-            ListBox_UserGroups.Items[0] = "Пользователи без групп";
+            //ComboBox_UserGroups.Items[0] = "Пользователи без групп";
+            //ListBox_UserGroups.Items[0] = "Пользователи без групп";
         }
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
@@ -113,12 +113,19 @@ namespace TelegramBot.WPF
                  tmp.Visibility = Visibility.Hidden;
             }
 
-            
-            
 
-            for(int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
+
+            for (int i = 0; i < _usersDataBase.UserGroups.Count; i++)
             {
-                  ListBox_UserGroups.Items.Add(ComboBox_UserGroups.Items[i]);
+                ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[i].NameGroup);
+                
+                ListBox_UserGroups.Items.Add(ComboBox_UserGroups.Items[i]);
+
+            }
+            if(_usersDataBase.UserGroups[0].NameGroup != "пользователи без группы")
+            {
+
+                ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0]);
             }
         }
 
