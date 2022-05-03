@@ -227,7 +227,7 @@ namespace TelegramBot.BL.DataBase
         }
 
 
-        public List<List<AbstractQuestion>> LoadSingel()
+        public List<AbstractQuestion> LoadSingelTest()
         {
             List<List<AbstractQuestion>> singelQuestionClasters = new List<List<AbstractQuestion>>();
 
@@ -241,15 +241,21 @@ namespace TelegramBot.BL.DataBase
 
             List<AbstractQuestion> questions = new List<AbstractQuestion>();
 
-            foreach(JsonQuestionModel question in questionModels)
+            foreach (JsonQuestionModel question in questionModels)
             {
 
                 questions.Add(DecerializeQuestion(question));
             }
 
-            singelQuestionClasters.Add(questions);
+            return questions;
+        }
 
-            questions = new List<AbstractQuestion>();
+        public List<AbstractQuestion> LoadSingelPoll()
+        {
+            List<List<AbstractQuestion>> singelQuestionClasters = new List<List<AbstractQuestion>>();
+
+            List<JsonQuestionModel> questionModels = new List<JsonQuestionModel>();
+
 
             using (StreamReader sr = new StreamReader(filePathPollSingelQuestions))
             {
@@ -257,19 +263,19 @@ namespace TelegramBot.BL.DataBase
                 questionModels = DecerializeQuestionModel(json);
             }
 
+            List<AbstractQuestion> questions = new List<AbstractQuestion>();
+
             foreach (JsonQuestionModel question in questionModels)
             {
-                questions.Add(DecerializeQuestion(question));
+                questions.Add(DecerializeQuestion(question)) ;
             }
 
-            singelQuestionClasters.Add(questions);
-
-            return singelQuestionClasters;
+            return questions;
         }
 
-        public List<List<Claster>> LoadClaster()
+
+        public List<Claster> LoadClasterTests()
         {
-            List<List<Claster>> ListOfClasters = new List<List<Claster>>();
 
             List<Claster> clasterOfQuestions = new List<Claster>();
 
@@ -283,9 +289,9 @@ namespace TelegramBot.BL.DataBase
                 clasterModels = DecerializeClasterModel(json);
             }
 
-            foreach(JsonClasterModel claster in clasterModels)
+            foreach (JsonClasterModel claster in clasterModels)
             {
-                foreach(JsonQuestionModel question in claster.ModelQuestions)
+                foreach (JsonQuestionModel question in claster.ModelQuestions)
                 {
                     questions.Add(DecerializeQuestion(question));
                 }
@@ -293,11 +299,16 @@ namespace TelegramBot.BL.DataBase
                 clasterOfQuestions.Add(new Claster(claster.Name, questions));
             }
 
-            ListOfClasters.Add(clasterOfQuestions);
+            return clasterOfQuestions;
+        }
 
-            clasterOfQuestions = new List<Claster>();
-            questions.Clear();
+        public List<Claster> LoadClasterPolls()
+        {
+            List<Claster> clasterOfQuestions = new List<Claster>();
 
+            List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
+
+            List<AbstractQuestion> questions = new List<AbstractQuestion>();
 
             using (StreamReader sr = new StreamReader(filePathPollQuestions))
             {
@@ -315,8 +326,7 @@ namespace TelegramBot.BL.DataBase
                 clasterOfQuestions.Add(new Claster(claster.Name, questions));
             }
 
-            ListOfClasters.Add(clasterOfQuestions);
-            return ListOfClasters;
+            return clasterOfQuestions;
         }
 
     }

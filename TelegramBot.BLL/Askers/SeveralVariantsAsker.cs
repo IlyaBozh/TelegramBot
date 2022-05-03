@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TelegramBot.BL.Askers
 {
-    public class SveralVariantsAsker : IAsker
+    public class SeveralVariantsAsker : IAsker
     {
         public void Ask(string description, List<string> variants)
         {

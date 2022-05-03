@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TelegramBot.BL.Answerers;
+using TelegramBot.BL.Askers;
 
 namespace TelegramBot.BL.Questions
 {
@@ -17,11 +19,17 @@ namespace TelegramBot.BL.Questions
         {
             Description = discription;
             TrueAnswer = trueAnswer;
+
+            asker = new YesOrNoAsker();
+            answerer = new YesOrNoAnswerer();
         }
 
         public TypeYesOrNo(string discription)
         {
             Description = discription;
+
+            asker = new YesOrNoAsker();
+            answerer = new YesOrNoAnswerer();
         }
 
     }

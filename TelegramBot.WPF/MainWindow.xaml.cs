@@ -88,13 +88,10 @@ namespace TelegramBot.WPF
             _usersDataBase = UsersDataBase.GetInstance();
             _usersDataBase.UserGroups = _usersDataBase.Load();
 
-            List<List<AbstractQuestion>> loadData = _testsDataBase.LoadSingel();
-            List<List<Claster>> loadClasters = _testsDataBase.LoadClaster();
-
-            _testsDataBase.TestSingelQuestions = loadData[0];
-            _testsDataBase.PollSingelQuestions = loadData[1];
-            _testsDataBase.Tests = loadClasters[0];
-            _testsDataBase.Polls = loadClasters[1];
+            _testsDataBase.TestSingelQuestions = _testsDataBase.LoadSingelTest();
+            _testsDataBase.PollSingelQuestions = _testsDataBase.LoadSingelPoll();
+            _testsDataBase.Tests = _testsDataBase.LoadClasterTests();
+            _testsDataBase.Polls = _testsDataBase.LoadClasterPolls();
 
 
             ComboBox_UserGroups.SelectedIndex = 0;
@@ -658,11 +655,11 @@ namespace TelegramBot.WPF
             {
                 if (RadioButton_Test.IsChecked == true)
                 {
-                    _testsDataBase.Tests[ComboBox_ChooseTestOrPoll.SelectedIndex].Add(GetQuestionWhithAnswer());
+                    _testsDataBase.Tests[ComboBox_ChooseTestOrPoll.SelectedIndex - 1].Add(GetQuestionWhithAnswer());
                 }
                 else
                 {
-                    _testsDataBase.Polls[ComboBox_ChooseTestOrPoll.SelectedIndex].Add(GetQuestionWhithoutAnswer());
+                    _testsDataBase.Polls[ComboBox_ChooseTestOrPoll.SelectedIndex - 1].Add(GetQuestionWhithoutAnswer());
                 }
             }
             
@@ -990,13 +987,9 @@ namespace TelegramBot.WPF
         #endregion
 
         #region Кластер вопросов
-        private void TextBox_ClasterName_KeyUp(object sender, KeyEventArgs e)
+        private void TextBox_ClasterName_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
-            {
-                ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
-                TextBox_ClasterName.Clear();
-            }
+            ComboBox_Claster.SelectedIndex = -1;
         }
         private void Button_AddClasterName_Click(object sender, RoutedEventArgs e)
         {
@@ -1094,7 +1087,9 @@ namespace TelegramBot.WPF
         {
             ListView_ClasterQuestions.Items.Clear();
 
-            if(ComboBox_Claster.SelectedIndex == -1)
+            TextBox_ClasterName.Clear();
+
+            if (ComboBox_Claster.SelectedIndex == -1)
             {
                 return;
             }
@@ -1119,99 +1114,54 @@ namespace TelegramBot.WPF
         }
 
         #region context menu        
-        private void MenuItem_ClickCutListView_SingleQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_SingleQuestions.SelectedIndex;
-
-            if (index < 0)
-            {
-                return;
-            }
-
-            _tmpListView = (string)ListView_SingleQuestions.SelectedItem;
-            ListView_SingleQuestions.Items.RemoveAt(index);
-
-        }
 
         private void MenuItem_ClickInsertListView_SingleQuestions(object sender, RoutedEventArgs e)
         {
-            if (_tmpListView == null)
+            if(ListView_ClasterQuestions.Items.Contains(ListView_SingleQuestions.SelectedItem))
             {
                 return;
             }
 
-            ListView_SingleQuestions.Items.Add(_tmpListView);
-            _tmpListView = null;
+            ListView_ClasterQuestions.Items.Add(ListView_SingleQuestions.SelectedItem);
+
+            if (ComboBox_Claster.SelectedIndex != -1)
+            {
+                List<Claster> clasters = RadioButton_TestClaster.IsChecked == true ? _testsDataBase.Tests : _testsDataBase.Polls;
+                List<AbstractQuestion> questions = RadioButton_TestClaster.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.PollSingelQuestions;
+
+                clasters[ComboBox_Claster.SelectedIndex].Add(questions[ListView_SingleQuestions.SelectedIndex]);
+            }
         }
 
         private void MenuItem_ClickDeleteListView_SingleQuestions(object sender, RoutedEventArgs e)
         {
-            int index = ListView_SingleQuestions.SelectedIndex;
-            if (index < 0)
-            {
-                return;
-            }
-            ListView_SingleQuestions.Items.RemoveAt(index);
+            List<AbstractQuestion> questions = RadioButton_TestClaster.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.PollSingelQuestions;
+
+            questions.Remove(questions[ListView_SingleQuestions.SelectedIndex]);
+
+            ListView_SingleQuestions.Items.RemoveAt(ListView_SingleQuestions.SelectedIndex);
         }
 
-        private void MenuItem_ClickCutListView_ClasterQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_ClasterQuestions.SelectedIndex;
-
-            if (index < 0)
-            {
-                return;
-            }
-
-            _tmpListView = (string)ListView_ClasterQuestions.SelectedItem;
-            ListView_ClasterQuestions.Items.RemoveAt(index);
-        }
-
-        private void MenuItem_ClickInsertListView_ClasterQuestions(object sender, RoutedEventArgs e)
-        {
-            if (_tmpListView == null)
-            {
-                return;
-            }
-
-            ListView_ClasterQuestions.Items.Add(_tmpListView);
-            _tmpListView = null;
-        }
 
         private void MenuItem_ClickDeleteListView_ClasterQuestions(object sender, RoutedEventArgs e)
-        {
-            int index = ListView_ClasterQuestions.SelectedIndex;
+        { 
 
-            if (index < 0)
+            if (ComboBox_Claster.SelectedIndex != -1)
             {
-                return;
+                List<Claster> clasters = RadioButton_TestClaster.IsChecked == true ? _testsDataBase.Tests : _testsDataBase.Polls;
+                clasters[ComboBox_Claster.SelectedIndex].Remove(ListView_ClasterQuestions.SelectedIndex);
             }
-            ListView_ClasterQuestions.Items.RemoveAt(index);
+
+            ListView_ClasterQuestions.Items.RemoveAt(ListView_ClasterQuestions.SelectedIndex);
         }
 
         private void MenuItem_ClickDeleteComboBox_Claster(object sender, RoutedEventArgs e)
         {
-            int index = ComboBox_Claster.SelectedIndex;
 
-            if (index <= 0)
-            {
-                return;
-            }
-
-            ComboBox_Claster.Items.RemoveAt(index);
         }
         #endregion
 
-        //private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    int index = ComboBox_Claster.SelectedIndex;
-
-        //    if (TabControll_ClasterQuestions != null)
-        //    {
-
-        //        TabControll_ClasterQuestions.SelectedIndex = index;
-        //    }
-        //}
+        
 
         //private void TextBox_ClasterName_KeyDown(object sender, KeyEventArgs e)
         //{
@@ -1231,20 +1181,6 @@ namespace TelegramBot.WPF
         //    }
 
         //}
-
-        private void ListView_SingleQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (!ListView_ClasterQuestions.Items.Contains(ListView_SingleQuestions.SelectedItem))
-            {
-                ListView_ClasterQuestions.Items.Add(ListView_SingleQuestions.SelectedItem);
-            }
-        }
-
-
-        private void ListView_ClasterQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            ListView_ClasterQuestions.Items.Remove(ListView_ClasterQuestions.SelectedItem);
-        }
 
         #endregion
 
