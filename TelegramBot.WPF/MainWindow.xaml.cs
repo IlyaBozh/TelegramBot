@@ -77,6 +77,9 @@ namespace TelegramBot.WPF
             _timer.Tick += OnTick;
             _timer.Start();
             _tbot.Start();
+
+            //ComboBox_UserGroups.Items[0] = "Пользователи без групп";
+            //ListBox_UserGroups.Items[0] = "Пользователи без групп";
         }
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
@@ -110,15 +113,46 @@ namespace TelegramBot.WPF
                  tmp.Visibility = Visibility.Hidden;
             }
 
-            ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
+
+
+            for (int i = 0; i < _usersDataBase.UserGroups.Count; i++)
+            {
+                ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[i].NameGroup);
+                
+                ListBox_UserGroups.Items.Add(ComboBox_UserGroups.Items[i]);
+
+            }
+            if(_usersDataBase.UserGroups[0].NameGroup != "пользователи без группы")
+            {
+
+                ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0]);
+            }
         }
 
         public void AddUsers(User newUser)
         {
+            bool isSearch = false;
+            foreach (var group in _usersDataBase.UserGroups)
+            {
 
-            _usersDataBase.UserGroups[0].AddUser(newUser);
-
-
+                foreach (var user in group.UserGroups)
+                {
+                    
+                    if (newUser.Id == user.Id)
+                    {
+                        isSearch = true;
+                        break;
+                    }
+                }
+                if(isSearch)
+                {
+                    break;
+                }
+            }  
+            if(!isSearch)
+            {
+                _usersDataBase.UserGroups[0].AddUser(newUser);
+            }
         }
 
 
@@ -191,8 +225,9 @@ namespace TelegramBot.WPF
 
             ComboBox_UserGroups.Items.RemoveAt(index);
             ControlTab_UserGroup.Items.RemoveAt(index);
-            _listOfListBox_Users.RemoveAt(index - 1);
+            _listOfListBox_Users.RemoveAt(index);
             _usersDataBase.UserGroups.RemoveAt(index);
+            ListBox_UserGroups.Items.RemoveAt(index);
         }
 
         private void MenuItem_ClickCut(object sender, RoutedEventArgs e)
@@ -232,6 +267,7 @@ namespace TelegramBot.WPF
 
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             int index = ComboBox_UserGroups.SelectedIndex;
 
             if (index == -1)

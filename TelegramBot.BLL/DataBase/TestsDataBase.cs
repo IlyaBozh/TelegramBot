@@ -17,10 +17,10 @@ namespace TelegramBot.BL.DataBase
 
         private static TestsDataBase _instance;
 
-        private const string filePathTestSingelQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\TestSingelQuestions.asd";
-        private const string filePathPollSingelQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\PollSingelQuestions.asd";
-        private const string filePathTestQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\TestQuestions.asd";
-        private const string filePathPollQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\PollQuestions.asd";
+        private const string filePathTestSingelQuestions = @"TestSingelQuestions.asd";
+        private const string filePathPollSingelQuestions = @"PollSingelQuestions.asd";
+        private const string filePathTestQuestions = @"TestQuestions.asd";
+        private const string filePathPollQuestions = @"PollQuestions.asd";
 
         private TestsDataBase()
         {
