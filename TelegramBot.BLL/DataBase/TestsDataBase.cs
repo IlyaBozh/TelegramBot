@@ -249,7 +249,7 @@ namespace TelegramBot.BL.DataBase
 
             singelQuestionClasters.Add(questions);
 
-            questions.Clear();
+            questions = new List<AbstractQuestion>();
 
             using (StreamReader sr = new StreamReader(filePathPollSingelQuestions))
             {
@@ -295,8 +295,9 @@ namespace TelegramBot.BL.DataBase
 
             ListOfClasters.Add(clasterOfQuestions);
 
-            clasterOfQuestions.Clear();
+            clasterOfQuestions = new List<Claster>();
             questions.Clear();
+
 
             using (StreamReader sr = new StreamReader(filePathPollQuestions))
             {

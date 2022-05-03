@@ -407,18 +407,17 @@
                     <RadioButton x:Name="RadioButton_PoolClaster" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,8" Width="60" GroupName="TestOrPoolClaster" Click="RadioButton_PoolClaster_Click"/>
 
 
-                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,10,0">
+                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged">
                         <ComboBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Редактировать название"/>
                                 <MenuItem Header="Удалить"/>
                             </ContextMenu>
                         </ComboBox.ContextMenu>
-                        <ComboBoxItem Content="название кластера" IsSelected="True"></ComboBoxItem>
                     </ComboBox>
 
                     <!--нижний ряд-->
-                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
+                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="0" Grid.Row="1" Margin="0,0,10,0" SelectionChanged="ListView_SingleQuestions_SelectionChanged">
                         <!--<ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Description}">Вопрос</GridViewColumn>
@@ -442,7 +441,7 @@
 
                     </ListView>
 
-                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0">
+                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" SelectionChanged="ListView_ClasterQuestions_SelectionChanged">
                         <!--<ListView.View>
                             <GridView>
                                 <GridViewColumn>Вопрос</GridViewColumn>
