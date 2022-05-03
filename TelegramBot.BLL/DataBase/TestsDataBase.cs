@@ -17,10 +17,10 @@ namespace TelegramBot.BL.DataBase
 
         private static TestsDataBase _instance;
 
-        private const string filePathTestSingelQuestions = @"TestSingelQuestions.asd";
-        private const string filePathPollSingelQuestions = @"PollSingelQuestions.asd";
-        private const string filePathTestQuestions = @"TestQuestions.asd";
-        private const string filePathPollQuestions = @"PollQuestions.asd";
+        private const string filePathTestSingelQuestions = @"TestSingelQuestions1.asd";
+        private const string filePathPollSingelQuestions = @"PollSingelQuestions1.asd";
+        private const string filePathTestQuestions = @"TestQuestions1.asd";
+        private const string filePathPollQuestions = @"PollQuestions1.asd";
 
         private TestsDataBase()
         {

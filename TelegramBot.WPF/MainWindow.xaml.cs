@@ -80,6 +80,9 @@ namespace TelegramBot.WPF
 
             //ComboBox_UserGroups.Items[0] = "Пользователи без групп";
             //ListBox_UserGroups.Items[0] = "Пользователи без групп";
+
+
+
         }
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
@@ -127,6 +130,10 @@ namespace TelegramBot.WPF
 
                 ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0]);
             }
+
+
+
+            
         }
 
         public void AddUsers(User newUser)
@@ -430,6 +437,9 @@ namespace TelegramBot.WPF
 
         }
 
+      
+
+
         private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
         {
             List<string> list = new List<string>();
@@ -440,28 +450,28 @@ namespace TelegramBot.WPF
 
         private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
         {
-            AbstractQuestion abstractQuestion = (AbstractQuestion) DataGrid_SingleQuestions.SelectedItem;
+            AbstractQuestion abstractQuestion = (AbstractQuestion)DataGrid_SingleQuestions.SelectedItem;
             string question;
-            List<string> answers= new List<string>();
+            List<string> answers = new List<string>();
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
-            if( indexGroup == -1)
+            if (indexGroup == -1)
             {
                 return;
             }
 
 
-            if (1 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                question = abstractQuestion.Description;
+            //if (1 == ComboBox_QuestionContainer.SelectedIndex)
+            //{
+            //    question = abstractQuestion.Description;
 
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    
-                   
-                    _tbot.Send((string)question, user.Id);
-                }
-            }
+            //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+            //    {
+
+
+            //        _tbot.Send((string)question, user.Id);
+            //    }
+            //}
 
 
 
@@ -469,92 +479,136 @@ namespace TelegramBot.WPF
             {
                 question = abstractQuestion.Description;
                 answers = abstractQuestion.Variants;
+                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
 
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
-                var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+                for (var i = 0; i < buttons.Length; i++)
                 {
-
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
-                }
-
-            }
-
-            if (3 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
-                var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
-                }
-            }
-
-            if (4 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                question = abstractQuestion.Description;
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    
-                    ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(
-                    new[]
+                    var btn = new InlineKeyboardButton[i];
                     {
-                     new[]
-                     {
-                          new KeyboardButton("DA")
-                     },
-
-                     new[]
-                     {
-                        new KeyboardButton("NET")
-                     },
-
+                        string oneAnswer = answers[i],
+                        CallbackData = answers[i];
                     }
-                    );
 
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    keyboardButtons[i] = answers[i];
                 }
-
-
-            }
-
-            if (5 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
-                var replyMarkup = new ReplyKeyboardMarkup(buttons);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
                     
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    _tbot.Send((string)question, user.Id, keyboardButtons);
                 }
+
+
+
+
+
+                //            InlineKeyboardMarkup inlineKeyboard = new(new[]
+                //{
+                //    // first row
+                //    new []
+                //    {
+                //        InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "11"),
+                //        InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "12"),
+                //    },
+                //    // second row
+                //    new []
+                //    {
+                //        InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
+                //        InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
+                //    },
+                //    new []
+                //    {
+                //                InlineKeyboardButton.WithCallbackData("Done", "Done")
+
+                //    },
+
+                //        });
+
+                //            var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
+                //                .ToArray();
+                //            var replyMarkup = new ReplyKeyboardMarkup(buttons);
+
+                //            foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                //            {
+
+                //                replyMarkup.OneTimeKeyboard = true;
+                //                _tbot.Send((string)question, user.Id, replyMarkup);
+                //            }
+
+                //}
+
+                //if (3 == ComboBox_QuestionContainer.SelectedIndex)
+                //{
+                //    question = abstractQuestion.Description;
+                //    answers = abstractQuestion.Variants;
+
+                //    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
+                //        .ToArray();
+                //    var replyMarkup = new ReplyKeyboardMarkup(buttons);
+
+                //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                //    {
+
+                //        replyMarkup.OneTimeKeyboard = true;
+                //        _tbot.Send((string)question, user.Id, replyMarkup);
+                //    }
+                //}
+
+                //if (4 == ComboBox_QuestionContainer.SelectedIndex)
+                //{
+                //    question = abstractQuestion.Description;
+
+                //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                //    {
+
+                //        ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(
+                //        new[]
+                //        {
+                //         new[]
+                //         {
+                //              new KeyboardButton("DA")
+                //         },
+
+                //         new[]
+                //         {
+                //            new KeyboardButton("NET")
+                //         },
+
+                //        }
+                //        );
+
+                //        replyMarkup.OneTimeKeyboard = true;
+                //        _tbot.Send((string)question, user.Id, replyMarkup);
+                //    }
+
+
+                //}
+
+                //if (5 == ComboBox_QuestionContainer.SelectedIndex)
+                //{
+                //    question = abstractQuestion.Description;
+                //    answers = abstractQuestion.Variants;
+
+                //    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
+                //        .ToArray();
+                //    var replyMarkup = new ReplyKeyboardMarkup(buttons);
+
+                //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                //    {
+
+                //        replyMarkup.OneTimeKeyboard = true;
+                //        _tbot.Send((string)question, user.Id, replyMarkup);
+                //    }
+                //}
+
+                DataGrid_SingleQuestions.SelectedItem = null;
+                ListBox_UserGroups.SelectedIndex = -1;
+
             }
 
-            DataGrid_SingleQuestions.SelectedItem = null;
-            ListBox_UserGroups.SelectedIndex = -1;
 
         }
-
-
-
 
 
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
