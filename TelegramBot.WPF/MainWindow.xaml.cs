@@ -438,8 +438,7 @@ namespace TelegramBot.WPF
         private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
         {
             AbstractQuestion abstractQuestion = (AbstractQuestion) DataGrid_SingleQuestions.SelectedItem;
-            string question;
-            List<string> answers= new List<string>();
+
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
             if( indexGroup == -1)
@@ -450,98 +449,61 @@ namespace TelegramBot.WPF
 
             if (1 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                question = abstractQuestion.Description;
-
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-                    
-                   
-                    _tbot.Send((string)question, user.Id);
+                    _tbot.Send(abstractQuestion.Description, user.Id);
                 }
             }
-
 
 
             if (2 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
+                var buttons = abstractQuestion.Variants.Select(variants => new[] { new KeyboardButton(variants) }) .ToArray();
                 var replyMarkup = new ReplyKeyboardMarkup(buttons);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-
                     replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    _tbot.Send(abstractQuestion.Description, user.Id, replyMarkup);
                 }
-
             }
+
 
             if (3 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
+                var buttons = abstractQuestion.Variants.Select(variants => new[] { new KeyboardButton(variants) }).ToArray();
                 var replyMarkup = new ReplyKeyboardMarkup(buttons);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-
                     replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    _tbot.Send(abstractQuestion.Description, user.Id, replyMarkup);
                 }
             }
 
             if (4 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                question = abstractQuestion.Description;
+                List<string> YesOrNo = new List<string> {"ДА", "НЕТ"};
+                var buttons = YesOrNo.Select(variants => new[] { new KeyboardButton(variants) }).ToArray();
+                var replyMarkup = new ReplyKeyboardMarkup(buttons);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-                    
-                    ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(
-                    new[]
-                    {
-                     new[]
-                     {
-                          new KeyboardButton("DA")
-                     },
-
-                     new[]
-                     {
-                        new KeyboardButton("NET")
-                     },
-
-                    }
-                    );
-
                     replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    _tbot.Send(abstractQuestion.Description, user.Id, replyMarkup);
                 }
-
-
             }
 
             if (5 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
+                var buttons = abstractQuestion.Variants.Select(variants => new[] { new KeyboardButton(variants) }).ToArray();
                 var replyMarkup = new ReplyKeyboardMarkup(buttons);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
                     
                     replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    _tbot.Send(abstractQuestion.Description, user.Id, replyMarkup);
                 }
             }
 

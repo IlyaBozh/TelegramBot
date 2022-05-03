@@ -13,8 +13,8 @@ namespace TelegramBot.BL
         private TelegramBotClient _client;
         private Action<User> _users;
         private List<long> _ids;
-        
 
+        CallbackQuery aa = new CallbackQuery();
         public TBot(string token, Action <User> users)
         {
             _client = new TelegramBotClient(token);
@@ -55,7 +55,7 @@ namespace TelegramBot.BL
 
         private async Task HandleResive(ITelegramBotClient botClient, Update update, CancellationToken cancellationToken)
         {
-            
+           
             if (update.Message != null && update.Message.Text != null)
             {
 
@@ -64,11 +64,10 @@ namespace TelegramBot.BL
                     _ids.Add(update.Message.Chat.Id);
                     User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
                     _users(newUser);
-                    //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
-                    //_users(userName);
+                    
                 }
                
-
+                
                
             }
         }
