@@ -75,6 +75,9 @@ namespace TelegramBot.WPF
             _timer.Tick += OnTick;
             _timer.Start();
             _tbot.Start();
+
+            ComboBox_UserGroups.Items[0] = "Пользователи без групп";
+            ListBox_UserGroups.Items[0] = "Пользователи без групп";
         }
 
         private void Window_MainWindow_Initialized_1(object sender, EventArgs e)
@@ -105,23 +108,7 @@ namespace TelegramBot.WPF
             }
 
             
-            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
-
-            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("ДаИлиНет", "DA"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("ДаИлиНет"));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("YesOr", "DA"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("YesOr"));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TypeUserAnswer", "Otvet"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TypeUserAnswer"));//test
-            List<string> truVar = new List<string>() { "Odin", "Dva", "tri" }; // test
-            _testsDataBase.TestSingelQuestions.Add(new TypeOneVariant("TypeOneVariant", "Odin", truVar));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeOneVariant("TypeOneVariant", truVar));//test
-            List<string> truVarSeveral = new List<string>() { "Odin", "Dva", "tri", "CHetiru", "paty" }; // test
-            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("TypeSeveralVariants", truVarSeveral));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("TypeSeveralVariants", truVar, truVarSeveral));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeRightOrder("TypeRightOrder", truVarSeveral));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeRightOrder("TypeRightOrder", truVar, truVarSeveral));//test
+            
 
             for(int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
             {
@@ -131,10 +118,28 @@ namespace TelegramBot.WPF
 
         public void AddUsers(User newUser)
         {
+            bool isSearch = false;
+            foreach (var group in _usersDataBase.UserGroups)
+            {
 
-            _usersDataBase.UserGroups[0].AddUser(newUser);
-
-
+                foreach (var user in group.UserGroups)
+                {
+                    
+                    if (newUser.Id == user.Id)
+                    {
+                        isSearch = true;
+                        break;
+                    }
+                }
+                if(isSearch)
+                {
+                    break;
+                }
+            }  
+            if(!isSearch)
+            {
+                _usersDataBase.UserGroups[0].AddUser(newUser);
+            }
         }
 
 
@@ -249,6 +254,7 @@ namespace TelegramBot.WPF
 
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            
             int index = ComboBox_UserGroups.SelectedIndex;
 
             if (index == -1)
