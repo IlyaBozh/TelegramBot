@@ -8,6 +8,11 @@ namespace TelegramBot.BL.Questions
 {
     public class TypeOneVariant : AbstractQuestion
     {
+        public TypeOneVariant()
+        {
+
+        }
+
         public TypeOneVariant(string discription, List<string> variants)
         {
             Description = discription;

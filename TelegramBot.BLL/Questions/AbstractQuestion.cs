@@ -102,19 +102,40 @@ namespace TelegramBot.BL.Questions
         }
         public void RemoveVariant()
         {
-            if (Variants is not null)
+            if(Variants.Count == 0)
+            {
+                throw new ArgumentNullException();
+            }
+            else
             {
                 int lastIndex = Variants.Count - 1;
                 Variants.RemoveAt(lastIndex);
             }
-            
         }
-
-        public void RemoveVariantByIndex(int index, bool isVariant = true)
+        public void RemoveVariantByIndex(int index)
         {
-            if (isVariant)
+            if(index < 0 || index > Variants.Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else if(Variants.Count == 0)
+            {
+                throw new NullReferenceException();
+            }
+            else
             {
                 Variants.RemoveAt(index);
+            }
+        }
+        public void RemoveTrueAnswerByIndex(int index)
+        {
+            if (index < 0 || index > TrueAnswers.Count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+            else if (TrueAnswers.Count == 0)
+            {
+                throw new NullReferenceException();
             }
             else
             {
@@ -122,18 +143,18 @@ namespace TelegramBot.BL.Questions
             }
         }
 
-        public void ClearVariants(bool isVariant = true)
-        {
-            if (isVariant)
-            {
-                Variants.Clear();
-            }
-            else
-            {
-                TrueAnswers.Clear();
-            }
+        //public void ClearVariants(bool isVariant = true)
+        //{
+        //    if (isVariant)
+        //    {
+        //        Variants.Clear();
+        //    }
+        //    else
+        //    {
+        //        TrueAnswers.Clear();
+        //    }
 
-        }
+        //}
 
         public override bool Equals(object? obj)
         {
