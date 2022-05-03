@@ -10,6 +10,11 @@ namespace TelegramBot.BL.Questions
     public class TypeSeveralVariants : AbstractQuestion
     {
 
+        public TypeSeveralVariants()
+        {
+
+        }
+
         public TypeSeveralVariants(string discription, List<string> variants)
         {
             Description = discription;

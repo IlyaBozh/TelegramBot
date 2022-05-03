@@ -8,6 +8,11 @@ namespace TelegramBot.BL.Questions
 {
     public class TypeYesOrNo : AbstractQuestion
     {
+        public TypeYesOrNo()
+        {
+
+        }
+
         public TypeYesOrNo(string discription, string trueAnswer)
         {
             Description = discription;

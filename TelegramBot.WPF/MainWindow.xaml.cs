@@ -85,10 +85,14 @@ namespace TelegramBot.WPF
             _usersDataBase = UsersDataBase.GetInstance();
             _usersDataBase.UserGroups = _usersDataBase.Load();
 
-            foreach(var group in _usersDataBase.UserGroups)
-            {
-                ComboBox_UserGroups.Items.Add(group.NameGroup);
-            }
+            List<List<AbstractQuestion>> loadData = _testsDataBase.LoadSingel();
+            List<List<Claster>> loadClasters = _testsDataBase.LoadClaster();
+
+            _testsDataBase.TestSingelQuestions = loadData[0];
+            _testsDataBase.PollSingelQuestions = loadData[1];
+            _testsDataBase.Tests = loadClasters[0];
+            _testsDataBase.Polls = loadClasters[1];
+
 
             ComboBox_UserGroups.SelectedIndex = 0;
 
@@ -106,29 +110,7 @@ namespace TelegramBot.WPF
                  tmp.Visibility = Visibility.Hidden;
             }
 
-            
-            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TestSingelQuestions"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TestSingelPolls"));//test
-
-            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("ДаИлиНет", "DA"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("ДаИлиНет"));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeYesOrNo("YesOr", "DA"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeYesOrNo("YesOr"));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeUserAnswer("TypeUserAnswer", "Otvet"));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeUserAnswer("TypeUserAnswer"));//test
-            List<string> truVar = new List<string>() { "Odin", "Dva", "tri" }; // test
-            _testsDataBase.TestSingelQuestions.Add(new TypeOneVariant("TypeOneVariant", "Odin", truVar));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeOneVariant("TypeOneVariant", truVar));//test
-            List<string> truVarSeveral = new List<string>() { "Odin", "Dva", "tri", "CHetiru", "paty" }; // test
-            _testsDataBase.TestSingelQuestions.Add(new TypeSeveralVariants("TypeSeveralVariants", truVarSeveral));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeSeveralVariants("TypeSeveralVariants", truVar, truVarSeveral));//test
-            _testsDataBase.TestSingelQuestions.Add(new TypeRightOrder("TypeRightOrder", truVarSeveral));//test
-            _testsDataBase.TestSingelPolls.Add(new TypeRightOrder("TypeRightOrder", truVar, truVarSeveral));//test
-
-            for(int i = 0; i < ComboBox_UserGroups.Items.Count; i++)
-            {
-                  ListBox_UserGroups.Items.Add(ComboBox_UserGroups.Items[i]);
-            }
+            ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0].NameGroup);
         }
 
         public void AddUsers(User newUser)
@@ -357,6 +339,8 @@ namespace TelegramBot.WPF
             {
                 Label_TrueAnswerEdit.Visibility = Visibility.Hidden;
             }
+
+            ///ТУТ ЕБАТЬ ТЕСТЫ ТЕСТОВ
         }
 
 
@@ -540,7 +524,7 @@ namespace TelegramBot.WPF
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
         {
            
-            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelPolls;
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.PollSingelQuestions;
 
             for(int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
             {
@@ -631,7 +615,7 @@ namespace TelegramBot.WPF
                 }
                 else
                 {
-                    _testsDataBase.TestSingelPolls.Add(GetQuestionWhithoutAnswer());
+                    _testsDataBase.PollSingelQuestions.Add(GetQuestionWhithoutAnswer());
                 }
             }
             else
@@ -980,8 +964,60 @@ namespace TelegramBot.WPF
         }
         private void Button_AddClasterName_Click(object sender, RoutedEventArgs e)
         {
+            if(RadioButton_TestClaster.IsChecked == false && RadioButton_PoolClaster.IsChecked == false)
+            {
+                return;
+            }
+
             ComboBox_Claster.Items.Add(TextBox_ClasterName.Text);
+
+            Claster clasterQuestion;
+
+            if (ListView_ClasterQuestions.Items.Count == 0)
+            {
+                clasterQuestion = new Claster(TextBox_ClasterName.Text);
+            }
+            else
+            {
+                List<AbstractQuestion> questions = GetQuestionsFromList(RadioButton_TestClaster.IsChecked, RadioButton_PoolClaster.IsChecked);
+                clasterQuestion = new Claster(TextBox_ClasterName.Text, questions);
+            }
+
+            if(RadioButton_TestClaster.IsChecked == true)
+            {
+                _testsDataBase.Tests.Add(clasterQuestion);
+            }
+            else
+            {
+                _testsDataBase.Polls.Add(clasterQuestion);
+            }
+
+            ListView_ClasterQuestions.Items.Clear();
             TextBox_ClasterName.Clear();
+        }
+
+        private List<AbstractQuestion> GetQuestionsFromList(bool? radioCheckTest, bool? radioCheckPoll)
+        {
+            List<AbstractQuestion> singelQuestions;
+
+            if (radioCheckTest is not null && radioCheckTest == true)
+            {
+                singelQuestions = _testsDataBase.TestSingelQuestions;
+            }
+            else
+            {
+                singelQuestions = _testsDataBase.PollSingelQuestions;
+            }
+
+            List <AbstractQuestion> resultQuestions = new List<AbstractQuestion>();
+
+            foreach(var question in ListView_ClasterQuestions.Items)
+            {
+                int index = ListView_SingleQuestions.Items.IndexOf(question);
+                resultQuestions.Add(singelQuestions[index]);
+            }
+
+            return resultQuestions;
         }
 
         private void RadioButton_TestClaster_Click(object sender, RoutedEventArgs e)
@@ -991,21 +1027,59 @@ namespace TelegramBot.WPF
             foreach (var question in _testsDataBase.TestSingelQuestions)
             {
                 ListView_SingleQuestions.Items.Add(question.Description);
-            }                     
+            }
+
+            ComboBox_Claster.Items.Clear();
+
+            foreach (var claster in _testsDataBase.Tests)
+            {
+                ComboBox_Claster.Items.Add(claster.NameClaster);
+            }
         }
 
         private void RadioButton_PoolClaster_Click(object sender, RoutedEventArgs e)
         {
             ListView_SingleQuestions.Items.Clear();
-            foreach (var question in _testsDataBase.TestSingelPolls)
+
+            foreach (var question in _testsDataBase.PollSingelQuestions)
             {
                 ListView_SingleQuestions.Items.Add(question.Description);
+            }
+
+            ComboBox_Claster.Items.Clear();
+
+            foreach (var claster in _testsDataBase.Polls)
+            {
+                ComboBox_Claster.Items.Add(claster.NameClaster);
             }
         }
 
         private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ListView_ClasterQuestions.Items.Clear();
 
+            if(ComboBox_Claster.SelectedIndex == -1)
+            {
+                return;
+            }
+
+            List<Claster> clasters = new List<Claster>();
+
+            if (RadioButton_TestClaster.IsChecked == true)
+            {
+                clasters = _testsDataBase.Tests;
+            }
+            else
+            {
+                clasters = _testsDataBase.Polls;
+            }
+
+            int index = ComboBox_Claster.SelectedIndex;
+
+            foreach(AbstractQuestion question in clasters[index].Questions)
+            {
+                ListView_ClasterQuestions.Items.Add(question.Description);
+            }
         }
 
         #region context menu        
@@ -1122,11 +1196,27 @@ namespace TelegramBot.WPF
 
         //}
 
+        private void ListView_SingleQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (!ListView_ClasterQuestions.Items.Contains(ListView_SingleQuestions.SelectedItem))
+            {
+                ListView_ClasterQuestions.Items.Add(ListView_SingleQuestions.SelectedItem);
+            }
+        }
+
+
+        private void ListView_ClasterQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ListView_ClasterQuestions.Items.Remove(ListView_ClasterQuestions.SelectedItem);
+        }
+
         #endregion
 
         private void Window_MainWindow_Closed(object sender, EventArgs e)
         {
             _usersDataBase.Save();
+            _testsDataBase.SaveSingel(_testsDataBase.TestSingelQuestions, _testsDataBase.PollSingelQuestions);
+            _testsDataBase.SaveClaster(_testsDataBase.Tests, _testsDataBase.Polls);
         }
 
         private void ComboBox_QuestionContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -1139,7 +1229,7 @@ namespace TelegramBot.WPF
 
             _testsDataBase = TestsDataBase.GetInstance();
 
-            List<AbstractQuestion> tmpTestOrPoll = RadioButton_TestContainer.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.TestSingelPolls;
+            List<AbstractQuestion> tmpTestOrPoll = RadioButton_TestContainer.IsChecked == true ? _testsDataBase.TestSingelQuestions : _testsDataBase.PollSingelQuestions;
 
             List<AbstractQuestion> tmp = new List<AbstractQuestion>();
 
@@ -1264,5 +1354,4 @@ namespace TelegramBot.WPF
         }
 
     }
-
 }
