@@ -325,6 +325,10 @@ namespace TelegramBot.WPF
             {
                 _editFormAnswer.Visibility = Visibility.Hidden;
             }
+            if (_editFormVariants is not null)
+            {
+                _editFormVariants.Visibility = Visibility.Hidden;
+            }
 
             _testsDataBase = TestsDataBase.GetInstance();
             List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
@@ -347,8 +351,11 @@ namespace TelegramBot.WPF
                             if (type is TypeOneVariant)
                             {
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
-                                _editFormAnswer = GroupBox_AddVariantsEdit;
+                                GroupBox_AddVariantEdit.Visibility = Visibility.Visible;
+                                GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                                _editFormVariants = GroupBox_AddVariantEdit;
+                                _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                ListBox_RightOrderEdit.Visibility = Visibility.Hidden;
                             }
                             break;
 
@@ -357,8 +364,11 @@ namespace TelegramBot.WPF
                             {
 
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
-                                _editFormAnswer = GroupBox_AddVariantsEdit;
+                                GroupBox_AddVariantEdit.Visibility = Visibility.Visible;
+                                GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                                _editFormVariants = GroupBox_AddVariantEdit;
+                                _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                ListBox_RightOrderEdit.Visibility = Visibility.Hidden;
                             }
                             break;
 
@@ -375,8 +385,11 @@ namespace TelegramBot.WPF
                             if (type is TypeRightOrder)
                             {
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                                GroupBox_AddVariantsEdit.Visibility = Visibility.Visible;
-                                _editFormAnswer = GroupBox_AddVariantsEdit;
+                                GroupBox_AddVariantEdit.Visibility = Visibility.Visible;
+                                GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                                _editFormVariants = GroupBox_AddVariantEdit;
+                                _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                ListBox_RightOrderEdit.Visibility = Visibility.Visible;
                             }
                             break;
                     }
@@ -399,6 +412,10 @@ namespace TelegramBot.WPF
             {
                 _editFormAnswer.Visibility = Visibility.Hidden;
             }
+            if (_editFormVariants is not null)
+            {
+                _editFormVariants.Visibility = Visibility.Hidden;
+            }
 
             _testsDataBase = TestsDataBase.GetInstance();
             List<AbstractQuestion> tmpPoll = _testsDataBase.TestSingelQuestions;
@@ -413,14 +430,18 @@ namespace TelegramBot.WPF
                             if (type is TypeUserAnswer)
                             {
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
+
                             }
                             break;
                         case 1:
                             if (type is TypeOneVariant)
                             {
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                                GroupBox_AddVarEdit.Visibility = Visibility.Visible;
-                                _editFormAnswer = GroupBox_AddVarEdit;
+                                GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                                GroupBox_AddVariantEdit.Visibility =Visibility.Visible;
+                                _editFormVariants = GroupBox_AddVariantEdit;
+                                _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                ListBox_RightOrderEdit.Visibility = Visibility.Hidden;
                             }
                             break;
 
@@ -429,8 +450,12 @@ namespace TelegramBot.WPF
                             {
 
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                                GroupBox_AddVarEdit.Visibility = Visibility.Visible;
-                                _editFormAnswer = GroupBox_AddVarEdit;
+                                GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                                GroupBox_AddVariantEdit.Visibility = Visibility.Visible;
+                                _editFormVariants = GroupBox_AddVariantEdit;
+                                _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                ListBox_RightOrderEdit.Visibility = Visibility.Hidden;
+                                
                             }
                             break;
 
@@ -445,8 +470,9 @@ namespace TelegramBot.WPF
                             if (type is TypeRightOrder)
                             {
                                 ComboBox_ChooseQuestionTypeEdit.Items.Add(type.Description);
-                                GroupBox_AddVarEdit.Visibility = Visibility.Visible;
-                                _editFormAnswer = GroupBox_AddVarEdit;
+                                GroupBox_AddTrueVarintsOrRigthOrderEdit.Visibility = Visibility.Visible;
+                                _editFormAnswer = GroupBox_AddTrueVarintsOrRigthOrderEdit;
+                                ListBox_RightOrderEdit.Visibility = Visibility.Hidden;
                             }
                             break;
                     }
@@ -456,12 +482,16 @@ namespace TelegramBot.WPF
 
         private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            ListBox_VariantsEdit.Items.Clear();
             _testsDataBase = TestsDataBase.GetInstance();
             List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
             int index = ComboBox_ChooseTestEdit.SelectedIndex;
-            string tmp;
-
+        
             if (RadioButtonEdit_Test.IsChecked == true)
+            {
+                ChooseTypeTestToEdit();
+            }
+            else
             {
                 foreach (var type in tmpTestPoll)
                 {
@@ -473,18 +503,132 @@ namespace TelegramBot.WPF
                         {
                             TextBox_AnswersEdit.Text = type.TrueAnswer;
                         }
-                        else if(type is TypeOneVariant)
+                        else if (type is TypeOneVariant)
                         {
-                           
+                            foreach (var variant in type.Variants)
+                            {
+                                RadioButton radioButton_editVariants = new RadioButton() { Content = variant };
+                                ListBox_VariantsEdit.Items.Add(radioButton_editVariants);
+                                if (variant == type.TrueAnswer)
+                                {
+                                    radioButton_editVariants.IsChecked = true;
+                                }
+                            }
                         }
+                        else if (type is TypeSeveralVariants)
+                        {
+                            foreach (var variant in type.Variants)
+                            {
+                                CheckBox CheckBox_editVariants = new CheckBox() { Content = variant };
+                                ListBox_VariantsEdit.Items.Add(CheckBox_editVariants);
+                                foreach (var trueAnswer in type.TrueAnswers)
+                                {
+                                    if (variant == trueAnswer)
+                                    {
+                                        CheckBox_editVariants.IsChecked = true;
+                                    }
+                                }
+                            }
+                        }
+                        else if (type is TypeYesOrNo)
+                        {
+                            if (type.TrueAnswer.ToLower() == (string)RadioButton_No.Content)
+                            {
+                                RadioButton_No.IsChecked = true;
+                            }
+                            else
+                            {
+                                RadioButton_Yes.IsChecked = true;
+                            }
 
-
+                        }
+                        else
+                        {
+                            ListBox_VariantsEdit.ItemsSource = type.Variants;
+                            ListBox_RightOrderEdit.ItemsSource = type.TrueAnswers;
+                        }
                     }
-
                 }
             }
 
         }
+
+        private void ChooseTypeTestToEdit()
+        {
+            _testsDataBase = TestsDataBase.GetInstance();
+            List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
+            int index = ComboBox_ChooseTestEdit.SelectedIndex;
+
+            foreach (var type in tmpTestPoll)
+                {
+                    if (type.Description == (string)ComboBox_ChooseQuestionTypeEdit.SelectedItem)
+                    {
+                        TextBox_QuestionEdit.Text = type.Description;
+
+                        if (type is TypeUserAnswer)
+                        {
+                            TextBox_AnswersEdit.Text = type.TrueAnswer;
+                        }
+                        else if(type is TypeOneVariant)
+                        {
+                            foreach (var variant in type.Variants)
+                            {
+                                RadioButton radioButton_editVariants = new RadioButton() { Content = variant };
+                                ListBox_VariantsEdit.Items.Add(radioButton_editVariants);
+                                if (variant == type.TrueAnswer)
+                                {
+                                    radioButton_editVariants.IsChecked = true;
+                                }
+                            }
+                        }
+                        else if (type is TypeSeveralVariants)
+                        {
+                            foreach (var variant in type.Variants)
+                            {
+                                CheckBox CheckBox_editVariants = new CheckBox() { Content = variant };
+                                ListBox_VariantsEdit.Items.Add(CheckBox_editVariants);
+                                foreach (var trueAnswer in type.TrueAnswers)
+                                {
+                                    if (variant == trueAnswer)
+                                    {
+                                        CheckBox_editVariants.IsChecked = true;
+                                    }
+                                }
+                            }
+                        }
+                        else if(type is TypeYesOrNo)
+                        {
+                            if(type.TrueAnswer.ToLower() == (string)RadioButton_No.Content)
+                            {
+                                RadioButton_No.IsChecked = true;
+                            }
+                            else
+                            {
+                                RadioButton_Yes.IsChecked = true;
+                            }
+
+                        }
+                        else
+                        {
+                            ListBox_VariantsEdit.ItemsSource = type.Variants;
+                            ListBox_RightOrderEdit.ItemsSource = type.TrueAnswers;
+                        }
+                    }
+                }
+        }
+
+
+
+
+
+
+        private void Button_ChangeTrueAnswers_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
+
 
         private void HideExtraBoxesEdit()
         {
@@ -493,7 +637,7 @@ namespace TelegramBot.WPF
 
             Button_CancelChanges.Visibility = Visibility.Hidden;
 
-            GroupBox_AddVariantsEdit.Visibility = Visibility.Hidden;
+            //GroupBox_AddVariantsEdit.Visibility = Visibility.Hidden;
 
             GroupBox_AnswerYesOrNo.Visibility = Visibility.Hidden;
 
@@ -558,23 +702,23 @@ namespace TelegramBot.WPF
             
         }
 
-        private void MenuItemEditСhange_ClickCut(object sender, RoutedEventArgs e)
-        {
-            int index = DataGrid_ChangeAnswers.SelectedIndex;
-            if (index == -1)
-            {
-                return;
-            }
-            DataGrid_ChangeAnswers.Items.RemoveAt(index);
+        //private void MenuItemEditСhange_ClickCut(object sender, RoutedEventArgs e)
+        //{
+        //    int index = DataGrid_ChangeAnswers.SelectedIndex;
+        //    if (index == -1)
+        //    {
+        //        return;
+        //    }
+        //    DataGrid_ChangeAnswers.Items.RemoveAt(index);
 
-        }
+        //}
 
-        private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
-        {
-            List <string> list = new List<string>();
-            _tryAnswers.Add(new TypeOneVariant("", "", list));
-            DataGrid_ChangeAnswers.Items.Add(_tryAnswers);
-        }
+        //private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
+        //{
+        //    List <string> list = new List<string>();
+        //    _tryAnswers.Add(new TypeOneVariant("", "", list));
+        //    DataGrid_ChangeAnswers.Items.Add(_tryAnswers);
+        //}
 
 
 
@@ -1134,6 +1278,7 @@ namespace TelegramBot.WPF
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
 
+        
     }
     #endregion
 }
