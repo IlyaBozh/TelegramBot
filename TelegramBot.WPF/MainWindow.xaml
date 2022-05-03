@@ -269,7 +269,7 @@
                                 <RowDefinition Height="10*"></RowDefinition>
                                 <RowDefinition Height="10*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <ComboBox x:Name="ComboBox_ChooseQuestionTypeEdit" Grid.Row="1" VerticalAlignment="Top" Height="20" Margin="4,1,4,0" Visibility="Visible"/>
+                            <ComboBox x:Name="ComboBox_ChooseQuestionTypeEdit" Grid.Row="1" VerticalAlignment="Top" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseQuestionTypeEdit_SelectionChanged"/>
                             <Label Content="Выбери вопрос:" VerticalAlignment="Center" Margin="0,0,0,0" Visibility="Visible" Height="26"/>
                         </Grid>
                     </GroupBox>
@@ -298,7 +298,7 @@
                             </Grid.RowDefinitions>
                             <Label Content="Варианты ответов:" Margin="0,0,0,0" Visibility="Visible"/>
                             <Grid Grid.Row="1">
-                                <DataGrid x:Name="DataGrid_ChangeAnswers" CanUserAddRows = "true" AutoGenerateColumns="False"  Margin="4,-97,4,4" Loaded="DataGrid_ChangeAnswers_Loaded">
+                                <DataGrid x:Name="DataGrid_ChangeAnswers" CanUserAddRows = "true" AutoGenerateColumns="True"  Margin="4,-97,4,4" Loaded="DataGrid_ChangeAnswers_Loaded">
                                     <DataGrid.ContextMenu>
                                         <ContextMenu>
                                             <MenuItem Header="Добавить строку" Click="MenuItemEditChange_ClickInsert"/>
@@ -306,8 +306,8 @@
                                         </ContextMenu>
                                     </DataGrid.ContextMenu>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Binding = "{Binding Path = Question}" IsReadOnly="False" Header="Варианты" Width="50*"/>
-                                        <DataGridTextColumn Binding = "{Binding Path = TrueAnswer}" IsReadOnly="False" Header="Правильные ответы" Width="50*"/>
+                                        <DataGridTextColumn x:Name="DataGridTextColumn_Variants"  IsReadOnly="False" Header="Варианты" Width="50*"/>
+                                        <!--<DataGridTextColumn Binding = "{Binding Path = TrueAnswer}" IsReadOnly="False" Header="Правильные ответы" Width="50*"/>-->
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>

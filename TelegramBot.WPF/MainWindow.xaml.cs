@@ -454,6 +454,37 @@ namespace TelegramBot.WPF
             }
         }
 
+        private void ComboBox_ChooseQuestionTypeEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _testsDataBase = TestsDataBase.GetInstance();
+            List<AbstractQuestion> tmpTestPoll = _testsDataBase.TestSingelQuestions;
+            int index = ComboBox_ChooseTestEdit.SelectedIndex;
+            string tmp;
+
+            if (RadioButtonEdit_Test.IsChecked == true)
+            {
+                foreach (var type in tmpTestPoll)
+                {
+                    if (type.Description == (string)ComboBox_ChooseQuestionTypeEdit.SelectedItem)
+                    {
+                        TextBox_QuestionEdit.Text = type.Description;
+
+                        if (type is TypeUserAnswer)
+                        {
+                            TextBox_AnswersEdit.Text = type.TrueAnswer;
+                        }
+                        else if(type is TypeOneVariant)
+                        {
+                           
+                        }
+
+
+                    }
+
+                }
+            }
+
+        }
 
         private void HideExtraBoxesEdit()
         {
@@ -1103,15 +1134,6 @@ namespace TelegramBot.WPF
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
 
-        private void ComboBox_ChooseTestEdit_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
-        private void ComboBox_ChooseTestEdit_SelectionChanged_2(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
     #endregion
 }
