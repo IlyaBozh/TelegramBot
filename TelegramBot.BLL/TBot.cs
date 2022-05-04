@@ -22,19 +22,13 @@ namespace TelegramBot.BL
             _ids = new List<long>();
         }
 
-        //public async void Send(string message, long id, ReplyKeyboardMarkup replyKeyboardMarkup) /// --------------????
-        //{
-            
-        //     await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup: replyKeyboardMarkup);
+        
+        public async void Send(string message, long id) /// --------------????
+        {
 
-        //}
+            await _client.SendTextMessageAsync(new ChatId(id), message);
 
-        //public async void Send(string message, long id) /// --------------????
-        //{
-
-        //    await _client.SendTextMessageAsync(new ChatId(id), message);
-
-        //}
+        }
 
         public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
         {
@@ -64,8 +58,7 @@ namespace TelegramBot.BL
                     _ids.Add(update.Message.Chat.Id);
                     User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
                     _users(newUser);
-                    //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
-                    //_users(userName);
+                    
                 }
                
 

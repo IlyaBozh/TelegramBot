@@ -461,27 +461,26 @@ namespace TelegramBot.WPF
             }
 
 
-            //if (1 == ComboBox_QuestionContainer.SelectedIndex)
-            //{
-            //    question = abstractQuestion.Description;
+            if (1 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                question = abstractQuestion.Description;
 
-            //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-            //    {
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
 
 
-            //        _tbot.Send((string)question, user.Id);
-            //    }
-            //}
+                    _tbot.Send((string)question, user.Id);
+                }
+            }
 
 
 
             if (2 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                question = abstractQuestion.Description;
                 answers = abstractQuestion.Variants;
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
-
+                var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+
                 for (var i = 0; i < buttons.Length; i++)
                 {
                     var btn = new InlineKeyboardButton[i];
@@ -495,119 +494,93 @@ namespace TelegramBot.WPF
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-                    
-                    _tbot.Send((string)question, user.Id, keyboardButtons);
+
+                    _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
                 }
-
-
-
-
-
-                //            InlineKeyboardMarkup inlineKeyboard = new(new[]
-                //{
-                //    // first row
-                //    new []
-                //    {
-                //        InlineKeyboardButton.WithCallbackData(text: "1.1", callbackData: "11"),
-                //        InlineKeyboardButton.WithCallbackData(text: "1.2", callbackData: "12"),
-                //    },
-                //    // second row
-                //    new []
-                //    {
-                //        InlineKeyboardButton.WithCallbackData(text: "2.1", callbackData: "21"),
-                //        InlineKeyboardButton.WithCallbackData(text: "2.2", callbackData: "22"),
-                //    },
-                //    new []
-                //    {
-                //                InlineKeyboardButton.WithCallbackData("Done", "Done")
-
-                //    },
-
-                //        });
-
-                //            var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                //                .ToArray();
-                //            var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
-                //            foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                //            {
-
-                //                replyMarkup.OneTimeKeyboard = true;
-                //                _tbot.Send((string)question, user.Id, replyMarkup);
-                //            }
-
-                //}
-
-                //if (3 == ComboBox_QuestionContainer.SelectedIndex)
-                //{
-                //    question = abstractQuestion.Description;
-                //    answers = abstractQuestion.Variants;
-
-                //    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                //        .ToArray();
-                //    var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
-                //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                //    {
-
-                //        replyMarkup.OneTimeKeyboard = true;
-                //        _tbot.Send((string)question, user.Id, replyMarkup);
-                //    }
-                //}
-
-                //if (4 == ComboBox_QuestionContainer.SelectedIndex)
-                //{
-                //    question = abstractQuestion.Description;
-
-                //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                //    {
-
-                //        ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(
-                //        new[]
-                //        {
-                //         new[]
-                //         {
-                //              new KeyboardButton("DA")
-                //         },
-
-                //         new[]
-                //         {
-                //            new KeyboardButton("NET")
-                //         },
-
-                //        }
-                //        );
-
-                //        replyMarkup.OneTimeKeyboard = true;
-                //        _tbot.Send((string)question, user.Id, replyMarkup);
-                //    }
-
-
-                //}
-
-                //if (5 == ComboBox_QuestionContainer.SelectedIndex)
-                //{
-                //    question = abstractQuestion.Description;
-                //    answers = abstractQuestion.Variants;
-
-                //    var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                //        .ToArray();
-                //    var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
-                //    foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                //    {
-
-                //        replyMarkup.OneTimeKeyboard = true;
-                //        _tbot.Send((string)question, user.Id, replyMarkup);
-                //    }
-                //}
-
-                DataGrid_SingleQuestions.SelectedItem = null;
-                ListBox_UserGroups.SelectedIndex = -1;
 
             }
 
 
+
+            if (3 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                 answers = abstractQuestion.Variants;
+                 var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
+                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+
+                 for (var i = 0; i < buttons.Length; i++)
+                 {
+                     var btn = new InlineKeyboardButton[i];
+                     {
+                         string oneAnswer = answers[i],
+                         CallbackData = answers[i];
+                     }
+
+                     keyboardButtons[i] = answers[i];
+                 }
+
+                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                 {
+
+                     _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
+                 }
+            }
+                
+
+            if (4 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                 List<string> YesOrNo = new List<string> { "ДА", "НЕТ" };
+                 var buttons = YesOrNo.ToArray();
+                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+            
+                 for (var i = 0; i < buttons.Length; i++)
+                 {
+                     var btn = new InlineKeyboardButton[i];
+                     {
+                         string oneAnswer = buttons[i],
+                         CallbackData = buttons[i];
+                     }
+            
+                     keyboardButtons[i] = buttons[i];
+                 }
+            
+                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                 {
+            
+                     _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
+                 }
+            
+            
+            }
+
+            if (5 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                answers = abstractQuestion.Variants;
+                var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
+                var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+
+                for (var i = 0; i < buttons.Length; i++)
+                {
+                    var btn = new InlineKeyboardButton[i];
+                    {
+                        string oneAnswer = answers[i],
+                        CallbackData = answers[i];
+                    }
+
+                    keyboardButtons[i] = answers[i];
+                }
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+
+                    _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
+                }
+
+
+            }
+
+            DataGrid_SingleQuestions.SelectedItem = null;
+            ListBox_UserGroups.SelectedIndex = -1;
         }
 
 
