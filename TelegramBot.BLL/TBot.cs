@@ -64,9 +64,26 @@ namespace TelegramBot.BL
 
                
             }
+
+            else if (update.CallbackQuery != null && update.CallbackQuery.Data != null)
+            {
+                if(update.CallbackQuery.Data == "Готово")
+                {
+                      botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "Готово");
+
+
+                }    
+                    
+            }
+
         }
 
       
+
+
+
+
+
         private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;

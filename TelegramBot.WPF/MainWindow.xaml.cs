@@ -480,6 +480,11 @@ namespace TelegramBot.WPF
                 answers = abstractQuestion.Variants;
                 var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+                List < InlineKeyboardButton[]> inlineKeyboardButton = new List < InlineKeyboardButton[] >();
+
+                var done = new[] { InlineKeyboardButton.WithCallbackData(text: "Готово", callbackData: "Готово") };
+                
+
 
                 for (var i = 0; i < buttons.Length; i++)
                 {
@@ -492,11 +497,16 @@ namespace TelegramBot.WPF
                     keyboardButtons[i] = answers[i];
                 }
 
+
+                inlineKeyboardButton.Add(keyboardButtons);
+                inlineKeyboardButton.Add(done);
+
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
 
-                    _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
+                    _tbot.Send(abstractQuestion.Description, user.Id, inlineKeyboardButton.ToArray());
                 }
+
 
             }
 
@@ -504,60 +514,14 @@ namespace TelegramBot.WPF
 
             if (3 == ComboBox_QuestionContainer.SelectedIndex)
             {
-                 answers = abstractQuestion.Variants;
-                 var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
-                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
-
-                 for (var i = 0; i < buttons.Length; i++)
-                 {
-                     var btn = new InlineKeyboardButton[i];
-                     {
-                         string oneAnswer = answers[i],
-                         CallbackData = answers[i];
-                     }
-
-                     keyboardButtons[i] = answers[i];
-                 }
-
-                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                 {
-
-                     _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
-                 }
-            }
-                
-
-            if (4 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                 List<string> YesOrNo = new List<string> { "ДА", "НЕТ" };
-                 var buttons = YesOrNo.ToArray();
-                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
-            
-                 for (var i = 0; i < buttons.Length; i++)
-                 {
-                     var btn = new InlineKeyboardButton[i];
-                     {
-                         string oneAnswer = buttons[i],
-                         CallbackData = buttons[i];
-                     }
-            
-                     keyboardButtons[i] = buttons[i];
-                 }
-            
-                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                 {
-            
-                     _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
-                 }
-            
-            
-            }
-
-            if (5 == ComboBox_QuestionContainer.SelectedIndex)
-            {
                 answers = abstractQuestion.Variants;
                 var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
                 var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+                List<InlineKeyboardButton[]> inlineKeyboardButton = new List<InlineKeyboardButton[]>();
+
+                var done = new[] { InlineKeyboardButton.WithCallbackData(text: "Готово", callbackData: "Готово") };
+
+
 
                 for (var i = 0; i < buttons.Length; i++)
                 {
@@ -570,10 +534,83 @@ namespace TelegramBot.WPF
                     keyboardButtons[i] = answers[i];
                 }
 
+
+                inlineKeyboardButton.Add(keyboardButtons);
+                inlineKeyboardButton.Add(done);
+
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
 
-                    _tbot.Send(abstractQuestion.Description, user.Id, keyboardButtons);
+                    _tbot.Send(abstractQuestion.Description, user.Id, inlineKeyboardButton.ToArray());
+                }
+            }
+                
+
+            if (4 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                answers = abstractQuestion.Variants;
+                var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
+                var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+                List<InlineKeyboardButton[]> inlineKeyboardButton = new List<InlineKeyboardButton[]>();
+
+                var done = new[] { InlineKeyboardButton.WithCallbackData(text: "Готово", callbackData: "Готово") };
+
+
+
+                for (var i = 0; i < buttons.Length; i++)
+                {
+                    var btn = new InlineKeyboardButton[i];
+                    {
+                        string oneAnswer = answers[i],
+                        CallbackData = answers[i];
+                    }
+
+                    keyboardButtons[i] = answers[i];
+                }
+
+
+                inlineKeyboardButton.Add(keyboardButtons);
+                inlineKeyboardButton.Add(done);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+
+                    _tbot.Send(abstractQuestion.Description, user.Id, inlineKeyboardButton.ToArray());
+                }
+
+
+            }
+
+            if (5 == ComboBox_QuestionContainer.SelectedIndex)
+            {
+                answers = abstractQuestion.Variants;
+                var buttons = abstractQuestion.Variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
+                var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+                List<InlineKeyboardButton[]> inlineKeyboardButton = new List<InlineKeyboardButton[]>();
+
+                var done = new[] { InlineKeyboardButton.WithCallbackData(text: "Готово", callbackData: "Готово") };
+
+
+
+                for (var i = 0; i < buttons.Length; i++)
+                {
+                    var btn = new InlineKeyboardButton[i];
+                    {
+                        string oneAnswer = answers[i],
+                        CallbackData = answers[i];
+                    }
+
+                    keyboardButtons[i] = answers[i];
+                }
+
+
+                inlineKeyboardButton.Add(keyboardButtons);
+                inlineKeyboardButton.Add(done);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+
+                    _tbot.Send(abstractQuestion.Description, user.Id, inlineKeyboardButton.ToArray());
                 }
 
 
