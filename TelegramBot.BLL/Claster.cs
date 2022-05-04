@@ -17,7 +17,8 @@ namespace TelegramBot.BL
         public Claster(string name)
         {
             NameClaster = name;
-        }
+            Questions = new List<AbstractQuestion>();
+    }
         public Claster(string name, List<AbstractQuestion> questions)
         {
             NameClaster = name;
