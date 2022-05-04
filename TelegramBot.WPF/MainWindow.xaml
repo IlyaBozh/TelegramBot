@@ -401,7 +401,7 @@
                     </Grid.RowDefinitions>
                     
                     <!--верхний ряд-->
-                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,110,0" KeyUp="TextBox_ClasterName_KeyUp"/>
+                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,110,0" KeyDown="TextBox_ClasterName_KeyDown"/>
                     <Button x:Name="Button_AddClasterName" Grid.Column="0" Grid.Row="0" Content="+" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,80,0" Width="30" Click="Button_AddClasterName_Click"></Button>
                     <RadioButton x:Name="RadioButton_TestClaster" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,10,0" Width="60" GroupName="TestOrPoolClaster" Click="RadioButton_TestClaster_Click"></RadioButton>
                     <RadioButton x:Name="RadioButton_PoolClaster" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,8" Width="60" GroupName="TestOrPoolClaster" Click="RadioButton_PoolClaster_Click"/>
@@ -417,7 +417,7 @@
                     </ComboBox>
 
                     <!--нижний ряд-->
-                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="0" Grid.Row="1" Margin="0,0,10,0" SelectionChanged="ListView_SingleQuestions_SelectionChanged">
+                    <ListView x:Name="ListView_SingleQuestions" Grid.Column="0" Grid.Row="1" Margin="0,0,10,0">
                         <!--<ListView.View>
                             <GridView>
                                 <GridViewColumn DisplayMemberBinding="{Binding Path=Description}">Вопрос</GridViewColumn>
@@ -428,8 +428,7 @@
                         </ListView.View>-->
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Вырезать" Click="MenuItem_ClickCutListView_SingleQuestions"/>
-                                <MenuItem Header="Вставить" Click="MenuItem_ClickInsertListView_SingleQuestions"/>
+                                <MenuItem Header="Добавить" Click="MenuItem_ClickInsertListView_SingleQuestions"/>
                                 <MenuItem Header="Удалить" Click="MenuItem_ClickDeleteListView_SingleQuestions"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
@@ -441,7 +440,7 @@
 
                     </ListView>
 
-                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" SelectionChanged="ListView_ClasterQuestions_SelectionChanged">
+                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0">
                         <!--<ListView.View>
                             <GridView>
                                 <GridViewColumn>Вопрос</GridViewColumn>
@@ -452,8 +451,6 @@
                         </ListView.View>-->
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Вырезать" Click="MenuItem_ClickCutListView_ClasterQuestions"></MenuItem>
-                                <MenuItem Header="Вставить" Click="MenuItem_ClickInsertListView_ClasterQuestions"></MenuItem>
                                 <MenuItem Header="Удалить" Click="MenuItem_ClickDeleteListView_ClasterQuestions"></MenuItem>
                             </ContextMenu>
                         </ListView.ContextMenu>
