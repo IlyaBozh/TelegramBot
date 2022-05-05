@@ -20,7 +20,6 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             Variants = variants;
 
-            asker = new OneVariantAsker();
             answerer = new OneVariantAnswerer();
         }
 
@@ -30,7 +29,6 @@ namespace TelegramBot.BL.Questions
             Variants = variants;
             TrueAnswer = trueAnswer;
 
-            asker = new OneVariantAsker();
             answerer = new OneVariantAnswerer();
         }
 

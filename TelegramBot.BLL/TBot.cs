@@ -1,10 +1,7 @@
 ﻿using Telegram.Bot;
-using Telegram.Bot.Exceptions;
-using Telegram.Bot.Extensions.Polling;
 using Telegram.Bot.Types;
-using Telegram.Bot.Types.Enums;
 using Telegram.Bot.Types.ReplyMarkups;
-
+using TelegramBot.BL.DataBase;
 
 namespace TelegramBot.BL
 {
@@ -13,13 +10,18 @@ namespace TelegramBot.BL
         private TelegramBotClient _client;
         private Action<User> _users;
         private List<long> _ids;
-        
+
+        private UsersDataBase _userDataBase;
+
+        Dictionary<long, string> _usersDict;
 
         public TBot(string token, Action <User> users)
         {
             _client = new TelegramBotClient(token);
             _users = users;
             _ids = new List<long>();
+            _userDataBase = UsersDataBase.GetInstance();
+            _usersDict = new Dictionary<long, string>();
         }
 
         
@@ -60,20 +62,15 @@ namespace TelegramBot.BL
                     _users(newUser);
                     
                 }
-               
 
-               
             }
 
             else if (update.CallbackQuery != null && update.CallbackQuery.Data != null)
             {
-                
 
-                if(update.CallbackQuery.Data == "Готово")
+                if (update.CallbackQuery.Data == "Готово")
                 {
-                      botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "Готово");
-
-
+                    botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "Готово");
                 }    
                     
             }

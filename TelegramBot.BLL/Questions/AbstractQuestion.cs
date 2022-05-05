@@ -19,13 +19,7 @@ namespace TelegramBot.BL.Questions
 
        
 
-        protected IAsker asker;
         protected IAnswerer answerer;
-
-        public void Ask()
-        {
-            asker.Ask(Description, Variants);
-        }
 
         public bool IsAnswerCorrect()
         {

@@ -10,8 +10,8 @@ namespace TelegramBot.BL.DataBase
 {
     public class TestsDataBase
     {
-        public List<Claster> Tests { get; set; }
-        public List<Claster> Polls { get; set; }
+        public List<ClasterQuestions> Tests { get; set; }
+        public List<ClasterQuestions> Polls { get; set; }
         public List<AbstractQuestion> TestSingelQuestions { get; set; }
         public List<AbstractQuestion> PollSingelQuestions { get; set; }
 
@@ -24,8 +24,8 @@ namespace TelegramBot.BL.DataBase
 
         private TestsDataBase()
         {
-            Tests = new List<Claster>();
-            Polls = new List<Claster>();
+            Tests = new List<ClasterQuestions>();
+            Polls = new List<ClasterQuestions>();
             TestSingelQuestions = new List<AbstractQuestion>();
             PollSingelQuestions = new List<AbstractQuestion>();
         }
@@ -194,13 +194,13 @@ namespace TelegramBot.BL.DataBase
         }
 
 
-        public void SaveClasterTest(List<Claster> Tests)
+        public void SaveClasterTest(List<ClasterQuestions> Tests)
         {
             List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
 
             List<JsonQuestionModel> questionModels = new List<JsonQuestionModel>();
 
-            foreach (Claster test in Tests)
+            foreach (ClasterQuestions test in Tests)
             {
                 questionModels = FillModel(test.Questions);
                 clasterModels.Add(new JsonClasterModel(test.NameClaster, questionModels));
@@ -215,13 +215,13 @@ namespace TelegramBot.BL.DataBase
 
         }
 
-        public void SaveClasterPoll(List<Claster> Polls)
+        public void SaveClasterPoll(List<ClasterQuestions> Polls)
         {
             List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
 
             List<JsonQuestionModel> questionModels = new List<JsonQuestionModel>();
 
-            foreach (Claster test in Polls)
+            foreach (ClasterQuestions test in Polls)
             {
                 questionModels = FillModel(test.Questions);
                 clasterModels.Add(new JsonClasterModel(test.NameClaster, questionModels));
@@ -283,10 +283,10 @@ namespace TelegramBot.BL.DataBase
         }
 
 
-        public List<Claster> LoadClasterTests()
+        public List<ClasterQuestions> LoadClasterTests()
         {
 
-            List<Claster> clasterOfQuestions = new List<Claster>();
+            List<ClasterQuestions> clasterOfQuestions = new List<ClasterQuestions>();
 
             List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
 
@@ -305,16 +305,16 @@ namespace TelegramBot.BL.DataBase
                     questions.Add(DecerializeQuestion(question));
                 }
 
-                clasterOfQuestions.Add(new Claster(claster.Name, questions));
+                clasterOfQuestions.Add(new ClasterQuestions(claster.Name, questions));
                 questions = new List<AbstractQuestion>();
             }
 
             return clasterOfQuestions;
         }
 
-        public List<Claster> LoadClasterPolls()
+        public List<ClasterQuestions> LoadClasterPolls()
         {
-            List<Claster> clasterOfQuestions = new List<Claster>();
+            List<ClasterQuestions> clasterOfQuestions = new List<ClasterQuestions>();
 
             List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
 
@@ -333,7 +333,7 @@ namespace TelegramBot.BL.DataBase
                     questions.Add(DecerializeQuestion(question));
                 }
 
-                clasterOfQuestions.Add(new Claster(claster.Name, questions));
+                clasterOfQuestions.Add(new ClasterQuestions(claster.Name, questions));
                 questions = new List<AbstractQuestion>();
             }
 

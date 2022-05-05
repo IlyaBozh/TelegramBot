@@ -20,7 +20,6 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             TrueAnswer = trueAnswer;
 
-            asker = new YesOrNoAsker();
             answerer = new YesOrNoAnswerer();
         }
 
@@ -28,7 +27,6 @@ namespace TelegramBot.BL.Questions
         {
             Description = discription;
 
-            asker = new YesOrNoAsker();
             answerer = new YesOrNoAnswerer();
         }
 

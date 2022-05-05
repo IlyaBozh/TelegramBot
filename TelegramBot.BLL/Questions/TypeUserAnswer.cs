@@ -20,7 +20,6 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             TrueAnswer = trueAnswer;
 
-            asker = new UserAnswerAsker();
             answerer = new UserAnswerAnswerer();
         }
 
@@ -28,7 +27,6 @@ namespace TelegramBot.BL.Questions
         {
             Description = discription;
 
-            asker = new UserAnswerAsker();
             answerer = new UserAnswerAnswerer();
         }
 
