@@ -21,7 +21,6 @@ namespace TelegramBot.BL.Questions
             TrueAnswers = trueAnswers;
             Variants = variants;
 
-            asker = new RightOrderAsker();
             answerer = new RightOrderAnswerer();
         }
 
@@ -30,7 +29,6 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             Variants = variants;
 
-            asker = new RightOrderAsker();
             answerer = new RightOrderAnswerer();
         }
     }
