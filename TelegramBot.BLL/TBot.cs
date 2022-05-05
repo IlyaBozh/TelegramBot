@@ -10,6 +10,7 @@ namespace TelegramBot.BL
         private TelegramBotClient _client;
         private Action<User> _users;
         private List<long> _ids;
+        private Dictionary<long, TestCounter> _group;
 
         private UsersDataBase _userDataBase;
 
@@ -25,14 +26,14 @@ namespace TelegramBot.BL
         }
 
         
-        public async void Send(string message, long id) /// --------------????
+        public async void Send(string message, long id) 
         {
 
             await _client.SendTextMessageAsync(new ChatId(id), message);
 
         }
 
-        public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
+        public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) 
         {
 
 
@@ -62,15 +63,25 @@ namespace TelegramBot.BL
                     _users(newUser);
                     
                 }
-
+                if (_group != null)
+                {
+                    
+                }
             }
-
+            
             else if (update.CallbackQuery != null && update.CallbackQuery.Data != null)
             {
 
+                //List<string> UserAnswers = new List<string>();
+                //foreach (string answer in (string)update.CallbackQuery.Data)
+                //{
+                //    UserAnswers.Add(answer);
+                //}
+                //xhto.Add($"Ответ пользователя:{update.CallbackQuery.Data}".ToString()); // это записать в лист useranswer
+
                 if (update.CallbackQuery.Data == "Готово")
                 {
-                    botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "Готово");
+                    botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "Спасибо за ответ!");
                 }    
                     
             }
