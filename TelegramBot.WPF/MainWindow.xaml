@@ -36,13 +36,14 @@
                 </ContextMenu>
             </ComboBox.ContextMenu>
         </ComboBox>
-        <TextBox x:Name="TextBox_NameOfGroup" Grid.Column="1" Grid.Row="2" Margin="10,2,110,2"/>
+        <TextBox x:Name="TextBox_NameOfGroup" Grid.Column="1" Grid.Row="2" Margin="10,2,110,2" KeyDown="TextBox_NameOfGroup_KeyDown" KeyUp="TextBox_NameOfGroup_KeyUp"/>
         <Button x:Name="Button_AddGroup" Grid.Column="1" Grid.Row="2" Margin="270,2,10,2" Content="+" Click="Button_AddGroup_Click"></Button>
         <TabControl x:Name="ControlTab_UserGroup"  Grid.Column="1" Grid.Row="2" Background="#FF4D5456" Margin="10,29,10,46" Grid.RowSpan="3" Visibility="Visible">
             <TabControl.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Вырезать" Click="MenuItem_ClickCut"/>
                     <MenuItem Header="Вставить" Click="MenuItem_ClickInsert"/>
+                    <MenuItem Header="Переименовать" Click="MenuItem_Click" />
                 </ContextMenu>
             </TabControl.ContextMenu>
         </TabControl>
