@@ -22,13 +22,7 @@ namespace TelegramBot.BL
             _ids = new List<long>();
         }
 
-        public async void Send(string message, long id, ReplyKeyboardMarkup replyKeyboardMarkup) /// --------------????
-        {
-            
-             await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup: replyKeyboardMarkup);
-
-        }
-
+        
         public async void Send(string message, long id) /// --------------????
         {
 
@@ -36,19 +30,19 @@ namespace TelegramBot.BL
 
         }
 
-        //public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
-        //{
-
-            
-        //    await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup:inlineKeyboardMarkup);
-
-            
-        //}
-
-        
+        public async void Send(string message, long id, InlineKeyboardMarkup inlineKeyboardMarkup) /// --------------????
+        {
 
 
-    public void Start()
+            await _client.SendTextMessageAsync(new ChatId(id), message, replyMarkup: inlineKeyboardMarkup);
+
+
+        }
+
+
+
+
+        public void Start()
         {
             _client.StartReceiving(HandleResive, HandleError);
         }
@@ -64,16 +58,34 @@ namespace TelegramBot.BL
                     _ids.Add(update.Message.Chat.Id);
                     User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
                     _users(newUser);
-                    //string userName = $"{update.Message.Chat.FirstName} {update.Message.Chat.LastName}";
-                    //_users(userName);
+                    
                 }
                
 
                
             }
+
+            else if (update.CallbackQuery != null && update.CallbackQuery.Data != null)
+            {
+                
+
+                if(update.CallbackQuery.Data == "Готово")
+                {
+                      botClient.EditMessageTextAsync(update.CallbackQuery.Message.Chat.Id, update.CallbackQuery.Message.MessageId, "Готово");
+
+
+                }    
+                    
+            }
+
         }
 
       
+
+
+
+
+
         private Task HandleError(ITelegramBotClient botClient, Exception exception, CancellationToken cancellationToken)
         {
             return Task.CompletedTask;

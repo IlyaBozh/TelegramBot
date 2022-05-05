@@ -12,7 +12,7 @@ namespace TelegramBot.BL.DataBase
     {
         public List<Group> UserGroups { get; set; }
         private static UsersDataBase _instance;
-        private const string filePath = @"usergroups.data"; 
+        private const string filePath = @"usergroups1.data"; 
 
         private UsersDataBase()
         {
