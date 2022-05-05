@@ -1083,7 +1083,7 @@ namespace TelegramBot.WPF
             }
         }
 
-        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)  
         {
             ListView_ClasterQuestions.Items.Clear();
 
@@ -1281,7 +1281,7 @@ namespace TelegramBot.WPF
 
             AbstractQuestion tmp =(AbstractQuestion) DataGrid_SingleQuestions.SelectedItem;
 
-            if(tmp == null|| tmp.Variants == null)
+            if (tmp == null)
             {
                 return;
             }
@@ -1292,15 +1292,30 @@ namespace TelegramBot.WPF
 
             }
 
-
-            testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:");
-            foreach (var variants in tmp.Variants)
+            if (RadioButton_PollContainer.IsChecked == true)
             {
-                testMenu.Items.Add(variants);
+                if (tmp.Variants != null)
+                {
+                    testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:"); 
+
+                    foreach (var variants in tmp.Variants)
+                    {
+                        testMenu.Items.Add(variants);
+                    }
+                }
+               
             }
 
            if(RadioButton_TestContainer.IsChecked == true)
            {
+                if (tmp.Variants != null)
+                {
+                    testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:");
+                    foreach (var variants in tmp.Variants)
+                    {
+                        testMenu.Items.Add(variants);
+                    }
+                }
                 testMenu.Items.Add("ПРАВИЛЬНЫЕ ОТВЕТЫ:");
                 if(tmp.TrueAnswers == null)
                 {
@@ -1313,10 +1328,7 @@ namespace TelegramBot.WPF
                     {
                         testMenu.Items.Add(trueAnswer);
                     }
-
                 }
-
-
            }
                 
             DataGrid_SingleQuestions.ContextMenu = testMenu;
@@ -1325,5 +1337,87 @@ namespace TelegramBot.WPF
             tmp = null;
         }
 
+        private void ComboBox_ClasterName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (RadioButton_AddToClaster.IsChecked == true)
+            {
+                if (ComboBox_ClasterName.SelectedIndex == 0)
+                {
+                    return;
+                }
+
+                List<Claster> clasters = new List<Claster>();
+
+                if (RadioButton_TestContainer.IsChecked == true)
+                {
+                    clasters = _testsDataBase.Tests;
+                }
+                else
+                {
+                    clasters = _testsDataBase.Polls;
+                }
+
+                int index = ComboBox_ClasterName.SelectedIndex;
+
+                foreach(var claster in clasters.in)
+                {
+                    foreach (var question in claster.Questions)
+                    {
+                        ListBox_Claster.Items.Add(question.Description);
+
+                    }
+                }
+                
+            }
+            else
+            {
+                return;
+            }
+
+
+        }
+
+        private void RadioButton_TestContainer_Click(object sender, RoutedEventArgs e)
+        { 
+
+            //ListView_ClasterQuestions.Items.Clear();
+
+
+            //if (RadioButton_AddToClaster.IsChecked == true)
+            //{
+            //    ListBox_Claster.Items.Clear();
+
+            //    foreach (var question in _testsDataBase.TestSingelQuestions)
+            //    {
+            //        ListBox_Claster.Items.Add(question.Description);
+            //    }
+
+            //    ComboBox_ClasterName.Items.Clear();
+
+            //    foreach (var claster in _testsDataBase.Tests)
+            //    {
+            //        ComboBox_ClasterName.Items.Add(claster.NameClaster);
+            //    }
+            //}
+            
+        }
+
+        private void RadioButton_AddToClaster_Click(object sender, RoutedEventArgs e)
+        {
+            List<Claster> clasters = new List<Claster>();
+
+            if (RadioButton_TestContainer.IsChecked == true)
+            {
+                clasters = _testsDataBase.Tests;
+            }
+            else
+            {
+                clasters = _testsDataBase.Polls;
+            }
+            foreach (var claster in clasters)
+            {
+                ComboBox_ClasterName.Items.Add(claster.NameClaster);
+            }
+        }
     }
 }

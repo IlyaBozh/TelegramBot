@@ -20,7 +20,7 @@
             <ColumnDefinition Width="209*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <!--#region toolbar-->        
+        <!--#region toolbar-->
         <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,30" Grid.RowSpan="2">
             <Button Content="Подключить бота"  Margin="0,-4,0,0"/>
         </ToolBar>
@@ -353,7 +353,7 @@
                         <RowDefinition Height="13*"></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <RadioButton x:Name="RadioButton_TestContainer" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="50" GroupName="TestOrPoolContainer" Height="15" Checked="RadioButton_TestContainer_Checked"/>
+                    <RadioButton x:Name="RadioButton_TestContainer" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Left"  VerticalAlignment="Center" Width="50" GroupName="TestOrPoolContainer" Height="15" Checked="RadioButton_TestContainer_Checked" Click="RadioButton_TestContainer_Click"/>
                     <RadioButton x:Name="RadioButton_PollContainer" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Left" Margin="55,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPoolContainer" Height="15" Checked="RadioButton_PollContainer_Checked"/>
                     <ComboBox x:Name="ComboBox_QuestionContainer" Text="вид опроса" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" Margin="10,0,0,0" SelectionChanged="ComboBox_QuestionContainer_SelectionChanged">
                         <ComboBoxItem Content="вид вопроса" IsSelected="True"/>
@@ -363,18 +363,18 @@
                         <ComboBoxItem Content="да/нет"/>
                         <ComboBoxItem Content="расположить в правильном порядке"/>
                     </ComboBox>
-                    
+
                     <DataGrid x:Name="DataGrid_SingleQuestions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" SelectionChanged="DataGrid_SingleQuestions_SelectionChanged" >
-                        
+
                     </DataGrid>
-                    
+
                     <Label x:Name="Label_UserGroups" Content="Группы:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom"></Label>
                     <ListBox x:Name="ListBox_UserGroups" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Margin="0,4,10,0">
 
-                        
+
                     </ListBox>
-                    <RadioButton Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="65" Margin="10,0,0,5" Visibility="Visible"></RadioButton>
-                    <ComboBox x:Name="ComboBox_ClasterName" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="30,0,0,0" Visibility="Visible" >
+                    <RadioButton x:Name="RadioButton_AddToClaster" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="65" Margin="10,0,0,5" Visibility="Visible" Click="RadioButton_AddToClaster_Click"></RadioButton>
+                    <ComboBox x:Name="ComboBox_ClasterName" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="30,0,0,0" Visibility="Visible" SelectionChanged="ComboBox_ClasterName_SelectionChanged" >
                         <ComboBoxItem Content="кластер" IsSelected="True"></ComboBoxItem>
                     </ComboBox>
 
@@ -392,22 +392,23 @@
             <TabItem x:Name="Claster" Header="Кластер вопросов">
                 <Grid Margin="10">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*" />
-                        <ColumnDefinition Width="50*" />
+                        <ColumnDefinition Width="248*" />
+                        <ColumnDefinition Width="11*" />
+                        <ColumnDefinition Width="236*"/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10*" />
                         <RowDefinition Height="90*" />
                     </Grid.RowDefinitions>
-                    
+
                     <!--верхний ряд-->
-                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,110,0" KeyDown="TextBox_ClasterName_KeyDown"/>
-                    <Button x:Name="Button_AddClasterName" Grid.Column="0" Grid.Row="0" Content="+" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,80,0" Width="30" Click="Button_AddClasterName_Click"></Button>
+                    <TextBox x:Name="TextBox_ClasterName" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,110,0" KeyDown="TextBox_ClasterName_KeyDown"/>
+                    <Button x:Name="Button_AddClasterName" Grid.Column="0" Content="+" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="138,0,0,0" Width="30" Click="Button_AddClasterName_Click"/>
                     <RadioButton x:Name="RadioButton_TestClaster" Grid.Column="0" Grid.Row="0" Content="Тест" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,8,10,0" Width="60" GroupName="TestOrPoolClaster" Click="RadioButton_TestClaster_Click"></RadioButton>
                     <RadioButton x:Name="RadioButton_PoolClaster" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,8" Width="60" GroupName="TestOrPoolClaster" Click="RadioButton_PoolClaster_Click"/>
 
 
-                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged">
+                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" VerticalAlignment="Center" Margin="10,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged" Grid.ColumnSpan="2">
                         <ComboBox.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="Редактировать название"/>
@@ -440,7 +441,7 @@
 
                     </ListView>
 
-                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0">
+                    <ListView x:Name="ListView_ClasterQuestions" Grid.Column="1" Grid.Row="1" Margin="10,0,10,0" Grid.ColumnSpan="2">
                         <!--<ListView.View>
                             <GridView>
                                 <GridViewColumn>Вопрос</GridViewColumn>
@@ -462,7 +463,7 @@
 
             </TabItem>
             <!--#endregion-->
-            
+
         </TabControl>
 
 
