@@ -14,10 +14,8 @@ namespace TelegramBot.BL.Questions
         public List<string> Variants { get; set; }
         public string TrueAnswer { get; set; }  
         public List<string> TrueAnswers { get; set; }
-        /*public bool AnswerYesOrNo { get; set; }*/
         public string UserAnswer { get; set; }
         public List<string> UserAnswers { get; set; }
-        /*public bool UserAnswerYesOrNo { get; set; }*/
 
        
 
@@ -33,6 +31,7 @@ namespace TelegramBot.BL.Questions
         {
             return answerer.IsAnswerCorrect(UserAnswer, UserAnswers, TrueAnswer, TrueAnswers);
         }
+
 
         public void EditDiscription(string newDescription)
         {
