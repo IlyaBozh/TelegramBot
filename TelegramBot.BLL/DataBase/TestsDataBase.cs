@@ -17,10 +17,10 @@ namespace TelegramBot.BL.DataBase
 
         private static TestsDataBase _instance;
 
-        private const string filePathTestSingelQuestions = @"TestSingelQuestions1.asd";
-        private const string filePathPollSingelQuestions = @"PollSingelQuestions1.asd";
-        private const string filePathTestQuestions = @"TestQuestions1.asd";
-        private const string filePathPollQuestions = @"PollQuestions1.asd";
+        private const string filePathTestSingelQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\TestSingelQuestions.asd";
+        private const string filePathPollSingelQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\PollSingelQuestions.asd";
+        private const string filePathTestQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\TestQuestions.asd";
+        private const string filePathPollQuestions = @"C:\Users\Иля\source\repos\TelegramBot\QuestionFiles\PollQuestions.asd";
 
         private TestsDataBase()
         {
@@ -168,7 +168,7 @@ namespace TelegramBot.BL.DataBase
 
 
 
-        public void SaveSingel(List<AbstractQuestion> TestSingelQuestions, List<AbstractQuestion> PollSingelQuestions)
+        public void SaveSingelTest(List<AbstractQuestion> TestSingelQuestions)
         {
             List<JsonQuestionModel> questionModels = FillModel(TestSingelQuestions);
 
@@ -179,9 +179,13 @@ namespace TelegramBot.BL.DataBase
                 sw.WriteLine(json);
             }
 
-            questionModels = FillModel(PollSingelQuestions);
+        }
 
-            json = SerializeQuestionModel(questionModels);
+        public void SaveSingelPoll(List<AbstractQuestion> PollSingelQuestions)
+        {
+            List<JsonQuestionModel> questionModels = FillModel(PollSingelQuestions);
+
+            string json = SerializeQuestionModel(questionModels);
 
             using (StreamWriter sw = new StreamWriter(filePathPollSingelQuestions, false))
             {
@@ -190,7 +194,7 @@ namespace TelegramBot.BL.DataBase
         }
 
 
-        public void SaveClaster(List<Claster> Tests, List<Claster> Polls)
+        public void SaveClasterTest(List<Claster> Tests)
         {
             List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
 
@@ -209,8 +213,13 @@ namespace TelegramBot.BL.DataBase
                 sw.WriteLine(json);
             }
 
-            clasterModels.Clear();
-            questionModels.Clear();
+        }
+
+        public void SaveClasterPoll(List<Claster> Polls)
+        {
+            List<JsonClasterModel> clasterModels = new List<JsonClasterModel>();
+
+            List<JsonQuestionModel> questionModels = new List<JsonQuestionModel>();
 
             foreach (Claster test in Polls)
             {
@@ -218,7 +227,7 @@ namespace TelegramBot.BL.DataBase
                 clasterModels.Add(new JsonClasterModel(test.NameClaster, questionModels));
             }
 
-            json = SerializeClasterModel(clasterModels);
+            string json = SerializeClasterModel(clasterModels);
 
             using (StreamWriter sw = new StreamWriter(filePathPollQuestions, false))
             {
@@ -297,6 +306,7 @@ namespace TelegramBot.BL.DataBase
                 }
 
                 clasterOfQuestions.Add(new Claster(claster.Name, questions));
+                questions = new List<AbstractQuestion>();
             }
 
             return clasterOfQuestions;
@@ -324,6 +334,7 @@ namespace TelegramBot.BL.DataBase
                 }
 
                 clasterOfQuestions.Add(new Claster(claster.Name, questions));
+                questions = new List<AbstractQuestion>();
             }
 
             return clasterOfQuestions;

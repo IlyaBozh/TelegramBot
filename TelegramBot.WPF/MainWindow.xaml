@@ -20,7 +20,7 @@
             <ColumnDefinition Width="209*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <!--#region toolbar-->        
+        <!--#region toolbar-->
         <ToolBar Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0,0,0,30" Grid.RowSpan="2">
             <Button Content="Подключить бота"  Margin="0,-4,0,0"/>
         </ToolBar>
@@ -211,14 +211,16 @@
                         <RowDefinition Height="10*"></RowDefinition>
                         <RowDefinition Height="10*"></RowDefinition>
                         <RowDefinition Height="10*"></RowDefinition>
-                        <RowDefinition Height="35*"></RowDefinition>
-                        <RowDefinition Height="6*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
+                        <RowDefinition Height="20*"></RowDefinition>
+                        <RowDefinition Height="10*"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <RadioButton x:Name="RadioButtonEdit_Test" Content="Тест" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButtonEdit_Test_Click"/>
+                    <GroupBox x:Name="GroupBox_AnswerEdit" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
+                        <Label x:Name="Label_TrueAnswerEdit" Grid.Row="4" Content="Правильный(-ые) ответ(ы):" Margin="10,27,168,100" Visibility="Visible"/>
+                    </GroupBox>
+                    <RadioButton x:Name="RadioButtonEdit_Test" Content="Тест" HorizontalAlignment="Left" Margin="4,0,0,0" VerticalAlignment="Center" Width="50" GroupName="TestOrPool" Height="15" Click="RadioButtonEdit_Test_Click"/>
                     <RadioButton x:Name="RadioButtonEdit_Poll" Content="Опрос" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" Width="60" GroupName="TestOrPool" Height="15" Click="RadioButtonEdit_Poll_Click"/>
-                    <Label x:Name="Label_TrueAnswerEdit" Grid.Row="5" Content="Правильный(-ые) ответ(ы):" Margin="8,0,170,50" Visibility="Hidden"/>
 
-                    <Button x:Name="Button_AddQuestionEdit" Content="Добавить вопрос" Height="26" Margin="69,0,59,0" Grid.Row="6" VerticalAlignment="Center" Visibility="Hidden"/>
                     <GroupBox x:Name="GroupBox_TestEdit" Margin="1,1,1,0" Grid.Row="1" Visibility="Hidden" BorderThickness="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -228,37 +230,13 @@
                                 <RowDefinition Height="10*"></RowDefinition>
                                 <RowDefinition Height="10*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Content="Тест:" VerticalAlignment="Center" Margin="0,0,4,0" Visibility="Visible"/>
-                            <ComboBox x:Name="ComboBox_ChooseTestEdit" Grid.Row="1" VerticalAlignment="Bottom" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseQuestionTypeEdit_SelectionChanged">
-                                <ComboBoxItem Content="ответ пользователя"/>
-                                <ComboBoxItem Content="выбор одного варианта"/>
-                                <ComboBoxItem Content="выбор нескольких вариантов"/>
-                                <ComboBoxItem Content="да/нет"/>
-                                <ComboBoxItem Content="расположить в правильном порядке"/>
-                                <!--<ComboBoxItem Content="не выбрано"/>-->
+                            <Label Content="Кластер:" VerticalAlignment="Center" Margin="0,0,4,0" Visibility="Visible"/>
+                            <ComboBox x:Name="ComboBox_ChooseTestEdit" Grid.Row="1" VerticalAlignment="Bottom" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseTestEdit_SelectionChanged">
+                                <ComboBoxItem Content="все вопросы"/>
                             </ComboBox>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_PollEdit" Margin="1,54,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="1*"></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="10*"></RowDefinition>
-                                <RowDefinition Height="10*"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <Label Content="Опрос:" VerticalAlignment="Center" Margin="0,0,4,0" Visibility="Visible"/>
-                            <ComboBox x:Name="ComboBox_ChooseTollEdit" Grid.Row="1" VerticalAlignment="Bottom" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseQuestionTypeEdit_SelectionChanged">
-                                <ComboBoxItem Content="ответ пользователя"/>
-                                <ComboBoxItem Content="выбор одного варианта"/>
-                                <ComboBoxItem Content="выбор нескольких вариантов"/>
-                                <ComboBoxItem Content="да/нет"/>
-                                <ComboBoxItem Content="расположить в правильном порядке"/>
-                                <!--<ComboBoxItem Content="не выбрано"/>-->
-                            </ComboBox>
-                        </Grid>
-                    </GroupBox>
+                    
                     <GroupBox x:Name="GroupBox_ChoseTypeQuestionEdit" Grid.Row="1" Margin="1,76,1,0" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -268,12 +246,11 @@
                                 <RowDefinition Height="10*"></RowDefinition>
                                 <RowDefinition Height="10*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <ComboBox x:Name="ComboBox_ChooseQuestionTypeEdit" Grid.Row="1" VerticalAlignment="Top" Height="20" Margin="4,1,4,0" Visibility="Visible">
-                            </ComboBox>
-                            <Label Content="Выберите вопрос:" VerticalAlignment="Center" Margin="0,0,-1,0" Visibility="Visible" Height="26"/>
+                            <ComboBox x:Name="ComboBox_ChooseQuestionTypeEdit" Grid.Row="1" VerticalAlignment="Top" Height="20" Margin="4,1,4,0" Visibility="Visible" SelectionChanged="ComboBox_ChooseQuestionTypeEdit_SelectionChanged"/>
+                            <Label Content="Выбери вопрос:" VerticalAlignment="Center" Margin="0,0,0,0" Visibility="Visible" Height="26"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_QuestionEdit" Grid.Row="3" Margin="1,1,1,81" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0">
+                    <GroupBox x:Name="GroupBox_QuestionEdit" Grid.Row="3" Margin="1,1,1,1" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -282,38 +259,72 @@
                                 <RowDefinition Height="5*"></RowDefinition>
                                 <RowDefinition Height="10*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label x:Name="Lable_QuestionTitleEdit" Content="Твой вопрос:" Margin="0,0,4,0" Visibility="Visible" Height="26"/>
-                            <TextBox x:Name="TextBox_QuestionEdit"  Margin="4,4,4,80" Visibility="Visible" Grid.Row="1"/>
-
+                            <Label x:Name="Lable_QuestionTitleEdit" Content="Твой вопрос:" Margin="0,0,0,32" Visibility="Visible" Height="26" Grid.RowSpan="2"/>
+                            <TextBox x:Name="TextBox_QuestionEdit"  Margin="4,10,4,0" Visibility="Visible" Grid.Row="1"/>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AddVariantsEdit" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,0" BorderThickness="0">
+
+                    <GroupBox x:Name="GroupBox_AddVariantEdit" Grid.Row="4" Visibility="Hidden" Margin="1,1,1,5" BorderThickness="0" Grid.ColumnSpan="2">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="30*"></RowDefinition>
-                                <RowDefinition Height="13*"></RowDefinition>
+                                <RowDefinition Height="8*"></RowDefinition>
+                                <RowDefinition Height="15*"></RowDefinition>
                             </Grid.RowDefinitions>
-                            <Label Content="Варианты ответа:" Margin="0,0,2,0" Visibility="Visible" Height="26"/>
+                            <Label Content="Новый вариант:" Margin="4,-6,4,0" Visibility="Visible" Height="26"/>
                             <Grid Grid.Row="1">
-                                <DataGrid x:Name="DataGrid_ChangeAnswers" CanUserAddRows = "true" AutoGenerateColumns="False"  Margin="0,-58,0,0" Loaded="DataGrid_ChangeAnswers_Loaded">
-                                    <DataGrid.ContextMenu>
-                                        <ContextMenu>
-                                            <MenuItem Header="Добавить строку" Click="MenuItemEditChange_ClickInsert"/>
-                                            <MenuItem Header="Удалить строку" Click="MenuItemEditСhange_ClickCut"/>
-                                        </ContextMenu>
-                                    </DataGrid.ContextMenu>
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Binding = "{Binding Path = Question}" IsReadOnly="False" Header="Варианты ответов" Width="200"/>
-                                        <DataGridTextColumn Binding = "{Binding Path = TrueAnswer}" IsReadOnly="False" Header="Правильные ответы" Width="200"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="9*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Grid.ColumnSpan="2" Margin="231,0,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Button x:Name="Button_RemoveOneOrFewVariantsEdit" Content="Удалить" Visibility="Visible" Margin="4,10,4,0" FontSize="10" Click="Button_RemoveOneOrFewVariantsEdit_Click" Grid.Column="0"/>
+                                    <Button x:Name="Button_AddOneOrFewVariantsEdit" Content="Добавить"  Margin ="4,10,4,0" Visibility="Visible" FontSize="10" Click="Button_AddOneOrFewVariantsEdit_Click" Grid.Column="1"/>
+                                </Grid>
+                                <TextBox x:Name="TextBox_OneOrFewVariantsEdit" Margin="4,10,200,0" Visibility="Visible"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <GroupBox x:Name="GroupBox_AnswerYesOrNoEdit" Margin="0,31,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="5" Opacity="0.98" BorderThickness="0">
+
+                    <GroupBox x:Name="GroupBox_AddTrueVarintsOrRigthOrderEdit" Grid.Row="5" Margin="1,26,1,32" Grid.RowSpan="2" Visibility="Hidden" BorderThickness="0" Grid.ColumnSpan="2">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <ListBox x:Name="ListBox_VariantsEdit" Grid.Column="0" Margin="4,4,4,4" Visibility="Visible" SelectionChanged="ListBox_VariantsEdit_SelectionChanged"/>
+                            <ListBox x:Name="ListBox_RightOrderEdit" Grid.Column="1" Margin="4,4,4,4" Visibility="Hidden" AllowDrop="True" SelectionChanged="ListBox_RightOrderEdit_SelectionChanged"/>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox x:Name="GroupBox_AnswerYesOrNoEdit" Margin="4,96,0,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="4" Opacity="0.98" BorderThickness="0">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="10*"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Margin="0,-61,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition Width="10*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <RadioButton x:Name="RadioButton_NoEdit" Content="нет" GroupName="YesOrNo" Visibility="Visible" Grid.Column="1" Margin="4,34,0,0" IsChecked="False"/>
+                                <RadioButton x:Name="RadioButton_YesEdit" Content="да"  GroupName="YesOrNo" Visibility="Visible"  Grid.Column="0" Margin="4,34,53,0" Grid.ColumnSpan="2" Height="89" VerticalAlignment="Top" IsChecked="False"/>
+                                <Label Content="Ответ:"/>
+                            </Grid>
+                        </Grid>
+                    </GroupBox>
+
+                    <GroupBox x:Name="GroupBox_ChangeOneAnswerEdit" Margin="4,56,4,32" Grid.RowSpan="2" Visibility="Hidden" Grid.Row="4" Opacity="0.98" BorderThickness="0">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*"></ColumnDefinition>
@@ -323,20 +334,24 @@
                             </Grid.RowDefinitions>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
-                                    <ColumnDefinition Width="2*"></ColumnDefinition>
                                     <ColumnDefinition Width="10*"></ColumnDefinition>
                                 </Grid.ColumnDefinitions>
-                                <RadioButton x:Name="RadioButton_NoEdit" Content="Нет" GroupName="YesOrNo" Visibility="Visible" Grid.Column="1" Grid.ColumnSpan="2"/>
-                                <RadioButton x:Name="RadioButton_YesEdit" Content="Да"  GroupName="YesOrNo" Visibility="Visible"  Grid.ColumnSpan="2"/>
+                                <TextBox x:Name="TextBox_AnswersEdit" Visibility="Visible" Margin="0,36,0,19"></TextBox>
+                                <Label Content="Ответ:" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="31" Width="58"/>
                             </Grid>
                         </Grid>
                     </GroupBox>
-                    <Button x:Name="Button_SaveChanges" Content="Сохранить" HorizontalAlignment="Left" Height="24" Grid.Row="6" VerticalAlignment="Center" Width="134" Visibility="Hidden" Margin="10,0,0,0" />
-                    <Button x:Name="Button_CancelChanges" Content="Отменить" HorizontalAlignment="Left" Height="24" Margin="149,0,0,0" Grid.Row="6" VerticalAlignment="Center" Width="134" Visibility="Hidden" />
+
+
+                    <Button x:Name="Button_SaveChanges" Content="Сохранить" HorizontalAlignment="Left" Height="24" Grid.Row="6" VerticalAlignment="Top" Width="134" Visibility="Hidden" Margin="10,32,0,0" Click="Button_SaveChanges_Click" />
+                    <Button x:Name="Button_CancelChanges" Content="Отменить" HorizontalAlignment="Left" Height="24" Margin="157,32,0,0" Grid.Row="6" VerticalAlignment="Top" Width="134" Visibility="Hidden" Click="Button_CancelChanges_Click" />
                 </Grid>
 
             </TabItem>
+            <!--#endregion-->
+
+
+
 
             <!--#region Container. хранилище всех вопросов и кластеров вопросов-->
             <TabItem x:Name="TabItem_Container" Header="Контейнер" VerticalAlignment="Bottom">
@@ -363,15 +378,15 @@
                         <ComboBoxItem Content="да/нет"/>
                         <ComboBoxItem Content="расположить в правильном порядке"/>
                     </ComboBox>
-                    
+
                     <DataGrid x:Name="DataGrid_SingleQuestions" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" SelectionChanged="DataGrid_SingleQuestions_SelectionChanged" >
-                        
+
                     </DataGrid>
-                    
+
                     <Label x:Name="Label_UserGroups" Content="Группы:" Grid.Column="0" Grid.Row="2" VerticalAlignment="Bottom"></Label>
                     <ListBox x:Name="ListBox_UserGroups" Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" Margin="0,4,10,0">
 
-                        
+
                     </ListBox>
                     <RadioButton Grid.Column="1" Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" Width="65" Margin="10,0,0,5" Visibility="Visible"></RadioButton>
                     <ComboBox x:Name="ComboBox_ClasterName" Grid.Column="1" Grid.Row="2" VerticalAlignment="Bottom" Margin="30,0,0,0" Visibility="Visible" >
@@ -399,7 +414,7 @@
                         <RowDefinition Height="10*" />
                         <RowDefinition Height="90*" />
                     </Grid.RowDefinitions>
-                    
+
                     <!--верхний ряд-->
                     <TextBox x:Name="TextBox_ClasterName" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" Margin="0,0,110,0" KeyDown="TextBox_ClasterName_KeyDown"/>
                     <Button x:Name="Button_AddClasterName" Grid.Column="0" Grid.Row="0" Content="+" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,80,0" Width="30" Click="Button_AddClasterName_Click"></Button>
@@ -407,11 +422,11 @@
                     <RadioButton x:Name="RadioButton_PoolClaster" Grid.Column="0" Grid.Row="0" Content="Опрос" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,8" Width="60" GroupName="TestOrPoolClaster" Click="RadioButton_PoolClaster_Click"/>
 
 
-                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged">
+                    <ComboBox x:Name="ComboBox_Claster" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="10,0,10,0" SelectionChanged="ComboBox_Claster_SelectionChanged" KeyDown="ComboBox_Claster_KeyDown">
                         <ComboBox.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="Редактировать название"/>
-                                <MenuItem Header="Удалить"/>
+                                <MenuItem x:Name="ContextMenuRenameClaster" Header="Редактировать название" Click="ContextMenuRenameClaster_Click"/>
+                                <MenuItem x:Name="ContextMenu_DeleteClaster" Header="Удалить" Click="ContextMenu_DeleteClaster_Click"/>
                             </ContextMenu>
                         </ComboBox.ContextMenu>
                     </ComboBox>
@@ -462,7 +477,7 @@
 
             </TabItem>
             <!--#endregion-->
-            
+
         </TabControl>
 
 
