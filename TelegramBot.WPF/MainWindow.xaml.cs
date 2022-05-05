@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using Telegram.Bot.Types.ReplyMarkups;
 using TelegramBot.BL;
+using TelegramBot.BL.Askers;
 using TelegramBot.BL.DataBase;
 using TelegramBot.BL.Questions;
 
@@ -123,6 +124,10 @@ namespace TelegramBot.WPF
 
                 ComboBox_UserGroups.Items.Add(_usersDataBase.UserGroups[0]);
             }
+
+
+
+            
         }
 
         public void AddUsers(User newUser)
@@ -696,7 +701,10 @@ namespace TelegramBot.WPF
 
         //}
 
-  /*      private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
+      
+
+
+        private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
         {
             List<string> list = new List<string>();
             _tryAnswers.Add(new TypeOneVariant("", "", list));
@@ -706,121 +714,73 @@ namespace TelegramBot.WPF
 
         private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
         {
-            AbstractQuestion abstractQuestion = (AbstractQuestion) DataGrid_SingleQuestions.SelectedItem;
-            string question;
-            List<string> answers= new List<string>();
+            AbstractQuestion abstractQuestion = (AbstractQuestion)DataGrid_SingleQuestions.SelectedItem;
+            CreateButtons newButtons = new CreateButtons();  
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
-            if( indexGroup == -1)
+            if (indexGroup == -1)
             {
                 return;
             }
 
 
-            if (1 == ComboBox_QuestionContainer.SelectedIndex)
+            if (1 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
-                question = abstractQuestion.Description;
-
+               
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-                    
-                   
-                    _tbot.Send((string)question, user.Id);
+
+                    _tbot.Send((string)abstractQuestion.Description, user.Id);
                 }
             }
 
 
-
-            if (2 == ComboBox_QuestionContainer.SelectedIndex)
+            if (2 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
-                var replyMarkup = new ReplyKeyboardMarkup(buttons);
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
+                }
+            }
 
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+            if (3 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
+                }
+            }
+                
+            if (4 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+                List<string> variants = new List<string> { "Да", "Нет" };
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, variants);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
                 }
 
             }
 
-            if (3 == ComboBox_QuestionContainer.SelectedIndex)
+            if (5 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
-                var replyMarkup = new ReplyKeyboardMarkup(buttons);
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
-
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
-                }
-            }
-
-            if (4 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                question = abstractQuestion.Description;
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    
-                    ReplyKeyboardMarkup replyMarkup = new ReplyKeyboardMarkup(
-                    new[]
-                    {
-                     new[]
-                     {
-                          new KeyboardButton("DA")
-                     },
-
-                     new[]
-                     {
-                        new KeyboardButton("NET")
-                     },
-
-                    }
-                    );
-
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
                 }
 
-
             }
-
-            if (5 == ComboBox_QuestionContainer.SelectedIndex)
-            {
-                question = abstractQuestion.Description;
-                answers = abstractQuestion.Variants;
-
-                var buttons = answers.Select(answers => new[] { new KeyboardButton(answers) })
-                    .ToArray();
-                var replyMarkup = new ReplyKeyboardMarkup(buttons);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    
-                    replyMarkup.OneTimeKeyboard = true;
-                    _tbot.Send((string)question, user.Id, replyMarkup);
-                }
-            }
-
             DataGrid_SingleQuestions.SelectedItem = null;
             ListBox_UserGroups.SelectedIndex = -1;
-
+            newButtons = null;
         }
-
-
-
 
 
         private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
