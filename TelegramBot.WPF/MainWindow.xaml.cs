@@ -130,7 +130,7 @@ namespace TelegramBot.WPF
 
             foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
             {
-                forUsers.Add($"{user.Name} {user.Id}");
+                forUsers.Add(user.Name);
             }
             _listOfListBox_Users[indexGroup].ItemsSource = forUsers;
 
@@ -227,6 +227,47 @@ namespace TelegramBot.WPF
 
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            Button_AddGroup.Visibility = Visibility.Hidden;
+            int indexGroup = ComboBox_UserGroups.SelectedIndex;
+
+            TextBox_NameOfGroup.Text = (string)_listOfListBox_Users[indexGroup].SelectedItem;
+        }
+
+        private void TextBox_NameOfGroup_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Enter && Button_AddGroup.Visibility == Visibility.Hidden)
+            {
+                int indexGroup = ComboBox_UserGroups.SelectedIndex;
+                int indexUser = _listOfListBox_Users[indexGroup].SelectedIndex;
+
+                List<string> users = new List<string>();
+
+                foreach(User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    users.Add(user.Name);
+                }
+
+                users[indexUser] = TextBox_NameOfGroup.Text;
+
+                _usersDataBase.UserGroups[indexGroup].UserGroups[indexUser].Name = TextBox_NameOfGroup.Text;
+
+                _listOfListBox_Users[indexGroup].ItemsSource = users;
+
+                Button_AddGroup.Visibility = Visibility.Visible;
+                TextBox_NameOfGroup.Text = "";
+            }
+        }
+
+        private void TextBox_NameOfGroup_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.Back && TextBox_NameOfGroup.Text == "")
+            {
+                Button_AddGroup.Visibility = Visibility.Visible;
+            }
+        }
+
         private void ComboBox_UserGroups_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             
@@ -249,6 +290,9 @@ namespace TelegramBot.WPF
         private void ControlTab_UserGroup_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = ControlTab_UserGroup.SelectedIndex;
+
+            Button_AddGroup.Visibility = Visibility.Visible;
+            TextBox_NameOfGroup.Text = "";
 
             if (ComboBox_UserGroups.Items == null)
             {
@@ -1544,5 +1588,6 @@ namespace TelegramBot.WPF
         }
 
         #endregion
+
     }
 }
