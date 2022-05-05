@@ -704,7 +704,7 @@ namespace TelegramBot.WPF
       
 
 
-        private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
+/*        private void MenuItemEditChange_ClickInsert(object sender, RoutedEventArgs e)
         {
             List<string> list = new List<string>();
             _tryAnswers.Add(new TypeOneVariant("", "", list));
