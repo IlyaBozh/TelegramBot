@@ -11,28 +11,18 @@ namespace TelegramBot.BL.Askers
     {
         public List <InlineKeyboardButton[]> AddButtons(string description, List<string> variants)
         {
-            
-            var buttons = variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();
-            var keyboardButtons = new InlineKeyboardButton[buttons.Length];
+            var buttons = variants.Select(answers => new[] { new KeyboardButton(answers) }).ToArray();          
             List<InlineKeyboardButton[]> inlineKeyboardButton = new List<InlineKeyboardButton[]>();
-
             var done = new[] { InlineKeyboardButton.WithCallbackData(text: "Готово", callbackData: "Готово") };
-
-
 
             for (var i = 0; i < buttons.Length; i++)
             {
-                var btn = new InlineKeyboardButton[i];
-                {
-                    string oneAnswer = variants[i],
-                    CallbackData = variants[i];
-                }
+                var keyboardButtons = new[] { InlineKeyboardButton.WithCallbackData(text: $"{variants[i]}", callbackData: $"{variants[i]}") };
 
-                keyboardButtons[i] = variants[i];
+                inlineKeyboardButton.Add(keyboardButtons);
             }
 
 
-            inlineKeyboardButton.Add(keyboardButtons);
             inlineKeyboardButton.Add(done);
             inlineKeyboardButton.ToArray();
 

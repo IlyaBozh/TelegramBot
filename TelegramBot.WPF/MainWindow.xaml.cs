@@ -461,8 +461,9 @@ namespace TelegramBot.WPF
             }
 
 
-            if (1 == ComboBox_QuestionContainer.SelectedIndex)
+            if (1 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
+               
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
 
@@ -471,7 +472,7 @@ namespace TelegramBot.WPF
             }
 
 
-            if (2 == ComboBox_QuestionContainer.SelectedIndex)
+            if (2 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
                 List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
 
@@ -481,7 +482,7 @@ namespace TelegramBot.WPF
                 }
             }
 
-            if (3 == ComboBox_QuestionContainer.SelectedIndex)
+            if (3 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
                 List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
 
@@ -491,9 +492,10 @@ namespace TelegramBot.WPF
                 }
             }
                 
-            if (4 == ComboBox_QuestionContainer.SelectedIndex)
+            if (4 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
+                List<string> variants = new List<string> { "Да", "Нет" };
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, variants);
 
                 foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
                 {
@@ -502,7 +504,7 @@ namespace TelegramBot.WPF
 
             }
 
-            if (5 == ComboBox_QuestionContainer.SelectedIndex)
+            if (5 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
             {
                 List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
 
