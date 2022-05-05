@@ -712,102 +712,6 @@ namespace TelegramBot.WPF
         }*/
 
 
-        private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
-        {
-            AbstractQuestion abstractQuestion = (AbstractQuestion)DataGrid_SingleQuestions.SelectedItem;
-            CreateButtons newButtons = new CreateButtons();  
-            int indexGroup = ListBox_UserGroups.SelectedIndex;
-
-            if (indexGroup == -1)
-            {
-                return;
-            }
-
-
-            if (1 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-               
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-
-                    _tbot.Send((string)abstractQuestion.Description, user.Id);
-                }
-            }
-
-
-            if (2 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-            }
-
-            if (3 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-            }
-                
-            if (4 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<string> variants = new List<string> { "Да", "Нет" };
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-
-            }
-
-            if (5 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-
-            }
-            DataGrid_SingleQuestions.SelectedItem = null;
-            ListBox_UserGroups.SelectedIndex = -1;
-            newButtons = null;
-        }
-
-
-        private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
-        {
-           
-            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.PollSingelQuestions;
-
-            for(int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
-            {
-                DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
-            }
-                
-            ComboBox_QuestionContainer.SelectedIndex = 0;
-        }
-
-        private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
-        {
-
-            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelQuestions;
-
-            for (int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
-            {
-                DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
-            }
-            ComboBox_QuestionContainer.SelectedIndex = 0;
-        }
-
         private void RadioButton_Test_Checked(object sender, RoutedEventArgs e)
         {
             Label_TestOrPoll.Content = "Тест:";
@@ -1320,7 +1224,7 @@ namespace TelegramBot.WPF
             }
         }
 
-        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void ComboBox_Claster_SelectionChanged(object sender, SelectionChangedEventArgs e)  
         {
             ListView_ClasterQuestions.Items.Clear();
 
@@ -1442,6 +1346,7 @@ namespace TelegramBot.WPF
 
         #endregion
 
+        #region Tab 3
         private void Window_MainWindow_Closed(object sender, EventArgs e)
         {
             _usersDataBase.Save();
@@ -1541,7 +1446,7 @@ namespace TelegramBot.WPF
 
             AbstractQuestion tmp =(AbstractQuestion) DataGrid_SingleQuestions.SelectedItem;
 
-            if(tmp == null|| tmp.Variants == null)
+            if (tmp == null)
             {
                 return;
             }
@@ -1552,15 +1457,30 @@ namespace TelegramBot.WPF
 
             }
 
-
-            testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:");
-            foreach (var variants in tmp.Variants)
+            if (RadioButton_PollContainer.IsChecked == true)
             {
-                testMenu.Items.Add(variants);
+                if (tmp.Variants != null)
+                {
+                    testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:"); 
+
+                    foreach (var variants in tmp.Variants)
+                    {
+                        testMenu.Items.Add(variants);
+                    }
+                }
+               
             }
 
            if(RadioButton_TestContainer.IsChecked == true)
            {
+                if (tmp.Variants != null)
+                {
+                    testMenu.Items.Add("ВАРИАНТЫ ОТВЕТОВ:");
+                    foreach (var variants in tmp.Variants)
+                    {
+                        testMenu.Items.Add(variants);
+                    }
+                }
                 testMenu.Items.Add("ПРАВИЛЬНЫЕ ОТВЕТЫ:");
                 if(tmp.TrueAnswers == null)
                 {
@@ -1573,10 +1493,7 @@ namespace TelegramBot.WPF
                     {
                         testMenu.Items.Add(trueAnswer);
                     }
-
                 }
-
-
            }
                 
             DataGrid_SingleQuestions.ContextMenu = testMenu;
@@ -1585,5 +1502,150 @@ namespace TelegramBot.WPF
             tmp = null;
         }
 
+        private void ComboBox_ClasterName_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (ComboBox_ClasterName.SelectedIndex == 0 || ComboBox_ClasterName.SelectedIndex == -1)
+            {
+                if (ListBox_Claster != null && ComboBox_ClasterName.SelectedIndex == 0)
+                {
+                    ListBox_Claster.Items.Clear();
+                }
+
+                return;
+            }
+
+            ListBox_Claster.Items.Clear();
+
+            List<Claster> clasters = RadioButton_TestContainer.IsChecked == true ? _testsDataBase.Tests : _testsDataBase.Polls;
+
+            foreach (var question in clasters[ComboBox_ClasterName.SelectedIndex - 1].Questions)
+            {
+                ListBox_Claster.Items.Add(question.Description);
+            }
+        }
+
+
+        private void RadioButton_AddToClaster_Click(object sender, RoutedEventArgs e)
+        {
+            List<Claster> clasters = RadioButton_TestContainer.IsChecked == true ? _testsDataBase.Tests : _testsDataBase.Polls;
+
+            foreach (var claster in clasters)
+            {
+                ComboBox_ClasterName.Items.Add(claster.NameClaster);
+            }
+        }
+
+        private void RadioButton_PollContainer_Checked(object sender, RoutedEventArgs e)
+        {
+
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.PollSingelQuestions;
+
+            for (int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
+            {
+                DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
+            }
+
+            ComboBox_QuestionContainer.SelectedIndex = 0;
+
+            RadioButton_AddToClaster.IsChecked = false;
+
+            ComboBox_ClasterName.Items.Clear();
+
+            ComboBox_ClasterName.Items.Add(new ComboBoxItem() { Content = "Кластер", IsSelected = true });
+
+            ListBox_Claster.Items.Clear();
+        }
+
+        private void RadioButton_TestContainer_Checked(object sender, RoutedEventArgs e)
+        {
+
+            DataGrid_SingleQuestions.ItemsSource = _testsDataBase.TestSingelQuestions;
+
+            for (int i = 1; i < DataGrid_SingleQuestions.Columns.Count; i++)
+            {
+                DataGrid_SingleQuestions.Columns[i].MaxWidth = 0;
+            }
+            ComboBox_QuestionContainer.SelectedIndex = 0;
+
+            RadioButton_AddToClaster.IsChecked = false;
+
+            ComboBox_ClasterName.Items.Clear();
+
+            ComboBox_ClasterName.Items.Add(new ComboBoxItem() { Content = "Кластер", IsSelected = true });
+
+            ListBox_Claster.Items.Clear();
+        }
+
+        private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
+        {
+            AbstractQuestion abstractQuestion = (AbstractQuestion)DataGrid_SingleQuestions.SelectedItem;
+            CreateButtons newButtons = new CreateButtons();
+            int indexGroup = ListBox_UserGroups.SelectedIndex;
+
+            if (indexGroup == -1)
+            {
+                return;
+            }
+
+
+            if (1 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+
+                    _tbot.Send((string)abstractQuestion.Description, user.Id);
+                }
+            }
+
+
+            if (2 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
+                }
+            }
+
+            if (3 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
+                }
+            }
+
+            if (4 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+                List<string> variants = new List<string> { "Да", "Нет" };
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, variants);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
+                }
+
+            }
+
+            if (5 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
+            {
+                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
+
+                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
+                {
+                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
+                }
+
+            }
+            DataGrid_SingleQuestions.SelectedItem = null;
+            ListBox_UserGroups.SelectedIndex = -1;
+            newButtons = null;
+        }
+
+        #endregion
     }
 }
