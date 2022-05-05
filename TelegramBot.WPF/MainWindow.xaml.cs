@@ -1359,7 +1359,7 @@ namespace TelegramBot.WPF
 
                 int index = ComboBox_ClasterName.SelectedIndex;
 
-                foreach(var claster in clasters.in)
+                foreach(var claster in clasters)
                 {
                     foreach (var question in claster.Questions)
                     {
