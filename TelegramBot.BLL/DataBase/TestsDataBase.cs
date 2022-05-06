@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
+﻿using System.Text.Json;
 using TelegramBot.BL.Questions;
+using TelegramBot.BL.Models;
 
 namespace TelegramBot.BL.DataBase
 {

@@ -54,8 +54,8 @@ namespace TelegramBot.WPF
         {
             _testsDataBase = TestsDataBase.GetInstance();
             _usersDataBase = UsersDataBase.GetInstance();
-            _usersDataBase.UserGroups = _usersDataBase.Load();
 
+            _usersDataBase.UserGroups = _usersDataBase.Load();
             _testsDataBase.TestSingelQuestions = _testsDataBase.LoadSingelTest();
             _testsDataBase.PollSingelQuestions = _testsDataBase.LoadSingelPoll();
             _testsDataBase.Tests = _testsDataBase.LoadClasterTests();
@@ -137,6 +137,7 @@ namespace TelegramBot.WPF
             ControlTab_UserGroup.Items.Refresh();
         }
 
+        #region Users
         private void Button_AddGroup_Click(object sender, RoutedEventArgs e)
         {
             if (TextBox_NameOfGroup.Text == "" || TextBox_NameOfGroup.Text is null)
@@ -227,7 +228,7 @@ namespace TelegramBot.WPF
 
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        private void MenuItem_ClickRename(object sender, RoutedEventArgs e)
         {
             Button_AddGroup.Visibility = Visibility.Hidden;
             int indexGroup = ComboBox_UserGroups.SelectedIndex;
@@ -302,7 +303,9 @@ namespace TelegramBot.WPF
 
         }
 
-        #region Edit
+        #endregion
+
+        #region Tab 2 edit questions
 
         private void RadioButtonEdit_Test_Click(object sender, RoutedEventArgs e)
         {
@@ -542,10 +545,10 @@ namespace TelegramBot.WPF
         {
             List<AbstractQuestion> questions = GetQuestions();
             AbstractQuestion question = questions[ComboBox_ChooseQuestionTypeEdit.SelectedIndex];
-            SetEditQuestionWithAnswer(question);
+            SetEditQuestion(question);
         }
 
-        private void SetEditQuestionWithAnswer(AbstractQuestion question)
+        private void SetEditQuestion(AbstractQuestion question)
         {
             List<string> variants = new List<string>();
             List<string> trueAnswers = new List<string>();
@@ -586,15 +589,15 @@ namespace TelegramBot.WPF
                 }
             }
 
-            question.Description = TextBox_QuestionEdit.Text;
+            question.EditDiscription(TextBox_QuestionEdit.Text);
 
             if( question is TypeUserAnswer && RadioButtonEdit_Test.IsChecked == true)
             {
-                question.TrueAnswer = TextBox_AnswersEdit.Text;
+                question.ChangeTrueAnswer(TextBox_AnswersEdit.Text);
             }
             else if(question is TypeYesOrNo && RadioButtonEdit_Test.IsChecked == true)
             {
-                question.TrueAnswer = trueAnswer;
+                question.ChangeTrueAnswer(trueAnswer);
             }
             else
             {
@@ -657,94 +660,7 @@ namespace TelegramBot.WPF
 
         #endregion
 
-        private void HideExtraBoxes()
-        {
-            GroupBox_ChoseTypeQuestion.Visibility = Visibility.Hidden;
-
-            ComboBox_ChooseQuestionType.Text = "";
-
-            Button_AddQuestion.Visibility = Visibility.Hidden;
-
-            GroupBox_Question.Visibility = Visibility.Hidden;
-
-            TextBox_Question.Text = "";
-
-            GroupBox_AddVariants.Visibility = Visibility.Hidden;
-
-            TextBox_OneOrFewVariants.Text = "";
-
-            GroupBox_AnswerYesOrNo.Visibility = Visibility.Hidden;
-
-            RadioButton_Yes.IsChecked = false;
-
-            RadioButton_No.IsChecked = false;
-
-            GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Hidden;
-
-            ListBox_Variants.Items.Clear();
-
-            GroupBox_TrueAnswer.Visibility = Visibility.Hidden;
-
-            TextBox_TrueAnswer.Text = "";
-
-            Label_TrueAnswer.Visibility = Visibility.Hidden;
-        }
-
-
-        private void RadioButton_Test_Checked(object sender, RoutedEventArgs e)
-        {
-            Label_TestOrPoll.Content = "Тест:";
-            
-
-            foreach (ClasterQuestions test in _testsDataBase.Tests)
-            {
-                ComboBox_ChooseTestOrPoll.Items.Add(test.NameClaster);
-            }
-
-            foreach (ClasterQuestions poll in _testsDataBase.Polls)
-            {
-                ComboBox_ChooseTestOrPoll.Items.Remove(poll.NameClaster);
-            }
-        }
-
-        private void RadioButton_Poll_Checked(object sender, RoutedEventArgs e)
-        {
-            Label_TestOrPoll.Content = "Опрос:";
-           
-
-            foreach (ClasterQuestions poll in _testsDataBase.Polls)
-            {
-                ComboBox_ChooseTestOrPoll.Items.Add(poll.NameClaster);
-            }
-
-            foreach (ClasterQuestions test in _testsDataBase.Tests)
-            {
-                ComboBox_ChooseTestOrPoll.Items.Remove(test.NameClaster);
-            }
-        }
-
-
-        private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
-        {
-            GroupBox_Test.Visibility = Visibility.Visible;
-
-            ComboBox_ChooseTestOrPoll.Text = "";
-
-            HideExtraBoxes();
-
-          
-        }
-        private void RadioButton_Poll_Click(object sender, RoutedEventArgs e)
-        {
-            GroupBox_Test.Visibility = Visibility.Visible;
-
-            ComboBox_ChooseTestOrPoll.Text = "";
-
-            HideExtraBoxes();
-        }
-
-
-        #region Add Question in TAB CreateQuestion
+        #region Tab 1 add questions
         private void Button_AddQuestion_Click(object sender, RoutedEventArgs e)
         {
             if (!CheckBoxes())
@@ -780,6 +696,38 @@ namespace TelegramBot.WPF
             ClearBoxes();
         }
 
+        private void HideExtraBoxes()
+        {
+            GroupBox_ChoseTypeQuestion.Visibility = Visibility.Hidden;
+
+            ComboBox_ChooseQuestionType.Text = "";
+
+            Button_AddQuestion.Visibility = Visibility.Hidden;
+
+            GroupBox_Question.Visibility = Visibility.Hidden;
+
+            TextBox_Question.Text = "";
+
+            GroupBox_AddVariants.Visibility = Visibility.Hidden;
+
+            TextBox_OneOrFewVariants.Text = "";
+
+            GroupBox_AnswerYesOrNo.Visibility = Visibility.Hidden;
+
+            RadioButton_Yes.IsChecked = false;
+
+            RadioButton_No.IsChecked = false;
+
+            GroupBox_AddTrueVarintsOrRigthOrder.Visibility = Visibility.Hidden;
+
+            ListBox_Variants.Items.Clear();
+
+            GroupBox_TrueAnswer.Visibility = Visibility.Hidden;
+
+            TextBox_TrueAnswer.Text = "";
+
+            Label_TrueAnswer.Visibility = Visibility.Hidden;
+        }
         private void ComboBox_ChooseQuestionType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             GroupBox_Question.Visibility = Visibility.Visible;
@@ -847,11 +795,11 @@ namespace TelegramBot.WPF
 
         private AbstractQuestion GetQuestionWhithoutAnswer()
         {
-            List<string> tmp_1 = new List<string>();
+            List<string> variants = new List<string>();
 
             foreach (string variant in ListBox_Variants.Items)
             {
-                tmp_1.Add(variant);
+                variants.Add(variant);
             }
 
             switch (ComboBox_ChooseQuestionType.SelectedIndex)
@@ -859,15 +807,15 @@ namespace TelegramBot.WPF
                 case 0:
                     return new TypeUserAnswer(TextBox_Question.Text);
                 case 1:
-                    return new TypeOneVariant(TextBox_Question.Text, tmp_1);
+                    return new TypeOneVariant(TextBox_Question.Text, variants);
                 case 2:
-                    return new TypeSeveralVariants(TextBox_Question.Text, tmp_1);
+                    return new TypeSeveralVariants(TextBox_Question.Text, variants);
                 case 3:
                     return new TypeYesOrNo(TextBox_Question.Text);
                 case 4:
-                    return new TypeRightOrder(TextBox_Question.Text, tmp_1);
+                    return new TypeRightOrder(TextBox_Question.Text, variants);
                 default:
-                    return new TypeRightOrder("adwad", tmp_1);
+                    return new TypeRightOrder("adwad", variants);
             }
         }
 
@@ -1076,13 +1024,66 @@ namespace TelegramBot.WPF
             ListBox_RightOrder.Items.Remove(ListBox_RightOrder.SelectedItem);
         }
 
+        private void RadioButton_Test_Checked(object sender, RoutedEventArgs e)
+        {
+            Label_TestOrPoll.Content = "Тест:";
+
+
+            foreach (ClasterQuestions test in _testsDataBase.Tests)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Add(test.NameClaster);
+            }
+
+            foreach (ClasterQuestions poll in _testsDataBase.Polls)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Remove(poll.NameClaster);
+            }
+        }
+
+        private void RadioButton_Poll_Checked(object sender, RoutedEventArgs e)
+        {
+            Label_TestOrPoll.Content = "Опрос:";
+
+
+            foreach (ClasterQuestions poll in _testsDataBase.Polls)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Add(poll.NameClaster);
+            }
+
+            foreach (ClasterQuestions test in _testsDataBase.Tests)
+            {
+                ComboBox_ChooseTestOrPoll.Items.Remove(test.NameClaster);
+            }
+        }
+
+
+        private void RadioButton_Test_Click(object sender, RoutedEventArgs e)
+        {
+            GroupBox_Test.Visibility = Visibility.Visible;
+
+            ComboBox_ChooseTestOrPoll.Text = "";
+
+            HideExtraBoxes();
+
+
+        }
+        private void RadioButton_Poll_Click(object sender, RoutedEventArgs e)
+        {
+            GroupBox_Test.Visibility = Visibility.Visible;
+
+            ComboBox_ChooseTestOrPoll.Text = "";
+
+            HideExtraBoxes();
+        }
+
         #endregion
 
-        #region Кластер вопросов
+        #region Tab 4 all clasters
         private void TextBox_ClasterName_KeyDown(object sender, KeyEventArgs e)
         {
             ComboBox_Claster.SelectedIndex = -1;
         }
+
         private void Button_AddClasterName_Click(object sender, RoutedEventArgs e)
         {
             string name = TextBox_ClasterName.Text;
@@ -1297,15 +1298,7 @@ namespace TelegramBot.WPF
 
         #endregion
 
-        #region Tab 3
-        private void Window_MainWindow_Closed(object sender, EventArgs e)
-        {
-            _usersDataBase.Save();
-            _testsDataBase.SaveSingelTest(_testsDataBase.TestSingelQuestions);
-            _testsDataBase.SaveSingelPoll(_testsDataBase.PollSingelQuestions);
-            _testsDataBase.SaveClasterTest(_testsDataBase.Tests);
-            _testsDataBase.SaveClasterPoll(_testsDataBase.Polls);
-        }
+        #region Tab 3 send tests
 
         private void ComboBox_QuestionContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -1589,5 +1582,13 @@ namespace TelegramBot.WPF
 
         #endregion
 
+        private void Window_MainWindow_Closed(object sender, EventArgs e)
+        {
+            _usersDataBase.Save();
+            _testsDataBase.SaveSingelTest(_testsDataBase.TestSingelQuestions);
+            _testsDataBase.SaveSingelPoll(_testsDataBase.PollSingelQuestions);
+            _testsDataBase.SaveClasterTest(_testsDataBase.Tests);
+            _testsDataBase.SaveClasterPoll(_testsDataBase.Polls);
+        }
     }
 }

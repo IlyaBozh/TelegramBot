@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using TelegramBot.BL.Answerers;
-using TelegramBot.BL.Askers;
+
 
 namespace TelegramBot.BL.Questions
 {
@@ -36,21 +32,6 @@ namespace TelegramBot.BL.Questions
             Description = newDescription;
         }
 
-        public void EditVariant(int index, string newVariant)
-        {
-            if(index < 0 || index >= Variants.Count)
-            {
-                throw new IndexOutOfRangeException();
-            }
-            if (Variants is null)
-            {
-                throw new NullReferenceException(nameof(Variants));
-            }
-            else
-            {
-                Variants[index] = newVariant;
-            }
-        }
         public void ChangeTrueAnswer(int index, string newTrueAnswer)
         {
             if(index < 0 || index > Variants.Count)
@@ -135,19 +116,6 @@ namespace TelegramBot.BL.Questions
                 TrueAnswers.RemoveAt(index);
             }
         }
-
-        //public void ClearVariants(bool isVariant = true)
-        //{
-        //    if (isVariant)
-        //    {
-        //        Variants.Clear();
-        //    }
-        //    else
-        //    {
-        //        TrueAnswers.Clear();
-        //    }
-
-        //}
 
         public override bool Equals(object? obj)
         {
