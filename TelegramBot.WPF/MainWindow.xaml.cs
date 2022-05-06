@@ -1078,7 +1078,7 @@ namespace TelegramBot.WPF
 
         #endregion
 
-        #region Tab 4
+        #region Tab 4 all clasters
         private void TextBox_ClasterName_KeyDown(object sender, KeyEventArgs e)
         {
             ComboBox_Claster.SelectedIndex = -1;
@@ -1298,7 +1298,7 @@ namespace TelegramBot.WPF
 
         #endregion
 
-        #region Tab 3
+        #region Tab 3 send tests
 
         private void ComboBox_QuestionContainer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
