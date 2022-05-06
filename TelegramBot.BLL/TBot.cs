@@ -117,7 +117,6 @@ namespace TelegramBot.BL
                     _ids.Add(update.Message.Chat.Id);
                     User newUser = new User(update.Message.Chat.FirstName!, update.Message.Chat.LastName!, update.Message.Chat.Id);
                     _users(newUser);
-/*                    StartingButton(update.Message.Chat.Id);*/
 
                     DataTests.Add(update.Message.Chat.Id, new TestController(update.Message.Chat.Id));
                 }
@@ -133,7 +132,7 @@ namespace TelegramBot.BL
 
             }
 
-            else if (update.CallbackQuery != null && update.CallbackQuery.Data != null)
+            if (update.CallbackQuery != null && update.CallbackQuery.Data != null)
             {
                 bool checkMassage = DataTests[update.Message.Chat.Id].Questions[DataTests[update.Message.Chat.Id].IndexClaster].Questions[DataTests[update.Message.Chat.Id].Counter].setAnswer(update.CallbackQuery.Data);
 
@@ -162,20 +161,6 @@ namespace TelegramBot.BL
             }
 
         }
-
-
-
-
-   /*     private async void StartingButton(long id)
-        {
-            var inlineKeyboard = new InlineKeyboardMarkup(new[]
-            {
-                InlineKeyboardButton.WithCallbackData("/start","startReg"),
-                });
-
-            await _client.SendTextMessageAsync(new ChatId(id), "Привет, немного тестиков подсыпать?", replyMarkup: inlineKeyboard);
-        }
-*/
 
 
 

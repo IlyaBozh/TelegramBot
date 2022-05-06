@@ -55,7 +55,7 @@ namespace TelegramBot.WPF
             _testsDataBase = TestsDataBase.GetInstance();
             _usersDataBase = UsersDataBase.GetInstance();
 
-/*            _usersDataBase.UserGroups = _usersDataBase.Load();*/
+            _usersDataBase.UserGroups = _usersDataBase.Load();
             _testsDataBase.TestSingelQuestions = _testsDataBase.LoadSingelTest();
             _testsDataBase.PollSingelQuestions = _testsDataBase.LoadSingelPoll();
             _testsDataBase.Tests = _testsDataBase.LoadClasterTests();
@@ -1512,8 +1512,6 @@ namespace TelegramBot.WPF
 
         private void Button_SendToBot_Click(object sender, RoutedEventArgs e)
         {
-/*            AbstractQuestion abstractQuestion = (AbstractQuestion)DataGrid_SingleQuestions.SelectedItem;
-            CreateButtons newButtons = new CreateButtons();*/
             int indexGroup = ListBox_UserGroups.SelectedIndex;
 
             if (indexGroup == -1)
@@ -1527,69 +1525,17 @@ namespace TelegramBot.WPF
 
             foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
             {
+                if(!_tbot.DataTests.ContainsKey(user.Id))
+                {
+                    _tbot.DataTests.Add(user.Id, new TestController(user.Id));
+                }
+
                 _tbot.DataTests[user.Id].Questions.Add(clasters[ComboBox_ClasterName.SelectedIndex - 1].GetClone());
                 _tbot.DataTests[user.Id].setClasterIndex();
                 ids.Add(user.Id);
             }
 
             _tbot.SendFirstQuestion(ids);
-/*
-            if (1 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-
-                    _tbot.Send((string)abstractQuestion.Description, user.Id);
-                }
-            }
-
-
-            if (2 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-            }
-
-            if (3 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-            }
-
-            if (4 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<string> variants = new List<string> { "Да", "Нет" };
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-
-            }
-
-            if (5 == ComboBox_QuestionContainer.SelectedIndex && abstractQuestion is not null)
-            {
-                List<InlineKeyboardButton[]> newButtonsList = newButtons.AddButtons(abstractQuestion.Description, abstractQuestion.Variants);
-
-                foreach (User user in _usersDataBase.UserGroups[indexGroup].UserGroups)
-                {
-                    _tbot.Send(abstractQuestion.Description, user.Id, newButtonsList.ToArray());
-                }
-
-            }
-            DataGrid_SingleQuestions.SelectedItem = null;
-            ListBox_UserGroups.SelectedIndex = -1;
-            newButtons = null;*/
         }
 
         #endregion
