@@ -43,7 +43,7 @@
                 <ContextMenu>
                     <MenuItem Header="Вырезать" Click="MenuItem_ClickCut"/>
                     <MenuItem Header="Вставить" Click="MenuItem_ClickInsert"/>
-                    <MenuItem Header="Переименовать" Click="MenuItem_Click" />
+                    <MenuItem Header="Переименовать" Click="MenuItem_ClickRename" />
                 </ContextMenu>
             </TabControl.ContextMenu>
         </TabControl>

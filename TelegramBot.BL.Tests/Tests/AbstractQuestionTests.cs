@@ -28,18 +28,18 @@ namespace TelegramBot.BL.Tests
             Assert.Throws<ArgumentNullException>(() => newQuestion.EditDiscription(newDescription));
         } // ???
         [TestCaseSource(typeof(EditVariantTestSource))]
-        public void EditVariantTest(int index, string newVariant, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
+ /*       public void EditVariantTest(int index, string newVariant, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
         {
             AbstractQuestion actualQuestion = newQuestion;
             actualQuestion.EditVariant(index, newVariant);
 
             Assert.AreEqual(expectedQuestion, actualQuestion);
-        }
+        }*/
         [TestCaseSource(typeof (EditVariantNegativeTestSource))]    
-        public void EditVariantTest_WhenIndexIsOutOfRange_ShouldThrowIndexIsOutOfRangeExeption(int index, string newVariant, AbstractQuestion newQuestion)
+/*        public void EditVariantTest_WhenIndexIsOutOfRange_ShouldThrowIndexIsOutOfRangeExeption(int index, string newVariant, AbstractQuestion newQuestion)
         {
             Assert.Throws<IndexOutOfRangeException>(() => newQuestion.EditVariant(index, newVariant));
-        }
+        }*/
         [TestCaseSource(typeof(ChangeTrueAnswerTestSource))]
         public void ChangeTrueAnswerTest(int index, string newTrueAnswer, AbstractQuestion newQuestion, AbstractQuestion expectedQuestion)
         {
