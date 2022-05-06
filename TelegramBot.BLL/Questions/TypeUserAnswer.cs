@@ -15,16 +15,21 @@ namespace TelegramBot.BL.Questions
         {
             Description = discription;
             TrueAnswer = trueAnswer;
-
-            answerer = new UserAnswerAnswerer();
         }
 
         public TypeUserAnswer(string discription)
         {
             Description = discription;
-
-            answerer = new UserAnswerAnswerer();
         }
 
+        public override AbstractQuestion Clone()
+        {
+            return new TypeUserAnswer(this.Description, this.TrueAnswer);
+        }
+
+        public override bool setAnswer(string massage)
+        {
+            return true;
+        }
     }
 }

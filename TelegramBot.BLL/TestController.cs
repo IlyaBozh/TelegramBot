@@ -5,23 +5,26 @@ namespace TelegramBot.BL
 {
     public class TestController
     {
-        private TestsDataBase _testsDataBase;
-        private UsersDataBase _usersDataBase;
-        private static TestController _instance;
+        public List<ClasterQuestions> Questions { get; set; }
 
-        private TestController()
+        public long Id { get; set; }
+
+        public int Counter { get; set; }
+
+        public int IndexClaster { get; set; }
+
+        public TestController(long id)
         {
-            _testsDataBase = TestsDataBase.GetInstance();
-            _usersDataBase = UsersDataBase.GetInstance();
+            Questions = new List<ClasterQuestions>();
+            Id = id;
+            Counter = 0;
+            IndexClaster = -1;
         }
 
-        public static TestController GetInstance()
+        public void setClasterIndex()
         {
-            if (_instance == null)
-            {
-                _instance = new TestController();
-            }
-            return _instance;
+            IndexClaster += 1;
         }
+
     }
 }

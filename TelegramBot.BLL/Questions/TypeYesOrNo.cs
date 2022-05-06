@@ -16,16 +16,27 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             TrueAnswer = trueAnswer;
 
-            answerer = new YesOrNoAnswerer();
         }
 
         public TypeYesOrNo(string discription)
         {
             Description = discription;
-
-            answerer = new YesOrNoAnswerer();
         }
 
+        public override AbstractQuestion Clone()
+        {
+            return new TypeYesOrNo(this.Description, this.TrueAnswer);
+        }
+
+        public override bool setAnswer(string massage)
+        {
+            if(massage == "Да" || massage == "Нет")
+            {
+                return true;
+            }
+
+            return true;
+        }
     }
 }
 

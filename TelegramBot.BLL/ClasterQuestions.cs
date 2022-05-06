@@ -49,6 +49,16 @@ namespace TelegramBot.BL
             Questions.Clear();
         }
 
+        public ClasterQuestions GetClone()
+        {
+            List<AbstractQuestion> cloneQuestions = new List<AbstractQuestion>();
 
+            foreach(AbstractQuestion question in Questions)
+            {
+                cloneQuestions.Add(question.Clone());
+            }
+
+            return new ClasterQuestions(this.NameClaster, cloneQuestions);
+        }
     }
 }

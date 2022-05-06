@@ -19,13 +19,9 @@ namespace TelegramBot.BL.Questions
 
         }
 
-        protected IAnswerer answerer;
+        public abstract AbstractQuestion Clone();
 
-        public bool IsAnswerCorrect()
-        {
-            return answerer.IsAnswerCorrect(UserAnswer, UserAnswers, TrueAnswer, TrueAnswers);
-        }
-
+        public abstract bool setAnswer(string massage);
 
         public void EditDiscription(string newDescription)
         {

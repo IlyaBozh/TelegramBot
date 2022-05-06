@@ -15,8 +15,6 @@ namespace TelegramBot.BL.Questions
         {
             Description = discription;
             Variants = variants;
-
-            answerer = new OneVariantAnswerer();
         }
 
         public TypeOneVariant(string discription, string trueAnswer, List<string> variants)
@@ -25,9 +23,28 @@ namespace TelegramBot.BL.Questions
             Variants = variants;
             TrueAnswer = trueAnswer;
 
-            answerer = new OneVariantAnswerer();
         }
 
-        
+        public override AbstractQuestion Clone()
+        {
+            List<string> newVariants = new List<string>();
+
+           foreach(string variant in Variants)
+            {
+                newVariants.Add(variant);
+            }
+
+            return new TypeOneVariant(this.Description, this.TrueAnswer, newVariants);
+        }
+
+        public override bool setAnswer(string massage)
+        {
+            if(Variants.Contains(massage))
+            {
+                return true;
+            }
+
+            return false;
+        }
     }
 }
