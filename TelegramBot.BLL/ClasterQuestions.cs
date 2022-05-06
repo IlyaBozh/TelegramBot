@@ -21,6 +21,11 @@ namespace TelegramBot.BL
             Questions = questions;
         }
 
+        public ClasterQuestions()
+        {
+
+        }
+
         public void Add(AbstractQuestion question)
         {
             Questions.Add(question);

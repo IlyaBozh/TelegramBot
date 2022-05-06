@@ -14,6 +14,10 @@ namespace TelegramBot.BL.Questions
         public List<string> UserAnswers { get; set; }
 
        
+        public AbstractQuestion()
+        {
+
+        }
 
         protected IAnswerer answerer;
 
