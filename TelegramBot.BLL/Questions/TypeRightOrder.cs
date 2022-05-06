@@ -16,16 +16,41 @@ namespace TelegramBot.BL.Questions
             Description = discription;
             TrueAnswers = trueAnswers;
             Variants = variants;
-
-            answerer = new RightOrderAnswerer();
         }
 
         public TypeRightOrder(string discription, List<string> variants)
         {
             Description = discription;
             Variants = variants;
+        }
 
-            answerer = new RightOrderAnswerer();
+        public override AbstractQuestion Clone()
+        {
+            List<string> newVariants = new List<string>();
+
+            foreach(var variant in Variants)
+            {
+                newVariants.Add(variant);
+            }
+
+            List<string> newRightOrder = new List<string>();
+
+            foreach (var answer in TrueAnswers)
+            {
+                newRightOrder.Add(answer);
+            }
+
+            return new TypeRightOrder(this.Description, newRightOrder, newVariants);
+        }
+
+        public override bool setAnswer(string massage)
+        {
+            if(Variants.Count == TrueAnswers.Count)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

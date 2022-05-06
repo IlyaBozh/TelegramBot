@@ -36,9 +36,9 @@ namespace TelegramBot.BL.DataBase
         }
 
 
-        public string SerializeClasterModel(List<JsonClasterModel> question)
+        public string SerializeClasterModel(List<JsonClasterModel> Clasters)
         {
-            return JsonSerializer.Serialize<List<JsonClasterModel>>(question);
+            return JsonSerializer.Serialize<List<JsonClasterModel>>(Clasters);
         }
 
 
@@ -63,6 +63,7 @@ namespace TelegramBot.BL.DataBase
             {
                 return JsonSerializer.Deserialize<List<JsonClasterModel>>(json);
             }
+
         }
 
 
@@ -208,7 +209,6 @@ namespace TelegramBot.BL.DataBase
             {
                 sw.WriteLine(json);
             }
-
         }
 
         public void SaveClasterPoll(List<ClasterQuestions> Polls)
@@ -229,6 +229,7 @@ namespace TelegramBot.BL.DataBase
             {
                 sw.WriteLine(json);
             }
+
         }
 
 

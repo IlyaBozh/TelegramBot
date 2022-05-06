@@ -14,14 +14,14 @@ namespace TelegramBot.BL.Questions
         public List<string> UserAnswers { get; set; }
 
        
-
-        protected IAnswerer answerer;
-
-        public bool IsAnswerCorrect()
+        public AbstractQuestion()
         {
-            return answerer.IsAnswerCorrect(UserAnswer, UserAnswers, TrueAnswer, TrueAnswers);
+
         }
 
+        public abstract AbstractQuestion Clone();
+
+        public abstract bool setAnswer(string massage);
 
         public void EditDiscription(string newDescription)
         {
