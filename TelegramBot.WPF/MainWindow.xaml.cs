@@ -36,7 +36,6 @@ namespace TelegramBot.WPF
 
         private int _indexOfClaster;
 
-
         public MainWindow()
         {
              _tbot = new TBot(_token, AddUsers);
